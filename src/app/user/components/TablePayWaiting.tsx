@@ -53,13 +53,13 @@ const data = [
 ];
 
 const TablePayWaiting: React.FC = () => (
-  <>
+  <div className="bg-white p-3 rounded-md">
     <label>Menunggu Pembayaran</label>
-    <div className="overflow-x-scroll">
+    <div className="overflow-x-scroll no-scrollbar">
       <Table
         aria-label="Peserta Terdaftar"
         isStriped
-        className=" text-nowrap w-full min-w-[700px] rounded-lg overflow-hidden p-3"
+        className=" text-nowrap w-full min-w-[700px] rounded-lg overflow-hidden"
       >
         <TableHeader className="bg-brand-dark h-10 text-white text-center">
           <TableColumn align="center" scope="col" className="w-[80px]">
@@ -95,7 +95,7 @@ const TablePayWaiting: React.FC = () => (
         </TableBody>
       </Table>
     </div>
-  </>
+  </div>
 );
 
 export default TablePayWaiting;

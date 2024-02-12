@@ -2,8 +2,10 @@ import { ROUTES } from "@/prefix/route.constant";
 import { AiFillDashboard } from "react-icons/ai";
 // import { FaListCheck } from "react-icons/fa6";
 import { GiTakeMyMoney } from "react-icons/gi";
+import { IoSchool } from "react-icons/io5";
 import { MdAccountCircle } from "react-icons/md";
 import { PiUserListFill } from "react-icons/pi";
+import { RiMapPinRangeFill } from "react-icons/ri";
 
 export const PAGEMENU = [
   {
@@ -13,9 +15,14 @@ export const PAGEMENU = [
   },
   // {
   //   icon: <FaListCheck />,
-  //   url: ROUTES.DAFTAR,
-  //   name: "Daftar Olmat",
+  //   url: ROUTES.REGISTER,
+  //   name: "Daftar Olimpiade",
   // },
+  {
+    icon: <IoSchool />,
+    url: ROUTES.SEKOLAH,
+    name: "Data Sekolah",
+  },
   {
     icon: <PiUserListFill />,
     url: ROUTES.PESERTA,
@@ -27,8 +34,13 @@ export const PAGEMENU = [
     name: "Transaksi",
   },
   {
+    icon: <RiMapPinRangeFill />,
+    url: ROUTES.RAYON,
+    name: "Rayon",
+  },
+  {
     icon: <MdAccountCircle />,
-    url: ROUTES.ACCOUNT,
+    url: ROUTES.ADMIN,
     name: "Pengaturan Akun",
   },
 ];

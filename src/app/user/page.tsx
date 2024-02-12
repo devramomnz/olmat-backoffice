@@ -1,75 +1,45 @@
 "use client";
 
-import { EVENT_SETTING } from "@/constants/EventSetting";
-import { ROUTES } from "@/prefix/route.constant";
+import { DASHBOARD } from "@/constants/Dashboard";
 import Link from "next/link";
 import React from "react";
-import { IoTimeOutline, IoWarning } from "react-icons/io5";
-import { PiStudentBold } from "react-icons/pi";
+import TableRegSekolah from "./school/waiting/TableRegSekolah";
+import TablePayWaiting from "./components/TablePayWaiting";
+import { ROUTES } from "@/prefix/route.constant";
 
 export default function Home() {
-  const userName = "user";
-  const paid = 0;
-  const success = 2;
   return (
-    <>
+    <div className="flex flex-col gap-3">
       <label className="font-bold">Dashboard</label>
-      <div className="w-full grid md:grid-cols-2 gap-5">
-        <div className="w-full items-start bg-white mt-5 p-3 overflow-hidden rounded-md drop-shadow-md">
-          <h2 className="font-bold border-b w-full text-start flex items-center gap-2 mb-4">
-            <IoTimeOutline />
-            Penutupan Pendaftaran
-          </h2>
-          <h1 className="w-fit">
-            Pendaftaran ditutup pada tanggal{" "}
-            <span className="font-bold">
-              {EVENT_SETTING.PenutupanPendaftaran}
-            </span>
-          </h1>
-        </div>
-        <div className="w-full bg-white mt-5 overflow-hidden rounded-md drop-shadow-md">
-          <div className="bg-brand-dark h-10 grid place-items-center">
-            <h2 className="font-bold text-white">Pendaftaran Peserta</h2>
-          </div>
-          <div className="p-3">
-            <h2>Hi {userName}</h2>
-            <Link href={ROUTES.DAFTAR}>
-              <button className="py-1 px-3 w-full bg-brand-dark text-white rounded-lg">
-                Daftar
-              </button>
-            </Link>
-          </div>
-        </div>
-        <div className="w-full items-start bg-white mt-5 p-3 overflow-hidden rounded-md drop-shadow-md">
-          <h2 className="font-bold border-b w-full text-start flex items-center gap-2">
-            <span className="text-xl text-red-700">
-              <IoWarning />
-            </span>
-            Menunggu Pembayaran
-          </h2>
-          <h2 className="w-fit mt-3">
-            {paid
-              ? ",ada pembayaran yang belum kamu selesaikan"
-              : "Yuk segera daftar sebelum kuota penuh"}
-          </h2>
-          <button
-            className={`${
-              !paid && "hidden"
-            } py-1 px-3 w-full mt-3 bg-brand-dark text-white rounded-lg`}
+      <div className="w-full grid md:grid-cols-3 lg:grid-cols-4 gap-5">
+        {DASHBOARD.map((data, i) => (
+          <Link
+            key={i}
+            href={data.route}
+            className="bg-white flex flex-col gap-2 p-3 rounded-lg drop-shadow-md"
           >
-            Bayar Sekarang
-          </button>
-        </div>
-        <div className="w-full items-start bg-white mt-5 p-3 overflow-hidden rounded-md drop-shadow-md">
-          <h2 className="font-bold border-b w-full text-start flex items-center gap-2 mb-4">
-            <PiStudentBold />
-            Peserta yang telah terdaftar
-          </h2>
-          <Link href={ROUTES.PESERTA} className="w-fit">
-            {success} peserta telah terdaftar
+            <div className="flex items-center gap-3 border-b pb-2">
+              <h2>{data.icon}</h2>
+              <h2>{data.name}</h2>
+            </div>
+            <h2>{data.value}</h2>
+          </Link>
+        ))}
+      </div>
+      <div className="bg-white rounded-lg p-3">
+        <div className="flex justify-between">
+          <label>Pengajuan Sekolah</label>
+          <Link
+            className="py-1 px-3 bg-brand-dark w-fit rounded-lg text-white flex items-center gap-2 font-bold"
+            href={ROUTES.SCHOOL_WAITING}
+          >
+            Lihat Semua
+            {/* {} */}
           </Link>
         </div>
+        <TableRegSekolah />
       </div>
-    </>
+      <TablePayWaiting />
+    </div>
   );
 }

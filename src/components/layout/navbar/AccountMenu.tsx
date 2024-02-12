@@ -25,7 +25,7 @@ export default function AccountMenu() {
         // className="w-fit"
       >
         <DropdownItem
-          onClick={() => router.push("/user/account")}
+          onClick={() => router.push("/user/admin")}
           className="mb-3 hover:bg-gray-100 py-1 px-2 rounded-md duration-300"
         >
           Akun Saya

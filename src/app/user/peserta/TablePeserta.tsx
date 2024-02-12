@@ -1,3 +1,4 @@
+import Button from "@/components/button/Button";
 import {
   Table,
   TableBody,
@@ -7,67 +8,57 @@ import {
   TableRow,
 } from "@nextui-org/react";
 import React from "react";
-import { TbCloudDownload } from "react-icons/tb";
+import { AiTwotoneEdit } from "react-icons/ai";
+import { MdOutlineDelete } from "react-icons/md";
 
-// interface IDataPeserta {
-//   // id: number;
-//   nama_peserta: string;
-//   jenis_kelamin: string;
-//   no_tlp: number;
-//   jenjang: string;
-//   status: number;
-//   kartu_peserta: string;
-// }
-
-export default function App() {
+export default function TablePeserta() {
   // const [page, setPage] = React.useState(1);
   // const rowsPerPage = 4;
 
   const dataPeserta = [
     {
       id: 0,
-      nama_peserta: "John",
+      nama_peserta: "JohnDoe",
       jenis_kelamin: "laki-laki",
-      no_tlp: 32,
-      jenjang: "MA",
-      status: 0,
-      kartu_peserta: "link",
+      no_tlp: 324698924869,
+      email: "a@b.com",
+      sekolah: "MA Sby",
+      rayon: "ssurabayah",
     },
     {
       id: 1,
       nama_peserta: "John",
+      sekolah: "MA Sby",
+      rayon: "ssurabayah",
       jenis_kelamin: "laki-laki",
       no_tlp: 32,
-      jenjang: "MA",
-      status: 1,
-      kartu_peserta: "link",
+      email: "a@b.com",
     },
     {
       id: 2,
       nama_peserta: "John",
+      sekolah: "MA Sby",
+      rayon: "ssurabayah",
       jenis_kelamin: "laki-laki",
       no_tlp: 3232532632632,
-      jenjang: "MA",
-      status: 2,
-      kartu_peserta: "link",
+      email: "a@b.com",
     },
     {
       id: 3,
       nama_peserta: "John",
+      sekolah: "MA Sby",
+      rayon: "ssurabayah",
       jenis_kelamin: "laki-laki",
       no_tlp: 32,
-      jenjang: "MA",
-      status: 2,
-      kartu_peserta: "link",
+      email: "a@b.com",
     },
   ];
 
   // const pages = Math.ceil(dataPeserta.length / rowsPerPage);
+  //   const end = start + rowsPerPage;
 
   // const items = React.useMemo(() => {
   //   const start = (page - 1) * rowsPerPage;
-  //   const end = start + rowsPerPage;
-
   //   return dataPeserta.slice(start, end);
   // }, [page, dataPeserta]);
 
@@ -75,7 +66,7 @@ export default function App() {
     <Table
       aria-label="Peserta Terdaftar"
       isStriped
-      className=" text-nowrap w-full min-w-[700px] rounded-lg overflow-hidden p-3"
+      className=" text-nowrap w-full min-w-[700px] rounded-lg overflow-hidden"
     >
       <TableHeader className="bg-brand-dark h-10 text-white text-center">
         <TableColumn align="center" scope="col" className="w-[80px]">
@@ -85,19 +76,22 @@ export default function App() {
           Nama Peserta
         </TableColumn>
         <TableColumn align="center" className="" scope="col">
+          Sekolah
+        </TableColumn>
+        <TableColumn align="center" scope="col">
+          Rayon
+        </TableColumn>
+        <TableColumn align="center" scope="col">
           Jenis Kelamin
         </TableColumn>
         <TableColumn align="center" scope="col">
-          No Tlp
+          No. Tlp
         </TableColumn>
         <TableColumn align="center" scope="col">
-          Jenjang
+          Email
         </TableColumn>
-        <TableColumn align="center" scope="col">
-          Status
-        </TableColumn>
-        <TableColumn align="center" scope="col">
-          Kartu Peserta
+        <TableColumn align="center" className="text-center" scope="col">
+          Action
         </TableColumn>
       </TableHeader>
       <TableBody className="">
@@ -107,24 +101,25 @@ export default function App() {
             <TableCell className="text-start" data-label="nama_peserta">
               {data.nama_peserta}
             </TableCell>
+            <TableCell className="text-start" data-label="sekolah">
+              {data.sekolah}
+            </TableCell>
             <TableCell data-label="jenis_kelamin">
               {data.jenis_kelamin}
             </TableCell>
+            <TableCell data-label="rayon">{data.rayon}</TableCell>
             <TableCell data-label="no_tlp">{data.no_tlp}</TableCell>
-            <TableCell data-label="jenjang">{data.jenjang}</TableCell>
-            <TableCell data-label="status">{data.status}</TableCell>
+            <TableCell data-label="email">{data.email}</TableCell>
             <TableCell
               data-label="Actions"
-              // className="flex items-center justify-center"
+              className="flex gap-2 items-center font-bold justify-center"
             >
-              <button
-                onClick={() => console.log(data.kartu_peserta)}
-                type="button"
-                className="p-1 mb-2 mr-2 flex items-center gap-2 text-sm font-medium rounded-md text-center bg-brand  hover:text-white hover:bg-brand-semi duration-500  focus:outline-none focus:ring-red-300 "
-              >
-                <TbCloudDownload />
-                Download
-              </button>
+              <Button>
+                <AiTwotoneEdit />
+              </Button>
+              <Button className="bg-red-600">
+                <MdOutlineDelete />
+              </Button>
             </TableCell>
           </TableRow>
         ))}

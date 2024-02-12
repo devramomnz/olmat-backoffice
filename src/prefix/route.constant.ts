@@ -3,8 +3,11 @@ export const ROUTES = {
   REGISTER: "/register",
   REG_SEKOLAH: "/register/sekolah",
   USER: "/user",
-  DAFTAR: "/daftar",
+  SEKOLAH: "/user/school",
+  SCHOOL_WAITING: "/user/school/waiting",
+  SCHOOL_DATA: "/user/school/data",
   PESERTA: "/user/peserta",
   TRANSACTION: "/user/transaction",
-  ACCOUNT: "/user/account",
+  RAYON: "/user/rayon",
+  ADMIN: "/user/admin",
 };
