@@ -4,12 +4,12 @@ import Wave from "@/assets/wave";
 import AppImage from "@/components/AppImage";
 import Button from "@/components/button/Button";
 import AntItemSelect from "@/components/input/AntItemSelect";
-import useRegister from "@/hooks/register/useRegister";
 import { ROUTES } from "@/prefix/route.constant";
 import { Form } from "antd";
 import Link from "next/link";
 import React from "react";
 import { appSetting } from "@/constants/appSetting";
+import useRegister from "./useRegister";
 
 export default function RegisterAccount() {
   const { form } = useRegister();

@@ -93,7 +93,7 @@ export default function TableRegSekolah() {
               <TableCell data-label="no_tlp">{data.city}</TableCell>
               <TableCell data-label="Actions" className="">
                 <Link
-                  href={ROUTES.SCHOOL_DATA}
+                  href={ROUTES.SCHOOL_DETAIL}
                   type="button"
                   className="p-1 mb-2 mr-2 w-fit flex items-center gap-2 text-sm font-medium rounded-md text-center bg-brand  hover:text-white hover:bg-brand-semi duration-500  focus:outline-none focus:ring-red-300 "
                 >

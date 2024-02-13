@@ -4,7 +4,6 @@ import Wave from "@/assets/wave";
 import Button from "@/components/button/Button";
 import AntInput from "@/components/input/AntInput";
 import AntItemSelect from "@/components/input/AntItemSelect";
-import useRegisterSekolah from "@/hooks/register/useRegisterSekolah";
 import { Form } from "antd";
 import React from "react";
 import { IoSchool } from "react-icons/io5";
@@ -12,6 +11,7 @@ import AppImage from "@/components/AppImage";
 import AntText from "@/components/input/AntText";
 import AntEmail from "@/components/input/AntEmail";
 import { appSetting } from "@/constants/appSetting";
+import useRegisterSekolah from "./useRegisterSekolah";
 
 export default function RegisterSekolah() {
   const { form } = useRegisterSekolah();

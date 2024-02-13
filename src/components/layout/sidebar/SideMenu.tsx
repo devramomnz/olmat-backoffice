@@ -3,8 +3,10 @@ import { motion } from "framer-motion";
 import { PAGEMENU } from "@/constants/pageMenu";
 import Link from "next/link";
 import Bottom from "./Bottom";
+import { useSideBarStore } from "@/hooks/zustand/zustand";
 
 export default function SideMenu() {
+  const { setSideBar } = useSideBarStore();
   return (
     <>
       <motion.ul className="fixed top-0 z-30 lg:block w-3/4 h-screen p-4 overflow-x-hidden bg-white md:w-1/3 lg:w-64 drop-shadow-lg">
@@ -13,6 +15,7 @@ export default function SideMenu() {
           <div className="flex flex-col mt-3 gap-3 h-full overflow-y-scroll no-scrollbar">
             {PAGEMENU.map((data, i) => (
               <Link
+                onClick={() => setSideBar(false)}
                 href={data.url}
                 className="flex items-center text-base gap-3"
                 key={i}

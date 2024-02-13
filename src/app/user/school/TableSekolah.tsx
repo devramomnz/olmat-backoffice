@@ -118,9 +118,9 @@ export default function TableSekolah() {
             <TableColumn align="center" scope="col">
               Kecamatan
             </TableColumn>
-            {/* <TableColumn align="center" scope="col" className="w-14">
+            <TableColumn align="center" scope="col" className="w-14">
               Action
-            </TableColumn> */}
+            </TableColumn>
           </TableHeader>
           <TableBody className="">
             {dataSekolah?.map((data, i) => (
@@ -135,15 +135,15 @@ export default function TableSekolah() {
                 <TableCell data-label="rayon">{data.rayon}</TableCell>
                 <TableCell data-label="kota">{data.kota}</TableCell>
                 <TableCell data-label="kecamatan">{data.kecamatan}</TableCell>
-                {/* <TableCell data-label="Actions" className="">
+                <TableCell data-label="Actions" className="">
                   <Link
-                    href={ROUTES.SCHOOL_DATA}
+                    href={ROUTES.SCHOOL_EDIT}
                     type="button"
-                    className="p-1 mb-2 mr-2 w-fit flex items-center gap-2 text-sm font-medium rounded-md text-center bg-brand  hover:text-white hover:bg-brand-semi duration-500  focus:outline-none focus:ring-red-300 "
+                    className="p-1 px-3 mb-2 mr-2 w-fit flex items-center gap-2 text-sm font-bold rounded-md text-center bg-brand  hover:text-white hover:bg-brand-semi duration-500  focus:outline-none focus:ring-red-300 "
                   >
-                    Periksa
+                    Edit
                   </Link>
-                </TableCell> */}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

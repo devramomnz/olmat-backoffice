@@ -5,10 +5,10 @@ import AppImage from "@/components/AppImage";
 import { Form } from "antd";
 import Button from "@/components/button/Button";
 import Wave from "@/assets/wave";
-import useLogin from "@/hooks/login/useLogin";
 import AntPass from "@/components/input/AntPass";
 import AntEmail from "@/components/input/AntEmail";
 import { appSetting } from "@/constants/appSetting";
+import useLogin from "./useLogin";
 
 export default function Login() {
   const { form } = useLogin();
