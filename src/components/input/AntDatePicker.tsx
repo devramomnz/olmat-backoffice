@@ -13,7 +13,7 @@ interface IAntSelect {
 
 export default function AntDatePicker(props: IAntSelect) {
   const { name, placeholder, onChange, labelName } = props;
-  const dateFormat = "DD/MM/YYYY";
+  const dateFormat = "YYYY/MM/DD";
   moment.tz.setDefault("Asia/Jakarta");
   return (
     <div>

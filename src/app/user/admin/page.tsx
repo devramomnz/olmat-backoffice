@@ -1,63 +1,58 @@
 "use client";
 
-import AntEmail from "@/components/input/AntEmail";
-import AntInput from "@/components/input/AntInput";
-import AntPass from "@/components/input/AntPass";
 import { Button } from "@nextui-org/react";
-import { Checkbox, Form, Modal } from "antd";
-import React, { useState } from "react";
+import React from "react";
 import TableAdmin from "./TableAdmin";
+import { useAdmin } from "./useAdmin";
+import AdminModal from "./AdminModal";
 
 export default function Admin() {
-  const [open, setOpen] = useState(false);
-  const options = [
-    { label: "Daftar", value: "daftar" },
-    { label: "Data Sekolah", value: "sekolah" },
-    { label: "Data Peserta", value: "Peserta" },
-    { label: "Transaksi", value: "transaksi" },
-    { label: "Admin", value: "admin" },
-  ];
+  const {
+    form,
+    open,
+    options,
+    formEdit,
+    initialValues,
+    deleteAdmin,
+    onCancel,
+    handleChange,
+    handleCheckBox,
+    newAdmin,
+    editAdmin,
+  } = useAdmin();
+
+  console.log(open);
   return (
     <>
-      <Modal
-        title="Akun"
+      <AdminModal
+        form={form}
+        handleChange={handleChange}
+        handleCheckBox={handleCheckBox}
         open={open}
-        onCancel={() => setOpen(false)}
-        className="text-black"
-        footer=""
-      >
-        <Form>
-          <AntInput name="name" labelName="Nama" />
-          <AntEmail name="email" labelName="Email" />
-          <AntPass name="password" labelName="Password" />
-          <Checkbox.Group
-            options={options}
-            defaultValue={["Pear"]}
-            className="grid grid-cols-2 gap-2"
-          />
-        </Form>
-        <div className="flex justify-end gap-4">
-          <Button
-            // onClick={() => setIsModalOpen(false)}
-            className="bg-brand/20 text-sm"
-            size="sm"
-          >
-            Simpan
-          </Button>
-        </div>
-      </Modal>
+        initialValues={initialValues}
+        options={options}
+        setOpen={onCancel}
+      />
+      <AdminModal
+        form={formEdit}
+        handleChange={handleChange}
+        handleCheckBox={handleCheckBox}
+        open={open}
+        options={options}
+        setOpen={onCancel}
+      />
       <div className="flex items-center justify-between">
         <label className="font-bold">Pengaturan Akun</label>
         <Button
-          className="bg-brand font-bold"
-          onClick={() => setOpen(true)}
+          className="font-bold bg-brand"
+          onClick={() => newAdmin()}
           size="sm"
         >
           Tambah Akun
         </Button>
       </div>
-      <div className="w-full p-4 bg-white mt-5 rounded-md drop-shadow-md flex flex-col gap-2 overflow-x-scroll no-scrollbar">
-        <TableAdmin onEdit={() => setOpen(true)} />
+      <div className="flex flex-col w-full gap-2 p-4 mt-5 overflow-x-scroll bg-white rounded-md drop-shadow-md no-scrollbar">
+        <TableAdmin onEdit={editAdmin} onDelete={deleteAdmin} />
       </div>
     </>
   );

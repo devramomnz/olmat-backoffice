@@ -18,6 +18,7 @@ export default function EditPeserta() {
     handlePicture,
     handleBirthday,
   } = useEditPeserta();
+  console.log(payload);
   return (
     <>
       <FormDaftar

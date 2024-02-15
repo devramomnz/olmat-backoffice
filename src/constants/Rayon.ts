@@ -1,4 +1,7 @@
-import { IRayon } from "@/interfaces/IRayon";
+interface IRayon {
+  id: number;
+  rayon: string;
+}
 
 export const RAYON: IRayon[] = [
   {

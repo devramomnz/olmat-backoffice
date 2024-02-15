@@ -12,6 +12,7 @@ import {
 import Search from "antd/es/input/Search";
 import Link from "next/link";
 import React from "react";
+import { AiTwotoneEdit } from "react-icons/ai";
 
 // interface IDataPeserta {
 //   // id: number;
@@ -139,9 +140,9 @@ export default function TableSekolah() {
                   <Link
                     href={ROUTES.SCHOOL_EDIT}
                     type="button"
-                    className="p-1 px-3 mb-2 mr-2 w-fit flex items-center gap-2 text-sm font-bold rounded-md text-center bg-brand  hover:text-white hover:bg-brand-semi duration-500  focus:outline-none focus:ring-red-300 "
+                    className="p-2 border-1 rounded-full mb-2 mr-2 w-fit flex items-center gap-2 text-sm font-bold text-center hover:text-white hover:bg-brand duration-500  focus:outline-none focus:ring-red-300 "
                   >
-                    Edit
+                    <AiTwotoneEdit />
                   </Link>
                 </TableCell>
               </TableRow>

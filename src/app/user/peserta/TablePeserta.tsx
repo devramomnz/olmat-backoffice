@@ -77,13 +77,13 @@ export default function TablePeserta() {
         <div className="flex justify-end gap-4">
           <Button
             // onClick={() => deletePeserta(iPayload)}
-            className="bg-red-600 text-sm"
+            className="text-sm bg-red-600"
           >
             Ya
           </Button>
           <Button
             onClick={() => setIsModal(false)}
-            className="bg-brand-dark text-sm"
+            className="text-sm bg-brand-dark"
           >
             Tidak
           </Button>
@@ -94,7 +94,7 @@ export default function TablePeserta() {
         isStriped
         className=" text-nowrap w-full min-w-[700px] rounded-lg overflow-hidden"
       >
-        <TableHeader className="bg-brand-dark h-10 text-white text-center">
+        <TableHeader className="h-10 text-center text-white bg-brand-dark">
           <TableColumn align="center" scope="col" className="w-[80px]">
             No.
           </TableColumn>
@@ -138,17 +138,20 @@ export default function TablePeserta() {
               <TableCell data-label="email">{data.email}</TableCell>
               <TableCell
                 data-label="Actions"
-                className="flex gap-2 items-center font-bold justify-center"
+                className="flex items-center justify-center gap-2 font-bold"
               >
                 <Link
-                  className="bg-brand py-1 px-6 rounded-md text-white"
+                  className="flex items-center gap-2 p-2 mb-2 mr-2 text-sm font-bold text-center duration-500 rounded-full border-1 w-fit hover:text-white hover:bg-brand focus:outline-none focus:ring-red-300 "
                   href={ROUTES.PESERTA_EDIT}
                 >
                   <AiTwotoneEdit />
                 </Link>
-                <Button onClick={() => setIsModal(true)} className="bg-red-600">
+                <button
+                  onClick={() => setIsModal(true)}
+                  className="flex items-center gap-2 p-2 mb-2 mr-2 text-sm font-bold text-center text-red-600 duration-500 rounded-full border-1 hover:text-white hover:bg-red-600 focus:outline-none focus:ring-red-300"
+                >
                   <MdOutlineDelete />
-                </Button>
+                </button>
               </TableCell>
             </TableRow>
           ))}

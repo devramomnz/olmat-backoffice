@@ -2,6 +2,7 @@ import { IPeserta } from "@/interfaces/IPeserta";
 import { UploadFile } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { ChangeEvent, useEffect, useState } from "react";
+import dayjs from "dayjs";
 
 export function useEditPeserta() {
   const [payload, setPayload] = useState<IPeserta[]>([
@@ -23,8 +24,8 @@ export function useEditPeserta() {
     { label: "Laki-laki", value: "L" },
     { label: "Perempuan", value: "P" },
   ];
-  const [filePicture, setFilePicture] = useState<UploadFile[]>([]);
-  const [fileAtc, setFileAtc] = useState<UploadFile[]>([]);
+  const [filePicture, setFilePicture] = useState<UploadFile>();
+  const [fileAtc, setFileAtc] = useState<UploadFile>();
 
   function handleInputChange(
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -51,44 +52,39 @@ export function useEditPeserta() {
     });
   }
 
+  console.log("payload", payload);
+
   function handleBirthday(e: any, i: number) {
-    const date = e.toString().split(/[/\s:]+/);
-    const formattedDate = date[1] + "-" + date[2] + "-" + date[3];
-    const birth = formattedDate;
+    const birthday = dayjs(e);
+    const formatted = birthday.format("YYYY-MM-DDTHH:mm:ss.SSS[Z]");
 
     setPayload((prev) => {
       const updateBirthday = [...prev];
       updateBirthday[i] = {
         ...updateBirthday[i],
-        birthday: birth,
+        birthday: formatted,
       };
       return updateBirthday;
     });
   }
 
   function handlePicture(e: any, i: number) {
-    console.log("this", e);
-    console.log(i);
     setPayload((prev) => {
       const updateImage = [...prev];
       updateImage[i] = {
         ...updateImage[i],
-        picture: e[0],
+        picture: e.file,
       };
       return updateImage;
     });
   }
 
-  function handleAttachment(
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    i: number
-  ) {
-    // setFileAtc(JSON.stringify(e));
+  function handleAttachment(e: any, i: number) {
     setPayload((prev) => {
       const updataAttachment = [...prev];
       updataAttachment[i] = {
         ...updataAttachment[i],
-        attachment: JSON.stringify(e),
+        attachment: e.file,
       };
       return updataAttachment;
     });

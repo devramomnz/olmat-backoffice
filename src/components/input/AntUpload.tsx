@@ -16,7 +16,7 @@ const getBase64 = (file: FileType): Promise<string> =>
 interface IUpload {
   labelName: string;
   name: string;
-  file?: any;
+  file: UploadFile[];
   setFile?: any;
   onChange?: (e: any) => void;
 }
@@ -60,9 +60,10 @@ export function AntUpload(props: IUpload) {
         <Form.Item className="bg-[#F5F5F5] rounded-md min-h-32 p-3" name={name}>
           <Upload
             name={name}
-            //  action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
+            // action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
             listType="picture"
-            defaultFileList={[...file]}
+            fileList={file}
+            // defaultFileList={file}
             onPreview={handlePreview}
             onChange={onChange}
             multiple={false}
