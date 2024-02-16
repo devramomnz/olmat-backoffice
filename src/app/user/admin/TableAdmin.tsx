@@ -9,36 +9,17 @@ import {
 import React from "react";
 import { AiTwotoneEdit } from "react-icons/ai";
 import { MdOutlineDelete } from "react-icons/md";
+import { IAdmin } from "./useAdmin";
 
 interface IProps {
   onEdit: (i: number) => void;
   onDelete: (i: number) => void;
+  dataAdmin: IAdmin[];
 }
 
 export default function TableAdmin(props: IProps) {
-  const { onEdit, onDelete } = props;
-  const dataAdmin = [
-    {
-      name: "SMA",
-      email: "Johnawd",
-    },
-    {
-      name: "SMA",
-      email: "Johnawd",
-    },
-    {
-      name: "SMA",
-      email: "Johnawd",
-    },
-    {
-      name: "SMA",
-      email: "Johnawd",
-    },
-    {
-      name: "SMA",
-      email: "Johnawd",
-    },
-  ];
+  const { onEdit, onDelete, dataAdmin } = props;
+
   return (
     <>
       <Table

@@ -1,17 +1,17 @@
 "use client";
 
-import React from "react";
-import AppImage from "@/components/AppImage";
-import { Form } from "antd";
-import Button from "@/components/button/Button";
+import React, { ChangeEvent } from "react";
+import useAuth from "./useAuth";
 import Wave from "@/assets/wave";
-import AntPass from "@/components/input/AntPass";
-import AntEmail from "@/components/input/AntEmail";
+import AppImage from "@/components/AppImage";
 import { appSetting } from "@/constants/appSetting";
-import useLogin from "./useLogin";
+import { Form } from "antd";
+import AntEmail from "@/components/input/AntEmail";
+import AntPass from "@/components/input/AntPass";
+import Button from "@/components/button/Button";
 
-export default function Login() {
-  const { form } = useLogin();
+export default function Page() {
+  const { form, handleChange, handleSubmit } = useAuth();
   return (
     <div className="relative overflow-hidden bg-gradient-to-b lg:bg-gradient-to-r from-brand to-brand-dark h-screen text-white">
       <Wave className="w-screen absolute opacity-10" fill="white" />
@@ -38,18 +38,24 @@ export default function Login() {
           <h1 className="text-2xl">Masuk Akun</h1>
           <Form
             form={form}
+            onFinish={handleSubmit}
             className="text-lg flex flex-col max-w-[] lg:w-fit justify-center"
           >
             <AntEmail
+              onChange={(
+                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+              ) => handleChange(e)}
               name="email"
               placeholder="Masukkan E-Mail"
               className="text-lg bg-white"
             />
             <AntPass
+              onChange={(
+                e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+              ) => handleChange(e)}
               name="password"
               placeholder="Masukkan Password"
               className="text-lg bg-white"
-              // onChange={onChange}
             />
             <div className="flex justify-center">
               <Button className="w-32 py-3 text-brand-dark">Masuk</Button>

@@ -1,8 +1,9 @@
+import api from "@/config/axiosConfig";
 import { useForm } from "antd/es/form/Form";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-interface IAdmin {
+export interface IAdmin {
   name: string;
   email: string;
   password: string;
@@ -12,6 +13,7 @@ interface IAdmin {
 export function useAdmin() {
   const [form] = useForm();
   const [formEdit] = useForm();
+  const [dataAdmin, setDataAdmin] = useState<IAdmin[]>();
   const [payload, setpayload] = useState<IAdmin>({
     name: "",
     email: "",
@@ -27,7 +29,6 @@ export function useAdmin() {
     { label: "Rayon", value: "region" },
     { label: "Admin", value: "admins" },
   ];
-  console.log(payload);
 
   const initialValues = {
     name: "",
@@ -35,6 +36,13 @@ export function useAdmin() {
     password: "",
     role: [],
   };
+
+  async function getAdmin() {
+    try {
+      const res = await api.get("/admin");
+      setDataAdmin(res.data);
+    } catch (error) {}
+  }
 
   function newAdmin() {
     setOpen(true);
@@ -81,12 +89,18 @@ export function useAdmin() {
   function handleCheckBox(e: string[]) {
     setpayload({ ...payload, role: e });
   }
+
+  useEffect(() => {
+    getAdmin();
+  }, []);
+
   return {
     form,
     formEdit,
     open,
     options,
     initialValues,
+    dataAdmin,
     confirmDelete,
     newAdmin,
     editAdmin,

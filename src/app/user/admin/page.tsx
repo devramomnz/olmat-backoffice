@@ -5,6 +5,8 @@ import React from "react";
 import TableAdmin from "./TableAdmin";
 import { useAdmin } from "./useAdmin";
 import AdminModal from "./AdminModal";
+import { useAdminProfile } from "@/hooks/zustand/useAdminProfile";
+import { PERMISSIONS } from "@/enum/permission.enum";
 
 export default function Admin() {
   const {
@@ -13,6 +15,7 @@ export default function Admin() {
     options,
     formEdit,
     initialValues,
+    dataAdmin,
     deleteAdmin,
     onCancel,
     handleChange,
@@ -21,7 +24,8 @@ export default function Admin() {
     editAdmin,
   } = useAdmin();
 
-  console.log(open);
+  const { permissions } = useAdminProfile();
+
   return (
     <>
       <AdminModal
@@ -43,16 +47,22 @@ export default function Admin() {
       />
       <div className="flex items-center justify-between">
         <label className="font-bold">Pengaturan Akun</label>
-        <Button
-          className="font-bold bg-brand"
-          onClick={() => newAdmin()}
-          size="sm"
-        >
-          Tambah Akun
-        </Button>
+        {permissions.includes(PERMISSIONS.ADMINS_EDIT) ? (
+          <Button
+            className="font-bold bg-brand"
+            onClick={() => newAdmin()}
+            size="sm"
+          >
+            Tambah Akun
+          </Button>
+        ) : null}
       </div>
       <div className="flex flex-col w-full gap-2 p-4 mt-5 overflow-x-scroll bg-white rounded-md drop-shadow-md no-scrollbar">
-        <TableAdmin onEdit={editAdmin} onDelete={deleteAdmin} />
+        <TableAdmin
+          dataAdmin={dataAdmin || []}
+          onEdit={editAdmin}
+          onDelete={deleteAdmin}
+        />
       </div>
     </>
   );

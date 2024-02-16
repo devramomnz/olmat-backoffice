@@ -52,8 +52,6 @@ export function useEditPeserta() {
     });
   }
 
-  console.log("payload", payload);
-
   function handleBirthday(e: any, i: number) {
     const birthday = dayjs(e);
     const formatted = birthday.format("YYYY-MM-DDTHH:mm:ss.SSS[Z]");
@@ -91,8 +89,6 @@ export function useEditPeserta() {
   }
 
   function handleSelect(i: number) {
-    setIPayload(i);
-    console.log(i);
     // form.setFieldsValue(payload[i]);
     form.setFieldValue("gender", payload[i].gender);
     form.setFieldValue("email", payload[i].email);
