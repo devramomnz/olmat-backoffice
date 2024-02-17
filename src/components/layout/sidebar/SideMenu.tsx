@@ -1,13 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { PAGEMENU } from "@/constants/pageMenu";
 import Link from "next/link";
 import Bottom from "./Bottom";
 import { useSideBarStore } from "@/hooks/zustand/zustand";
 import { usePathname } from "next/navigation";
+import { useMenuSetting } from "@/hooks/useMenuSetting";
 
 export default function SideMenu() {
   const { setSideBar } = useSideBarStore();
+  const { PAGEMENU } = useMenuSetting();
   const router = usePathname();
   const path = router.split("/");
   return (
@@ -27,6 +28,7 @@ export default function SideMenu() {
                 ${
                   router === data.url && "bg-brand-dark text-white rounded-full"
                 }
+                ${!data.show && "hidden"}
                 flex items-center text-base gap-3 px-3 py-1 duration-400`}
                 key={i}
               >

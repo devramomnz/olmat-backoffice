@@ -1,63 +1,87 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
 import React from "react";
-import TableAdmin from "./TableAdmin";
+import TableAdmin from "./components/TableAdmin";
 import { useAdmin } from "./useAdmin";
-import AdminModal from "./AdminModal";
-import { useAdminProfile } from "@/hooks/zustand/useAdminProfile";
 import { PERMISSIONS } from "@/enum/permission.enum";
+import { useLayout } from "@/hooks/zustand/layout";
+import { Modal } from "antd";
+import AdminForm from "./components/AdminForm";
+import AdminFormEdit from "./components/AdminFormEdit";
+import Link from "next/link";
+import { ROUTES } from "@/prefix/route.constant";
+import Button from "@/components/button/Button";
 
 export default function Admin() {
   const {
     form,
     open,
-    options,
+    openEdit,
+    option,
     formEdit,
-    initialValues,
     dataAdmin,
+    handleCreateAdmin,
+    handleUpdateAdmin,
     deleteAdmin,
     onCancel,
     handleChange,
-    handleCheckBox,
+    handleRoleSelect,
     newAdmin,
     editAdmin,
   } = useAdmin();
 
-  const { permissions } = useAdminProfile();
+  const { permissions } = useLayout();
 
   return (
     <>
-      <AdminModal
-        form={form}
-        handleChange={handleChange}
-        handleCheckBox={handleCheckBox}
+      <Modal
+        title="Buat Akun"
         open={open}
-        initialValues={initialValues}
-        options={options}
-        setOpen={onCancel}
-      />
-      <AdminModal
-        form={formEdit}
-        handleChange={handleChange}
-        handleCheckBox={handleCheckBox}
-        open={open}
-        options={options}
-        setOpen={onCancel}
-      />
+        onCancel={onCancel}
+        className="text-black"
+        footer=""
+      >
+        <AdminForm
+          form={form}
+          handleChange={handleChange}
+          handleRoleSelect={handleRoleSelect}
+          options={option}
+          handleSubmit={handleCreateAdmin}
+        />
+      </Modal>
+      <Modal
+        title="Edit Akun"
+        open={openEdit}
+        onCancel={onCancel}
+        className="text-black"
+        footer=""
+      >
+        <AdminFormEdit
+          form={formEdit}
+          handleChange={handleChange}
+          handleRoleSelect={handleRoleSelect}
+          options={option}
+          handleSubmit={handleUpdateAdmin}
+        />
+      </Modal>
       <div className="flex items-center justify-between">
         <label className="font-bold">Pengaturan Akun</label>
-        {permissions.includes(PERMISSIONS.ADMINS_EDIT) ? (
-          <Button
-            className="font-bold bg-brand"
-            onClick={() => newAdmin()}
-            size="sm"
-          >
-            Tambah Akun
-          </Button>
+        {permissions.includes(PERMISSIONS.ADMIN) ? (
+          <div className="flex gap-3">
+            <Link
+              className="md:px-6 px-2 py-1 text-center text-white text-xs font-bold hover:shadow-md bg-brand rounded-lg"
+              href={ROUTES.ROLE}
+            >
+              Edit Role
+            </Link>
+            <Button className="font-bold bg-brand" onClick={() => newAdmin()}>
+              Tambah Akun
+            </Button>
+          </div>
         ) : null}
       </div>
       <div className="flex flex-col w-full gap-2 p-4 mt-5 overflow-x-scroll bg-white rounded-md drop-shadow-md no-scrollbar">
+        <label className="font-bold">Daftar Admin</label>
         <TableAdmin
           dataAdmin={dataAdmin || []}
           onEdit={editAdmin}

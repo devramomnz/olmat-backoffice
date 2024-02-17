@@ -10,6 +10,7 @@ import { RiLogoutBoxRLine } from "react-icons/ri";
 import { useAdminProfile } from "@/hooks/zustand/useAdminProfile";
 import { useRouter } from "next/navigation";
 import { deleteCookie } from "cookies-next";
+import api from "@/config/axiosConfig";
 
 export default function AccountMenu() {
   const { name } = useAdminProfile();
@@ -18,9 +19,9 @@ export default function AccountMenu() {
 
   function handleLogOut() {
     try {
-      // api.post(`/auth/admin/logout`);
+      api.post(`/auth/admin/logout`);
       deleteCookie("_token");
-      router.push("");
+      router.push("/");
     } catch (error) {
       alert("failed");
     }

@@ -142,7 +142,7 @@ export default function TablePeserta() {
               >
                 <Link
                   className="flex items-center gap-2 p-2 mb-2 mr-2 text-sm font-bold text-center duration-500 rounded-full border-1 w-fit hover:text-white hover:bg-brand focus:outline-none focus:ring-red-300 "
-                  href={ROUTES.PESERTA_EDIT}
+                  href={ROUTES.PARTICIPANT_EDIT}
                 >
                   <AiTwotoneEdit />
                 </Link>

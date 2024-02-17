@@ -33,7 +33,6 @@ const useAuth = () => {
       setIsSuccess(true, "Selamat Datang");
       setAdminProfile({
         name: res.data.data.user.name,
-        role: res.data.data.user.name,
       });
       router.push("/user");
       setIsButtonLoading(false);

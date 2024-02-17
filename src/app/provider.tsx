@@ -1,4 +1,3 @@
-// app/providers.tsx
 "use client";
 
 import api from "@/config/axiosConfig";
@@ -7,8 +6,8 @@ import { useAdminProfile } from "@/hooks/zustand/useAdminProfile";
 import { NextUIProvider } from "@nextui-org/react";
 import { ConfigProvider } from "antd";
 import id_ID from "antd/lib/locale/id_ID";
-import { getCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
+import { deleteCookie, getCookie } from "cookies-next";
+import { usePathname, useRouter } from "next/navigation";
 import NextTopLoader from "nextjs-toploader";
 import { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -25,6 +24,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   } = useLayout();
 
   const router = useRouter();
+  const path = usePathname();
 
   const token = getCookie("_token");
   if (token) {
@@ -38,11 +38,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
       setPermissions(res.data.data.role.permissions);
       setAdminProfile({
         name: res.data.data.name,
-        permissions: res.data.data.role.permissions,
       });
-      // router.push("/user");
+      if (path === "/") {
+        router.push("/user");
+      }
     } catch (error) {
-      // deleteCookie("_token");
+      deleteCookie("_token");
       router.push("/");
     }
   };
@@ -71,16 +72,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         easing="ease"
       />
       <Toaster />
-      <ConfigProvider
-        theme={
-          {
-            // algorithm: theme,
-          }
-        }
-        locale={id_ID}
-      >
-        {children}
-      </ConfigProvider>
+      <ConfigProvider locale={id_ID}>{children}</ConfigProvider>
     </NextUIProvider>
   );
 }

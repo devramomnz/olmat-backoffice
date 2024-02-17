@@ -8,7 +8,6 @@ export enum PERMISSIONS {
   TRANSACTION_EDIT = "transaction.edit",
   REGION = "region",
   REGION_EDIT = "region.edit",
-  ADMINS = "admins",
-  ADMINS_EDIT = "admins.edit",
-  EDIT = "edit",
+  ADMIN = "admin",
+  ADMIN_EDIT = "admin.edit",
 }

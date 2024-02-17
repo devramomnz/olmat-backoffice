@@ -24,18 +24,18 @@ export const DASHBOARD: IDashboard[] = [
     icon: <PiStudentFill />,
     name: "Total Peserta",
     value: 1000,
-    route: ROUTES.PESERTA,
+    route: ROUTES.PARTICIPANT,
   },
   {
     icon: <IoSchool />,
     name: "Total Sekolah",
     value: 1000,
-    route: ROUTES.SEKOLAH,
+    route: ROUTES.SCHOOL,
   },
   {
     icon: <ImCancelCircle />,
     name: "Total Pembatalan",
     value: 1000,
-    route: ROUTES.PESERTA,
+    route: ROUTES.PARTICIPANT,
   },
 ];
