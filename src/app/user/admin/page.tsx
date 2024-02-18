@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { ChangeEvent } from "react";
 import TableAdmin from "./components/TableAdmin";
 import { useAdmin } from "./useAdmin";
 import { PERMISSIONS } from "@/enum/permission.enum";
@@ -11,6 +11,7 @@ import AdminFormEdit from "./components/AdminFormEdit";
 import Link from "next/link";
 import { ROUTES } from "@/prefix/route.constant";
 import Button from "@/components/button/Button";
+import Search from "antd/es/input/Search";
 
 export default function Admin() {
   const {
@@ -20,6 +21,9 @@ export default function Admin() {
     option,
     formEdit,
     dataAdmin,
+    handleGetAll,
+    handleSubmitSearch,
+    handleChangeSearch,
     handleCreateAdmin,
     handleUpdateAdmin,
     deleteAdmin,
@@ -82,6 +86,20 @@ export default function Admin() {
       </div>
       <div className="flex flex-col w-full gap-2 p-4 mt-5 overflow-x-scroll bg-white rounded-md drop-shadow-md no-scrollbar">
         <label className="font-bold">Daftar Admin</label>
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <Search
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                handleChangeSearch(e)
+              }
+              onSearch={handleSubmitSearch}
+              placeholder="Cari Nama"
+              style={{ width: 200 }}
+              className=""
+            />
+            <Button onClick={handleGetAll}>Lihat semua</Button>
+          </div>
+        </div>
         <TableAdmin
           dataAdmin={dataAdmin || []}
           onEdit={editAdmin}

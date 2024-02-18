@@ -56,13 +56,13 @@ export function useAdmin() {
 
   async function getAdmin() {
     try {
-      const res = await api.get("/admin");
+      const res = await api.get("/backoffice/admin");
       setDataAdmin(res.data.data);
     } catch (error) {}
   }
 
   async function getAdminById(id: number) {
-    await api.get(`/admin/${id}`).then((res) => {
+    await api.get(`/backoffice/admin/${id}`).then((res: any) => {
       setPayload({
         id: res.data.id,
         name: res.data.name,
@@ -76,7 +76,7 @@ export function useAdmin() {
   }
 
   async function getOption() {
-    await api.get("/admin-role?page=1&limit=15").then((res) => {
+    await api.get("/backoffice/admin-role?page=1&limit=10").then((res) => {
       const Options = Object.values(res.data.data).map((role: any) => ({
         value: `${role.id}`,
         label: role.name,
@@ -89,7 +89,7 @@ export function useAdmin() {
   async function createAdmin() {
     setIsButtonLoading(true);
     await api
-      .post("/admin", payload)
+      .post("/backoffice/admin", payload)
       .then(() => {
         setIsSuccess(true, "Berhasil menambahkan admin");
         onCancel();
@@ -108,7 +108,7 @@ export function useAdmin() {
   async function updateAdmin() {
     setIsButtonLoading(true);
     await api
-      .patch(`/admin/${payload.id}`, payload)
+      .patch(`/backoffice/admin/${payload.id}`, payload)
       .then(() => {
         setIsSuccess(true, "Update admin berhasil");
         onCancel();
@@ -127,7 +127,7 @@ export function useAdmin() {
   async function confirmDelete(i: number) {
     setIsButtonLoading(true);
     await api
-      .delete(`/admin/${i}`)
+      .delete(`/backoffice/admin/${i}`)
       .then(() => {
         setIsSuccess(true, "Hapus admin berhasil");
         onCancel();
@@ -195,6 +195,38 @@ export function useAdmin() {
     setOpenEdit(false);
   }
 
+  const [search, setSearch] = useState("");
+
+  async function searchByName() {
+    await api
+      .get(`/backoffice/admin/search/${search}`)
+      .then((res) => {
+        if ((res.data = [])) {
+          setError(true, "Tidak ada data");
+        } else {
+          setDataAdmin(res.data);
+        }
+      })
+      .catch((error: any) => {
+        if (error?.response?.data?.errors?.code) {
+          return Promise.reject(new Error("Code already exist"));
+        }
+        setIsButtonLoading(false);
+      });
+  }
+
+  function handleSubmitSearch() {
+    searchByName();
+  }
+
+  function handleChangeSearch(e: ChangeEvent<HTMLInputElement>) {
+    setSearch(e.target.value);
+  }
+
+  function handleGetAll() {
+    getAdmin();
+  }
+
   useEffect(() => {
     getAdmin();
     getOption();
@@ -208,7 +240,10 @@ export function useAdmin() {
     option,
     dataAdmin,
     setOpen,
+    handleGetAll,
+    handleSubmitSearch,
     handleCreateAdmin,
+    handleChangeSearch,
     handleUpdateAdmin,
     confirmDelete,
     newAdmin,

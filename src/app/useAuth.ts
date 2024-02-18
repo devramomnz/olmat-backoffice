@@ -1,4 +1,3 @@
-import api from "@/config/axiosConfig";
 import { useLayout } from "@/hooks/zustand/layout";
 import { useAdminProfile } from "@/hooks/zustand/useAdminProfile";
 import { useButtonLoading } from "@/hooks/zustand/useButtonLoading";
@@ -6,6 +5,7 @@ import { Form } from "antd";
 import { useRouter } from "next/navigation";
 import { setCookie } from "cookies-next";
 import { ChangeEvent, useState } from "react";
+import api from "@/config/axiosConfig";
 
 const useAuth = () => {
   const router = useRouter();

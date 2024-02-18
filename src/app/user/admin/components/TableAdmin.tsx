@@ -74,6 +74,14 @@ export default function TableAdmin(props: IProps) {
           ))}
         </TableBody>
       </Table>
+
+      <div
+        className={`${
+          dataAdmin.length !== 0 && "hidden"
+        } w-full flex justify-center items-center`}
+      >
+        <h1>Tidak ada Data</h1>
+      </div>
     </>
   );
 }
