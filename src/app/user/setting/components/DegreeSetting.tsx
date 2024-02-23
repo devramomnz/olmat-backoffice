@@ -1,6 +1,5 @@
 "use client";
 
-import { ROUTES } from "@/prefix/route.constant";
 import {
   Table,
   TableBody,
@@ -9,18 +8,20 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
-import Link from "next/link";
 import React from "react";
 import useDegree from "../hooks/useDegree";
 
 export default function DegreeSetting() {
   const { degree } = useDegree();
   return (
-    <div className="overflow-x-scroll no-scrollbar">
+    <div className="overflow-x-scroll no-scrollbar bg-white rounded-lg p-3">
+      <div>
+        <label className="font-bold">Data Jenjang</label>
+      </div>
       <Table
         aria-label="Peserta Terdaftar"
         isStriped
-        className=" text-nowrap w-full min-w-[700px] rounded-lg overflow-hidden"
+        className=" text-nowrap min-w-[700px] rounded-lg overflow-hidden"
       >
         <TableHeader className="bg-brand-dark h-10 text-white text-center">
           <TableColumn align="center" scope="col" className="w-[80px]">
@@ -30,7 +31,7 @@ export default function DegreeSetting() {
             Nama
           </TableColumn>
           <TableColumn align="center" scope="col" className="w-14">
-            Action
+            Kode
           </TableColumn>
         </TableHeader>
         <TableBody className="">
@@ -41,13 +42,7 @@ export default function DegreeSetting() {
                 {data.name}
               </TableCell>
               <TableCell data-label="Actions" className="">
-                <Link
-                  href={ROUTES.SCHOOL_WAITING + `/${data.id}`}
-                  type="button"
-                  className="p-1 mb-2 mr-2 w-fit flex items-center gap-2 text-sm font-medium rounded-md text-center bg-brand  hover:text-white hover:bg-brand-semi duration-500  focus:outline-none focus:ring-red-300 "
-                >
-                  Periksa
-                </Link>
+                {data.id}
               </TableCell>
             </TableRow>
           ))}

@@ -24,11 +24,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/user", request.url));
   }
 
-  console.log(decode.role.permission);
   const permission = decode.role.permission.includes(request.url.split("/")[4]);
-  // const permissionEdit = decode.role.permission.includes(
-  //   request.url.split("/")[5]
-  // );
   if (!permission) {
     return NextResponse.redirect(new URL("/user", request.url));
   }

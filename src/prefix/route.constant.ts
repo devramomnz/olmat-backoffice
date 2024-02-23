@@ -6,7 +6,7 @@ export const ROUTES = {
   SCHOOL_EDIT: "/user/school/school.edit",
   SCHOOL_WAITING: "/user/school/waiting",
   PARTICIPANT: "/user/participant",
-  PARTICIPANT_EDIT: "/user/participant",
+  PARTICIPANT_EDIT: "/user/participant/edit",
   USERS: "/user/users",
   USERS_EDIT: "/user/users",
   TRANSACTION: "/user/transaction",
