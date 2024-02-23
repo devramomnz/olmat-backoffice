@@ -4,9 +4,10 @@ import { GiTakeMyMoney } from "react-icons/gi";
 import { IoSchool } from "react-icons/io5";
 import { MdAccountCircle } from "react-icons/md";
 import { PiUserListFill } from "react-icons/pi";
-import { RiMapPinRangeFill } from "react-icons/ri";
+import { RiMapPinRangeFill, RiSettings4Fill } from "react-icons/ri";
 import { useLayout } from "./zustand/layout";
 import { PERMISSIONS } from "@/enum/permission.enum";
+import { FaUsers } from "react-icons/fa6";
 
 export function useMenuSetting() {
   const { permissions } = useLayout();
@@ -30,6 +31,12 @@ export function useMenuSetting() {
       name: "Data Peserta",
     },
     {
+      show: permissions.includes(PERMISSIONS.USER),
+      icon: <FaUsers />,
+      url: ROUTES.USERS,
+      name: "Data User",
+    },
+    {
       show: permissions.includes(PERMISSIONS.TRANSACTION),
       icon: <GiTakeMyMoney />,
       url: ROUTES.TRANSACTION,
@@ -40,6 +47,12 @@ export function useMenuSetting() {
       icon: <RiMapPinRangeFill />,
       url: ROUTES.REGION,
       name: "Rayon",
+    },
+    {
+      show: permissions.includes(PERMISSIONS.SETTING),
+      icon: <RiSettings4Fill />,
+      url: ROUTES.SETTING,
+      name: "Pengaturan",
     },
     {
       show: permissions.includes(PERMISSIONS.ADMIN),

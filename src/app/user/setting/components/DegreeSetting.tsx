@@ -11,11 +11,10 @@ import {
 } from "@nextui-org/react";
 import Link from "next/link";
 import React from "react";
-import useWaitingSchool from "./useWaitingSchool";
+import useDegree from "../hooks/useDegree";
 
-export default function TableRegSekolah() {
-  const { waitingData } = useWaitingSchool();
-
+export default function DegreeSetting() {
+  const { degree } = useDegree();
   return (
     <div className="overflow-x-scroll no-scrollbar">
       <Table
@@ -28,27 +27,19 @@ export default function TableRegSekolah() {
             No.
           </TableColumn>
           <TableColumn align="center" scope="col">
-            Nama Sekolah
-          </TableColumn>
-          <TableColumn align="center" className="" scope="col">
-            Rayon
-          </TableColumn>
-          <TableColumn align="center" scope="col">
-            Kab/Kota
+            Nama
           </TableColumn>
           <TableColumn align="center" scope="col" className="w-14">
             Action
           </TableColumn>
         </TableHeader>
         <TableBody className="">
-          {waitingData?.map((data, i) => (
+          {degree.map((data, i) => (
             <TableRow key={i}>
               <TableCell data-label="No">{i + 1}</TableCell>
               <TableCell className="text-start" data-label="name">
                 {data.name}
               </TableCell>
-              <TableCell data-label="region">{data.region}</TableCell>
-              <TableCell data-label="city">{data.city}</TableCell>
               <TableCell data-label="Actions" className="">
                 <Link
                   href={ROUTES.SCHOOL_WAITING + `/${data.id}`}

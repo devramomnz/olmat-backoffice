@@ -24,7 +24,11 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/user", request.url));
   }
 
+  console.log(decode.role.permission);
   const permission = decode.role.permission.includes(request.url.split("/")[4]);
+  // const permissionEdit = decode.role.permission.includes(
+  //   request.url.split("/")[5]
+  // );
   if (!permission) {
     return NextResponse.redirect(new URL("/user", request.url));
   }
@@ -32,10 +36,12 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/user/participant/:path*",
+    "/user/participant/",
     "/user/transaction/:path*",
-    "/user/school/:path*",
-    "/user/region/:path*",
+    "/user/school",
+    "/user/school/waiting/:path*",
+    "/user/school/school.edit/:path*",
+    "/user/region/",
     "/user/admin/:path*",
   ],
 };

@@ -74,7 +74,7 @@ export default function Admin() {
           <div className="flex gap-3">
             <Link
               className="md:px-6 px-2 py-1 text-center text-white text-xs font-bold hover:shadow-md bg-brand rounded-lg"
-              href={ROUTES.ROLE}
+              href={ROUTES.ADMIN_ROLE}
             >
               Edit Role
             </Link>

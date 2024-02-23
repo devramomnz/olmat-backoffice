@@ -48,7 +48,7 @@ export default function FormDaftar(props: IProps) {
     handleAttachment,
     handleBirthday,
     handlePicture,
-    handleGenderSelect,
+    // handleGenderSelect,
   } = props;
   return (
     <>
@@ -75,7 +75,7 @@ export default function FormDaftar(props: IProps) {
               name="gender"
               labelName="Jenis Kelamin"
               option={genderOption}
-              onChange={(e) => handleGenderSelect(e, iPayload)}
+              // onChange={(e) => handleGenderSelect(e, iPayload)}
             />
             <AntDatePicker
               labelName="Tanggal lahir"

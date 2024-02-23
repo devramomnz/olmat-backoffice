@@ -13,69 +13,10 @@ import Search from "antd/es/input/Search";
 import Link from "next/link";
 import React from "react";
 import { AiTwotoneEdit } from "react-icons/ai";
-
-// interface IDataPeserta {
-//   // id: number;
-//   nama_peserta: string;
-//   jenis_kelamin: string;
-//   no_tlp: number;
-//   jenjang: string;
-//   status: number;
-//   kartu_peserta: string;
-// }
+import useSchool from "../useSchool";
 
 export default function TableSekolah() {
-  // const [page, setPage] = React.useState(1);
-  // const rowsPerPage = 4;
-
-  const dataSekolah = [
-    {
-      name: "SMA Surabaya",
-      jenjang: "MA",
-      telepon: "115335",
-      email: "a@b.com",
-      rayon: "Jombang",
-      kota: "sby",
-      kecamatan: "sby",
-    },
-    {
-      name: "SMA Surabaya",
-      jenjang: "MA",
-      telepon: "115335",
-      email: "a@b.com",
-      rayon: "Jombang",
-      kota: "sby",
-      kecamatan: "sby",
-    },
-    {
-      name: "SMA Surabaya",
-      jenjang: "MA",
-      telepon: "115335",
-      email: "a@b.com",
-      rayon: "Jombang",
-      kota: "sby",
-      kecamatan: "sby",
-    },
-    {
-      name: "SMA Surabaya",
-      jenjang: "MA",
-      telepon: "115335",
-      email: "a@b.com",
-      rayon: "Jombang",
-      kota: "sby",
-      kecamatan: "sby",
-    },
-  ];
-
-  // const pages = Math.ceil(dataPeserta.length / rowsPerPage);
-
-  // const items = React.useMemo(() => {
-  //   const start = (page - 1) * rowsPerPage;
-  //   const end = start + rowsPerPage;
-
-  //   return dataPeserta.slice(start, end);
-  // }, [page, dataPeserta]);
-
+  const { schoolData } = useSchool();
   return (
     <div className="bg-white p-3 rounded-md">
       <div className="flex justify-between">
@@ -101,14 +42,20 @@ export default function TableSekolah() {
             <TableColumn align="center" scope="col">
               Nama Sekolah
             </TableColumn>
-            <TableColumn align="center" scope="col">
+            {/* <TableColumn align="center" scope="col">
               Jenjang
+            </TableColumn> */}
+            <TableColumn align="center" className="" scope="col">
+              Email
             </TableColumn>
             <TableColumn align="center" scope="col">
               Telepon
             </TableColumn>
-            <TableColumn align="center" className="" scope="col">
-              Email
+            <TableColumn align="center" scope="col">
+              WhatsApp
+            </TableColumn>
+            <TableColumn align="center" scope="col">
+              Status
             </TableColumn>
             <TableColumn align="center" className="" scope="col">
               Rayon
@@ -116,29 +63,27 @@ export default function TableSekolah() {
             <TableColumn align="center" scope="col">
               Kab/Kota
             </TableColumn>
-            <TableColumn align="center" scope="col">
-              Kecamatan
-            </TableColumn>
             <TableColumn align="center" scope="col" className="w-14">
               Action
             </TableColumn>
           </TableHeader>
           <TableBody className="">
-            {dataSekolah?.map((data, i) => (
+            {schoolData?.map((data, i) => (
               <TableRow key={i}>
                 <TableCell data-label="No">{i + 1}</TableCell>
                 <TableCell className="text-start" data-label="nama_peserta">
                   {data.name}
                 </TableCell>
-                <TableCell data-label="jenjang">{data.jenjang}</TableCell>
-                <TableCell data-label="telepon">{data.telepon}</TableCell>
+                {/* <TableCell data-label="jenjang">{data.}</TableCell> */}
                 <TableCell data-label="email">{data.email}</TableCell>
-                <TableCell data-label="rayon">{data.rayon}</TableCell>
-                <TableCell data-label="kota">{data.kota}</TableCell>
-                <TableCell data-label="kecamatan">{data.kecamatan}</TableCell>
+                <TableCell data-label="rayon">{data.phone}</TableCell>
+                <TableCell data-label="kota">{data.whatsapp}</TableCell>
+                <TableCell data-label="kecamatan">{data.status}</TableCell>
+                <TableCell data-label="kecamatan">{data.region}</TableCell>
+                <TableCell data-label="kecamatan">{data.city}</TableCell>
                 <TableCell data-label="Actions" className="">
                   <Link
-                    href={ROUTES.SCHOOL_EDIT}
+                    href={ROUTES.SCHOOL_EDIT + `/${data.id}`}
                     type="button"
                     className="p-2 border-1 rounded-full mb-2 mr-2 w-fit flex items-center gap-2 text-sm font-bold text-center hover:text-white hover:bg-brand duration-500  focus:outline-none focus:ring-red-300 "
                   >

@@ -30,7 +30,7 @@ export default function RoleTab(props: IProps) {
   const groupedPermissions: { [key: string]: string[] } = {};
 
   Object.values(PERMISSIONS).forEach((permission) => {
-    const baseName = permission.split(".")[0];
+    const baseName = permission.split("-")[0];
     if (!groupedPermissions[baseName]) {
       groupedPermissions[baseName] = [];
     }
@@ -57,9 +57,9 @@ export default function RoleTab(props: IProps) {
                   <div className="mt-2 grid grid-cols-2 gap-2">
                     {permissions.map((perm, i) => (
                       <Checkbox value={perm} key={i}>
-                        {perm.includes(".")
+                        {perm.includes("-")
                           ? perm
-                              .split(".")
+                              .split("-")
                               .map(
                                 (word) =>
                                   word.charAt(0).toUpperCase() + word.slice(1)
