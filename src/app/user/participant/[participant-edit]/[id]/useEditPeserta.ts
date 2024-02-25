@@ -3,8 +3,10 @@ import { UploadFile } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { ChangeEvent, useEffect, useState } from "react";
 import dayjs from "dayjs";
+import useSecurePage from "@/hooks/useSecurePage";
 
 export function useEditPeserta() {
+  const { securePage } = useSecurePage();
   const [payload, setPayload] = useState<IPeserta[]>([
     {
       payment_id: 0,
@@ -131,7 +133,9 @@ export function useEditPeserta() {
     setIsModalOpen(false);
   }
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    securePage();
+  }, []);
 
   return {
     form,

@@ -24,9 +24,9 @@ interface ISchool {
 }
 
 const useEditSchool = () => {
-  const { securePage } = useSecurePage();
   const routerParams = useParams();
   const id = routerParams.id;
+  const { securePage } = useSecurePage();
   const [form] = Form.useForm();
 
   const [payload, setPayload] = useState<ISchool>({
