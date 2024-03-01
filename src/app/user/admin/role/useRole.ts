@@ -69,6 +69,7 @@ export function useRole() {
         setIsSuccess(true, "Tambah role berhasil");
         getRole();
         setIsButtonLoading(false);
+        handleCancel();
       })
       .catch((err: any) => {
         if (err?.response?.data?.errors?.code) {
@@ -87,6 +88,7 @@ export function useRole() {
         setIsSuccess(true, "Update role berhasil");
         getRole();
         setIsButtonLoading(false);
+        handleCancel();
       })
       .catch((err: any) => {
         if (err?.response?.data?.errors?.code) {

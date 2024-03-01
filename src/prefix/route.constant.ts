@@ -8,7 +8,7 @@ export const ROUTES = {
   PARTICIPANT: "/user/participant",
   PARTICIPANT_EDIT: "/user/participant/participant-edit",
   USERS: "/user/users",
-  USERS_EDIT: "/user/users",
+  USERS_EDIT: "/user/users/users-edit",
   TRANSACTION: "/user/transaction",
   REGION: "/user/region",
   SETTING: "/user/setting",

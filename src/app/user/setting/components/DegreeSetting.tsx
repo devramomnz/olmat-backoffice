@@ -10,6 +10,7 @@ import {
 } from "@nextui-org/react";
 import React from "react";
 import useDegree from "../hooks/useDegree";
+import { convertRupiah } from "@/helper/common";
 
 export default function DegreeSetting() {
   const { degree } = useDegree();
@@ -24,25 +25,27 @@ export default function DegreeSetting() {
         className=" text-nowrap min-w-[700px] rounded-lg overflow-hidden"
       >
         <TableHeader className="bg-brand-dark h-10 text-white text-center">
-          <TableColumn align="center" scope="col" className="w-[80px]">
-            No.
+          <TableColumn align="center" scope="col" className="w-14">
+            Kode
           </TableColumn>
           <TableColumn align="center" scope="col">
             Nama
           </TableColumn>
-          <TableColumn align="center" scope="col" className="w-14">
-            Kode
+          <TableColumn align="center" scope="col">
+            Harga
           </TableColumn>
         </TableHeader>
         <TableBody className="">
           {degree.map((data, i) => (
             <TableRow key={i}>
-              <TableCell data-label="No">{i + 1}</TableCell>
+              <TableCell data-label="Actions" className="">
+                {data.id}
+              </TableCell>
               <TableCell className="text-start" data-label="name">
                 {data.name}
               </TableCell>
               <TableCell data-label="Actions" className="">
-                {data.id}
+                {convertRupiah(100000)}
               </TableCell>
             </TableRow>
           ))}

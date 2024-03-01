@@ -5,7 +5,7 @@ import React from "react";
 import TableRegSekolah from "./school/waiting/TableRegSekolah";
 import TablePayWaiting from "./components/TablePayWaiting";
 import { ROUTES } from "@/prefix/route.constant";
-import useDashboard from "./components/useDashboard";
+import useDashboard from "./useDashboard";
 
 export default function Home() {
   const { DASHBOARD } = useDashboard();
