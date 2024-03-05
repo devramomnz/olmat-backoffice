@@ -7,8 +7,6 @@ const useSecurePage = (pathIndex: number) => {
   const path = usePathname();
   const pagePath = path.split("/")[pathIndex];
 
-  console.log(pathIndex);
-
   const securePage = () => {
     const havePerm = permissions.includes(pagePath);
     if (!havePerm) {
