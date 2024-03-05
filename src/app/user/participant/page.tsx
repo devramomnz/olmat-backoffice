@@ -1,11 +1,16 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import TablePeserta from "./TablePeserta";
 import Search from "antd/es/input/Search";
 import Button from "@/components/button/Button";
+import useSecurePage from "@/hooks/useSecurePage";
 
 export default function Peserta() {
+  const { securePage } = useSecurePage(2);
+  useEffect(() => {
+    securePage();
+  }, []);
   return (
     <>
       <label className="font-bold">Data Peserta</label>

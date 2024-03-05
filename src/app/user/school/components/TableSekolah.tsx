@@ -14,20 +14,24 @@ import Link from "next/link";
 import React from "react";
 import { AiTwotoneEdit } from "react-icons/ai";
 import useSchool from "../useSchool";
+import { useLayout } from "@/hooks/zustand/layout";
+import { PERMISSIONS } from "@/enum/permission.enum";
 
 export default function TableSekolah() {
+  const { permissions } = useLayout();
   const { schoolData } = useSchool();
   return (
     <div className="bg-white p-3 rounded-md">
       <div className="flex justify-between">
         <Search placeholder="cari" style={{ width: 200 }} className="" />
-        <Link
-          className="py-1 px-3 bg-brand-dark w-fit rounded-lg text-white flex items-center gap-2 font-bold"
-          href={ROUTES.SCHOOL_WAITING}
-        >
-          Menunggu Persetujuan
-          {/* {} */}
-        </Link>
+        {permissions.includes(PERMISSIONS.SCHOOL_ACCEPT) && (
+          <Link
+            className="py-1 px-3 bg-brand-dark w-fit rounded-lg text-white flex items-center gap-2 font-bold"
+            href={ROUTES.SCHOOL_WAITING}
+          >
+            Menunggu Persetujuan
+          </Link>
+        )}
       </div>
       <div className="overflow-x-scroll no-scrollbar mt-3">
         <Table
@@ -63,7 +67,13 @@ export default function TableSekolah() {
             <TableColumn align="center" scope="col">
               Kab/Kota
             </TableColumn>
-            <TableColumn align="center" scope="col" className="w-14">
+            <TableColumn
+              align="center"
+              scope="col"
+              className={`${
+                !permissions.includes(PERMISSIONS.SCHOOL_EDIT) && "hidden"
+              } w-14`}
+            >
               Action
             </TableColumn>
           </TableHeader>
@@ -81,7 +91,12 @@ export default function TableSekolah() {
                 <TableCell data-label="kecamatan">{data.status}</TableCell>
                 <TableCell data-label="kecamatan">{data.region}</TableCell>
                 <TableCell data-label="kecamatan">{data.city}</TableCell>
-                <TableCell data-label="Actions" className="">
+                <TableCell
+                  data-label="Actions"
+                  className={`${
+                    !permissions.includes(PERMISSIONS.SCHOOL_EDIT) && "hidden"
+                  } w-14`}
+                >
                   <Link
                     href={ROUTES.SCHOOL_EDIT + `/${data.id}`}
                     type="button"

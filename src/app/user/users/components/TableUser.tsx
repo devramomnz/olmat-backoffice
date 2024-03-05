@@ -1,3 +1,5 @@
+import { PERMISSIONS } from "@/enum/permission.enum";
+import { useLayout } from "@/hooks/zustand/layout";
 import { IUsers } from "@/interfaces/IUsers";
 import { ROUTES } from "@/prefix/route.constant";
 import {
@@ -18,6 +20,7 @@ interface IProps {
 }
 
 export default function TableUser(props: IProps) {
+  const { permissions } = useLayout();
   const { userData } = props;
   return (
     <div>
@@ -50,7 +53,13 @@ export default function TableUser(props: IProps) {
             <TableColumn align="center" scope="col" className="text-center">
               Jenjang
             </TableColumn>
-            <TableColumn align="center" scope="col" className="text-center">
+            <TableColumn
+              align="center"
+              className={`${
+                !permissions.includes(PERMISSIONS.USER_EDIT) && "hidden"
+              } w-14 text-center`}
+              scope="col"
+            >
               Action
             </TableColumn>
           </TableHeader>
@@ -75,7 +84,15 @@ export default function TableUser(props: IProps) {
                 <TableCell className="text-center" data-label="name">
                   Jenjang
                 </TableCell>
-                <TableCell data-label="Actions" className="">
+                <TableCell
+                  data-label="Actions"
+                  className={`${
+                    !permissions.includes(PERMISSIONS.PARTICIPANT_EDIT)
+                      ? "hidden"
+                      : " text-center flex items-center justify-center gap-2 font-bold"
+                  } `}
+                  scope="col"
+                >
                   <div className=" flex items-center h-full justify-center gap-2 font-bold">
                     <Link
                       href={ROUTES.USERS_EDIT + "/" + 1}
