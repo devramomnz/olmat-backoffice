@@ -1,4 +1,6 @@
 import Button from "@/components/button/Button";
+import { PERMISSIONS } from "@/enum/permission.enum";
+import { useLayout } from "@/hooks/zustand/layout";
 import { ROUTES } from "@/prefix/route.constant";
 import {
   Table,
@@ -15,6 +17,7 @@ import { AiTwotoneEdit } from "react-icons/ai";
 import { MdOutlineDelete } from "react-icons/md";
 
 export default function TablePeserta() {
+  const { permissions } = useLayout();
   const [isModal, setIsModal] = useState(false);
 
   const dataPeserta = [
@@ -116,7 +119,13 @@ export default function TablePeserta() {
           <TableColumn align="center" scope="col">
             Email
           </TableColumn>
-          <TableColumn align="center" className="text-center" scope="col">
+          <TableColumn
+            align="center"
+            className={`${
+              !permissions.includes(PERMISSIONS.PARTICIPANT_EDIT) && "hidden"
+            } w-14 text-center`}
+            scope="col"
+          >
             Action
           </TableColumn>
         </TableHeader>
@@ -138,7 +147,12 @@ export default function TablePeserta() {
               <TableCell data-label="email">{data.email}</TableCell>
               <TableCell
                 data-label="Actions"
-                className="flex items-center justify-center gap-2 font-bold"
+                className={`${
+                  !permissions.includes(PERMISSIONS.PARTICIPANT_EDIT)
+                    ? "hidden"
+                    : " text-center flex items-center justify-center gap-2 font-bold"
+                } `}
+                scope="col"
               >
                 <Link
                   className="flex items-center gap-2 p-2 mb-2 mr-2 text-sm font-bold text-center duration-500 rounded-full border-1 w-fit hover:text-white hover:bg-brand focus:outline-none focus:ring-red-300 "

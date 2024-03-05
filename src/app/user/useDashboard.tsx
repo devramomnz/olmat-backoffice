@@ -19,6 +19,7 @@ interface IDashData {
   participants: number;
   schools: number;
   canceled: number;
+  region: number;
 }
 
 const useDashboard = () => {
@@ -27,6 +28,7 @@ const useDashboard = () => {
     participants: 0,
     schools: 0,
     canceled: 0,
+    region: 0,
   });
 
   const DASHBOARD: IDashboard[] = [
@@ -54,6 +56,12 @@ const useDashboard = () => {
       value: 1000,
       route: ROUTES.PARTICIPANT,
     },
+    {
+      icon: <ImCancelCircle />,
+      name: "Total Rayon",
+      value: dashData.region,
+      route: ROUTES.REGION,
+    },
   ];
 
   console.log("this data", dashData);
@@ -69,10 +77,29 @@ const useDashboard = () => {
       setDashData({ ...dashData, schools: res.data.metadata.total });
     });
   }
+  async function getRegion() {
+    await api.get("/backoffice/region?page=1&limit=4000").then((res) => {
+      console.log(res.data.metadata.total);
+      setDashData((prev) => ({
+        ...prev,
+        region: res.data.metadata.total,
+      }));
+    });
+  }
+
+  //  setPayload((prev) => {
+  //     const updatedGender = [...prev];
+  //     updatedGender[i] = {
+  //       ...updatedGender[i],
+  //       gender: e,
+  //     };
+  //     return updatedGender;
+  //   });
 
   useEffect(() => {
     getParticipants();
     getSchools();
+    getRegion();
   }, []);
 
   return { DASHBOARD, dashData };

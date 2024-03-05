@@ -12,8 +12,11 @@ import {
 import Link from "next/link";
 import React from "react";
 import useWaitingSchool from "./useWaitingSchool";
+import { useLayout } from "@/hooks/zustand/layout";
+import { PERMISSIONS } from "@/enum/permission.enum";
 
 export default function TableRegSekolah() {
+  const { permissions } = useLayout();
   const { waitingData } = useWaitingSchool();
 
   return (
@@ -36,7 +39,13 @@ export default function TableRegSekolah() {
           <TableColumn align="center" scope="col">
             Kab/Kota
           </TableColumn>
-          <TableColumn align="center" scope="col" className="w-14">
+          <TableColumn
+            align="center"
+            scope="col"
+            className={`${
+              !permissions.includes(PERMISSIONS.SCHOOL_ACCEPT) && "hidden"
+            } w-14`}
+          >
             Action
           </TableColumn>
         </TableHeader>
@@ -49,14 +58,21 @@ export default function TableRegSekolah() {
               </TableCell>
               <TableCell data-label="region">{data.region}</TableCell>
               <TableCell data-label="city">{data.city}</TableCell>
-              <TableCell data-label="Actions" className="">
-                <Link
-                  href={ROUTES.SCHOOL_WAITING + `/${data.id}`}
-                  type="button"
-                  className="p-1 mb-2 mr-2 w-fit flex items-center gap-2 text-sm font-medium rounded-md text-center bg-brand  hover:text-white hover:bg-brand-semi duration-500  focus:outline-none focus:ring-red-300 "
-                >
-                  Periksa
-                </Link>
+              <TableCell
+                data-label="Actions"
+                className={`${
+                  !permissions.includes(PERMISSIONS.SCHOOL_ACCEPT) && "hidden"
+                }`}
+              >
+                {
+                  <Link
+                    href={ROUTES.SCHOOL_WAITING + `/${data.id}`}
+                    type="button"
+                    className="p-1 mb-2 mr-2 w-fit flex items-center gap-2 text-sm font-medium rounded-md text-center bg-brand  hover:text-white hover:bg-brand-semi duration-500  focus:outline-none focus:ring-red-300 "
+                  >
+                    Periksa
+                  </Link>
+                }
               </TableCell>
             </TableRow>
           ))}

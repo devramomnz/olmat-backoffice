@@ -5,9 +5,12 @@ import React from "react";
 import TableRegSekolah from "./school/waiting/TableRegSekolah";
 import TablePayWaiting from "./components/TablePayWaiting";
 import { ROUTES } from "@/prefix/route.constant";
-import useDashboard from "./components/useDashboard";
+import useDashboard from "./useDashboard";
+import { useLayout } from "@/hooks/zustand/layout";
+import { PERMISSIONS } from "@/enum/permission.enum";
 
 export default function Home() {
+  const { permissions } = useLayout();
   const { DASHBOARD } = useDashboard();
   return (
     <div className="flex flex-col gap-3">
@@ -30,13 +33,14 @@ export default function Home() {
       <div className="bg-white rounded-lg p-3">
         <div className="flex justify-between">
           <label>Pengajuan Sekolah</label>
-          <Link
-            className="py-1 px-3 bg-brand-dark w-fit rounded-lg text-white flex items-center gap-2 font-bold"
-            href={ROUTES.SCHOOL_WAITING}
-          >
-            Lihat Semua
-            {/* {} */}
-          </Link>
+          {permissions.includes(PERMISSIONS.SCHOOL_ACCEPT) && (
+            <Link
+              className="py-1 px-3 bg-brand-dark w-fit rounded-lg text-white flex items-center gap-2 font-bold"
+              href={ROUTES.SCHOOL_WAITING}
+            >
+              Lihat Semua
+            </Link>
+          )}
         </div>
         <TableRegSekolah />
       </div>

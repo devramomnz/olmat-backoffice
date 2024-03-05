@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import useSecurePage from "@/hooks/useSecurePage";
 
 export function useEditPeserta() {
-  const { securePage } = useSecurePage();
+  const { securePage } = useSecurePage(3);
   const [payload, setPayload] = useState<IPeserta[]>([
     {
       payment_id: 0,
