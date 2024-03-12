@@ -29,14 +29,14 @@ export function AntEmail(props: IEmailInputProps) {
   return (
     <div>
       <label className="text-sm">{labelName}</label>
-      <Form.Item name={name} rules={emailValidator} hasFeedback>
+      <Form.Item name={name} rules={emailValidator}>
         <Input
-          variant="filled"
           value={value}
           name={name}
           onChange={onChange}
           placeholder={labelName ? `masukkan ${labelName}` : placeholder}
-          className={`${className} text-sm hover:border-brand-muted focus:border-brand`}
+          bordered={false}
+          className={`${className} text-sm bg-gray-100 rounded-full`}
         />
       </Form.Item>
     </div>

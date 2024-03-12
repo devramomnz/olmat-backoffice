@@ -37,17 +37,16 @@ export default function AntText(props: IAntInput) {
             message: `Please input ${labelName}!`,
           },
         ]}
-        hasFeedback
       >
         <TextArea
           value={value}
           size="middle"
-          variant="filled"
           name={name}
           defaultValue={defaultValue}
           placeholder={labelName ? `masukkan ${labelName}` : placeholder}
           onChange={onChange}
-          className={`${className} p-2 hover:border-brand-muted focus:border-brand`}
+          bordered={false}
+          className={`${className} text-sm bg-gray-100 rounded-lg p2`}
         />
       </Form.Item>
     </div>

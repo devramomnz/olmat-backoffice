@@ -35,17 +35,16 @@ export default function AntInput(props: IAntInput) {
             message: `Please input ${labelName}!`,
           },
         ]}
-        hasFeedback
       >
         <Input
           name={name}
           size="middle"
           value={value}
-          variant="filled"
           defaultValue={defaultValue}
           placeholder={labelName ? `masukkan ${labelName}` : placeholder}
           onChange={onChange}
-          className={`${className} hover:border-brand-muted focus:border-brand`}
+          bordered={false}
+          className={`${className} text-sm bg-gray-100 rounded-full`}
         />
       </Form.Item>
     </div>

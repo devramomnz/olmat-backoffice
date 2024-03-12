@@ -22,11 +22,9 @@ export default function AntItemSelect(props: IAntSelect) {
             message: `Pilih ${labelName}`,
           },
         ]}
-        hasFeedback
         name={name}
       >
         <Select
-          variant="filled"
           value={value}
           showSearch
           size="middle"
@@ -45,6 +43,8 @@ export default function AntItemSelect(props: IAntSelect) {
           }
           options={option}
           onChange={onChange}
+          bordered={false}
+          className={` text-sm bg-gray-100 rounded-full`}
         />
       </Form.Item>
     </div>
