@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect } from "react";
 import TableAdmin from "./components/TableAdmin";
 import { useAdmin } from "./useAdmin";
 import { PERMISSIONS } from "@/enum/permission.enum";
@@ -12,6 +12,7 @@ import Link from "next/link";
 import { ROUTES } from "@/prefix/route.constant";
 import Button from "@/components/button/Button";
 import Search from "antd/es/input/Search";
+import useSecurePage from "@/hooks/useSecurePage";
 
 export default function Admin() {
   const {
@@ -35,6 +36,10 @@ export default function Admin() {
   } = useAdmin();
 
   const { permissions } = useLayout();
+  const { securePage } = useSecurePage(2);
+  useEffect(() => {
+    securePage();
+  }, []);
 
   return (
     <>
@@ -70,7 +75,7 @@ export default function Admin() {
       </Modal>
       <div className="flex items-center justify-between">
         <label className="font-bold">Pengaturan Akun</label>
-        {permissions.includes(PERMISSIONS.ADMIN) ? (
+        {permissions.includes(PERMISSIONS.ADMIN_EDIT) ? (
           <div className="flex gap-3">
             <Link
               className="md:px-6 px-2 py-1 text-center text-white text-xs font-bold hover:shadow-md bg-brand rounded-lg"

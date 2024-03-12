@@ -10,6 +10,8 @@ import React from "react";
 import { AiTwotoneEdit } from "react-icons/ai";
 import { MdOutlineDelete } from "react-icons/md";
 import { IAdmin } from "../useAdmin";
+import { useLayout } from "@/hooks/zustand/layout";
+import { PERMISSIONS } from "@/enum/permission.enum";
 
 interface IProps {
   onEdit: (i: number) => void;
@@ -18,6 +20,7 @@ interface IProps {
 }
 
 export default function TableAdmin(props: IProps) {
+  const { permissions } = useLayout();
   const { onEdit, onDelete, dataAdmin } = props;
 
   return (
@@ -40,7 +43,13 @@ export default function TableAdmin(props: IProps) {
           <TableColumn align="center" className="" scope="col">
             Role
           </TableColumn>
-          <TableColumn align="center" scope="col" className="text-center">
+          <TableColumn
+            align="center"
+            className={`${
+              !permissions.includes(PERMISSIONS.ADMIN_EDIT) && "hidden"
+            } w-14 text-center`}
+            scope="col"
+          >
             Action
           </TableColumn>
         </TableHeader>
@@ -55,7 +64,11 @@ export default function TableAdmin(props: IProps) {
               <TableCell data-label="role">{data.role.name}</TableCell>
               <TableCell
                 data-label="Actions"
-                className="flex items-center justify-center gap-2 font-bold"
+                className={`${
+                  !permissions.includes(PERMISSIONS.PARTICIPANT_EDIT)
+                    ? "hidden"
+                    : "flex items-center justify-center gap-2 font-bold "
+                } `}
               >
                 <button
                   className="flex items-center gap-2 p-2 mb-2 mr-2 text-sm font-bold text-center duration-500 rounded-full border-1 w-fit hover:text-white hover:bg-brand focus:outline-none focus:ring-red-300 "

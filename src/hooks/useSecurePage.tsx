@@ -1,16 +1,22 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useLayout } from "./zustand/layout";
 
-const useSecurePage = () => {
+const useSecurePage = (pathIndex: number) => {
   const router = useRouter();
   const { permissions } = useLayout();
   const path = usePathname();
-  const pagePath = path.split("/")[3];
+  const pagePath = path.split("/")[pathIndex];
 
   const securePage = () => {
     const havePerm = permissions.includes(pagePath);
     if (!havePerm) {
-      router.push(`/not-found`);
+      if (pathIndex === 2) {
+        router.push("/user");
+      } else if (pathIndex === 3) {
+        router.push("/not-found");
+      } else {
+        router.push("/not-found");
+      }
     }
   };
 
