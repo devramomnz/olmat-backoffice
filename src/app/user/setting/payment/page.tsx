@@ -11,7 +11,7 @@ export default function Payment() {
       <div className="bg-white p-4 rounded-lg drop-shadow">
         <div className="flex justify-between">
           <label className="font-bold">Xendit</label>
-          <EditButton />
+          {/* <EditButton state={isEdit} onEdit={} /> */}
         </div>
         <h2>Xendit</h2>
       </div>
