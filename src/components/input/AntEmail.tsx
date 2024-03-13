@@ -31,7 +31,6 @@ export function AntEmail(props: IEmailInputProps) {
       <label className="text-sm">{labelName}</label>
       <Form.Item name={name} rules={emailValidator}>
         <Input
-          bordered={false}
           value={value}
           name={name}
           onChange={onChange}
