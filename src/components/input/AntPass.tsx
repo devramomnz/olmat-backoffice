@@ -35,12 +35,10 @@ export default function AntPass(props: IAntInput) {
             message: `${name} is required`,
           },
         ]}
-        hasFeedback
       >
         <Input.Password
           size="middle"
           name={name}
-          variant="filled"
           value={value}
           iconRender={(visible) =>
             visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
@@ -48,7 +46,8 @@ export default function AntPass(props: IAntInput) {
           defaultValue={defaultValue}
           placeholder={labelName ? `masukkan ${labelName}` : placeholder}
           onChange={onChange}
-          className={`${className} text-sm hover:border-brand-muted focus:border-brand`}
+          bordered={false}
+          className={`${className} active:bg-gray-100 focus:bg-gray-100 hover:bg-gray-100 bg-gray-100 rounded-full `}
         />
       </Form.Item>
     </div>

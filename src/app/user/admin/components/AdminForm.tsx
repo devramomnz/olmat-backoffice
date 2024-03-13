@@ -46,7 +46,6 @@ export default function AdminForm(props: IProps) {
           <label className="text-sm">Role</label>
           <Form.Item name="role">
             <Select
-              variant="filled"
               showSearch
               size="middle"
               style={{ width: "100%" }}
