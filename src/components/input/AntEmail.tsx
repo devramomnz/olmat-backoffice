@@ -33,6 +33,7 @@ export function AntEmail(props: IEmailInputProps) {
         <Input
           value={value}
           name={name}
+          variant="borderless"
           onChange={onChange}
           placeholder={labelName ? `masukkan ${labelName}` : placeholder}
           // className={`${className} text-sm hover:border-brand-muted focus:border-brand`}

@@ -45,7 +45,7 @@ export default function AntText(props: IAntInput) {
           defaultValue={defaultValue}
           placeholder={labelName ? `masukkan ${labelName}` : placeholder}
           onChange={onChange}
-          bordered={false}
+          variant="borderless"
           className={`${className} active:bg-gray-100 focus:bg-gray-100 hover:bg-gray-100 bg-gray-100 rounded-full `}
         />
       </Form.Item>

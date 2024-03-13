@@ -1,20 +1,16 @@
 "use client";
 
 import React from "react";
-import EditButton from "../components/EditButton";
 import { usePayment } from "./usePayment";
+import ApiKey from "../components/ApiKey";
+import TablePayments from "../components/TablePayments";
 
 export default function Payment() {
-  const { isEdit, setIsEdit } = usePayment();
+  const { payments, form, handleChange, handleSubmit } = usePayment();
   return (
-    <>
-      <div className="bg-white p-4 rounded-lg drop-shadow">
-        <div className="flex justify-between">
-          <label className="font-bold">Xendit</label>
-          {/* <EditButton state={isEdit} onEdit={} /> */}
-        </div>
-        <h2>Xendit</h2>
-      </div>
-    </>
+    <div className="flex flex-col gap-5">
+      <ApiKey form={form} handleChange={handleChange} onFinish={handleSubmit} />
+      <TablePayments payments={payments} />
+    </div>
   );
 }
