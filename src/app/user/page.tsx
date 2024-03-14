@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import React from "react";
-import TableRegSekolah from "./school/waiting/TableRegSekolah";
+import TableRegSekolah from "./school/components/TableRegSekolah";
 import TablePayWaiting from "./components/TablePayWaiting";
 import { ROUTES } from "@/prefix/route.constant";
 import useDashboard from "./useDashboard";

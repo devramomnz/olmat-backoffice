@@ -1,5 +1,5 @@
 import React from "react";
-import TableRegSekolah from "./TableRegSekolah";
+import TableRegSekolah from "../components/TableRegSekolah";
 
 export default function WaitingSchool() {
   return (

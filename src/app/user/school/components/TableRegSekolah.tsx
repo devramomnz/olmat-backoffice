@@ -11,7 +11,7 @@ import {
 } from "@nextui-org/react";
 import Link from "next/link";
 import React from "react";
-import useWaitingSchool from "./useWaitingSchool";
+import useWaitingSchool from "../waiting/useWaitingSchool";
 import { useLayout } from "@/hooks/zustand/layout";
 import { PERMISSIONS } from "@/enum/permission.enum";
 

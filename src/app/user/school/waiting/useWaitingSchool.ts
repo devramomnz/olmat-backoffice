@@ -32,7 +32,6 @@ const useWaitingSchool = () => {
 
   async function acceptSchool() {
     setIsButtonLoading(true);
-    setIsSuccess(true, "proses");
     await api
       .patch(`/backoffice/school/accept/${id}`)
       .then(() => {
