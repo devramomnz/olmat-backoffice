@@ -35,7 +35,7 @@ export default function Page() {
             />
             <h1>OLMAT UINSA</h1>
           </div>
-          <h1 className="text-2xl">Masuk Akun</h1>
+          <h1 className="text-2xl pb-4">Masuk Akun</h1>
           <Form
             form={form}
             onFinish={handleSubmit}
@@ -58,7 +58,7 @@ export default function Page() {
               className="text-lg bg-white"
             />
             <div className="flex justify-center">
-              <Button className="w-32 py-3 text-brand-dark">Masuk</Button>
+              <Button className="w-32 py-2 text-brand-dark">Masuk</Button>
             </div>
           </Form>
         </div>

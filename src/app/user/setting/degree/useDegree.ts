@@ -19,12 +19,11 @@ export function useDegree() {
   const [editForm] = Form.useForm();
   const { setIsButtonLoading } = useButtonLoading();
   const { setIsSuccess, setError } = useLayout();
-  const [isOpenAdd, setIsOpenAdd] = useState(false);
 
   /**
    * STATE
    */
-
+  const [isOpenAdd, setIsOpenAdd] = useState(false);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [degrees, setDegrees] = useState<IDegree[]>([]);
   const [payload, setPayload] = useState<IDegree>({

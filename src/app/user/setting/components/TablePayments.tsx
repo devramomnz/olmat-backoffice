@@ -6,20 +6,89 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { IPayment } from "../payment/usePayment";
+import { AiTwotoneEdit } from "react-icons/ai";
+import { MdOutlineDelete } from "react-icons/md";
+import { Modal } from "antd";
+import FormAddPayment from "./FormAddPayment";
+import Button from "@/components/button/Button";
+import FormEditPayment from "./FormEditPayment";
 
 interface IProps {
   payments: IPayment[];
+  formAdd: any;
+  formEdit: any;
+  isOpenAdd: any;
+  isOpenEdit: any;
+  logo: any;
+  file: any[];
+  handleAddPayment: () => void;
+  handleCancel: () => void;
+  handleEdit: (i: number) => void;
+  handleDelete: (i: number) => void;
+  handleChange: (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  handleChangeImg: (e: any) => void;
+  handleSumbitAdd?: () => void;
+  handleSubmitEdit?: () => void;
 }
 
 export default function TablePayments(props: IProps) {
-  const { payments } = props;
+  const {
+    payments,
+    isOpenAdd,
+    isOpenEdit,
+    formAdd,
+    formEdit,
+    file,
+    logo,
+    handleAddPayment,
+    handleCancel,
+    handleDelete,
+    handleEdit,
+    handleChange,
+    handleChangeImg,
+    handleSumbitAdd,
+    handleSubmitEdit,
+  } = props;
   return (
     <>
-      <div className="bg-white rounded-lg drop-shadow">
-        <div className="flex p-4 justify-between">
-          <label className="font-bold">Payment Gateway</label>
+      <Modal
+        title="Buat Payment Method"
+        open={isOpenAdd}
+        onCancel={handleCancel}
+        className="text-black"
+        footer=""
+      >
+        <FormAddPayment
+          file={file}
+          handleChangeImg={handleChangeImg}
+          onFinish={handleSumbitAdd}
+          handleChange={handleChange}
+          form={formAdd}
+        />
+      </Modal>
+      <Modal
+        title="Edit Payment Method"
+        open={isOpenEdit}
+        onCancel={handleCancel}
+        className="text-black"
+        footer=""
+      >
+        <FormEditPayment
+          file={logo}
+          handleChangeImg={handleChangeImg}
+          onFinish={handleSubmitEdit}
+          handleChange={handleChange}
+          form={formEdit}
+        />
+      </Modal>
+      <div className="bg-white rounded-lg p-4 drop-shadow">
+        <div className="flex justify-between">
+          <label className="font-bold">Data Jenjang</label>
+          <Button onClick={handleAddPayment}>Tambahkan Jenjang</Button>
         </div>
 
         <Table
@@ -36,6 +105,9 @@ export default function TablePayments(props: IProps) {
             </TableColumn>
             <TableColumn align="center" className="" scope="col">
               Provider
+            </TableColumn>
+            <TableColumn align="center" className="" scope="col">
+              Group
             </TableColumn>
             <TableColumn align="center" scope="col">
               Code
@@ -73,6 +145,9 @@ export default function TablePayments(props: IProps) {
                 <TableCell className="text-start" data-label="provider">
                   {data.provider}
                 </TableCell>
+                <TableCell className="text-start" data-label="provider">
+                  {data.group}
+                </TableCell>
                 <TableCell data-label="code">{data.code}</TableCell>
                 <TableCell data-label="fee_flat">{data.fee_flat}</TableCell>
                 <TableCell data-label="fee_percentage">
@@ -81,24 +156,21 @@ export default function TablePayments(props: IProps) {
                 <TableCell data-label="min_amount">{data.min_amount}</TableCell>
                 <TableCell data-label="max_amount">{data.max_amount}</TableCell>
                 <TableCell data-label="is_active">{`${data.is_active}`}</TableCell>
-                <TableCell
-                  data-label="Actions"
-                  className={` text-center flex items-center justify-center gap-2 font-bold`}
-                  scope="col"
-                >
-                  action
-                  {/* <Link
-                  className="flex items-center gap-2 p-2 mb-2 mr-2 text-sm font-bold text-center duration-500 rounded-full border-1 w-fit hover:text-white hover:bg-brand focus:outline-none focus:ring-red-300 "
-                  href={ROUTES.PARTICIPANT_EDIT + "/" + data.id}
-                >
-                  <AiTwotoneEdit />
-                </Link>
-                <button
-                  onClick={() => setIsModal(true)}
-                  className="flex items-center gap-2 p-2 mb-2 mr-2 text-sm font-bold text-center text-red-600 duration-500 rounded-full border-1 hover:text-white hover:bg-red-600 focus:outline-none focus:ring-red-300"
-                >
-                  <MdOutlineDelete />
-                </button> */}
+                <TableCell data-label="Actions" className="">
+                  <div className=" flex items-center h-full justify-center gap-2 font-bold">
+                    <button
+                      className="flex items-center gap-2 p-2 mb-2 mr-2 text-sm font-bold text-center duration-500 rounded-full border-1 w-fit hover:text-white hover:bg-brand focus:outline-none focus:ring-red-300 "
+                      onClick={() => handleEdit(data.id)}
+                    >
+                      <AiTwotoneEdit />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(data.id)}
+                      className="flex items-center gap-2 p-2 mb-2 mr-2 text-sm font-bold text-center text-red-600 duration-500 rounded-full border-1 hover:text-white hover:bg-red-600 focus:outline-none focus:ring-red-300"
+                    >
+                      <MdOutlineDelete />
+                    </button>
+                  </div>
                 </TableCell>
               </TableRow>
             ))}

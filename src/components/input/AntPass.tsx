@@ -10,7 +10,7 @@ interface IAntInput {
   defaultValue?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   className?: string;
-  require?: NodeRequire;
+  require?: boolean;
 }
 
 export default function AntPass(props: IAntInput) {
@@ -22,6 +22,7 @@ export default function AntPass(props: IAntInput) {
     onChange,
     placeholder,
     className,
+    require,
   } = props;
 
   return (
@@ -31,8 +32,8 @@ export default function AntPass(props: IAntInput) {
         name={name}
         rules={[
           {
-            required: true,
-            message: `${name} is required`,
+            required: require !== undefined,
+            message: `Please input ${labelName}!`,
           },
         ]}
       >

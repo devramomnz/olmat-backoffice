@@ -9,16 +9,26 @@ interface IAntSelect {
   placeholder?: string;
   value?: any;
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  require?: boolean;
 }
 
 export default function AntDatePicker(props: IAntSelect) {
-  const { name, placeholder, onChange, labelName } = props;
+  const { name, require, placeholder, onChange, labelName } = props;
   const dateFormat = "YYYY/MM/DD";
   moment.tz.setDefault("Asia/Jakarta");
   return (
     <div>
       <label className="text-sm">{labelName}</label>
-      <Form.Item name={name} className="">
+      <Form.Item
+        name={name}
+        className=""
+        rules={[
+          {
+            required: require !== undefined,
+            message: `Please input ${labelName}!`,
+          },
+        ]}
+      >
         <DatePicker
           //  value={value}
           //  lang="en"

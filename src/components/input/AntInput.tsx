@@ -11,7 +11,7 @@ interface IAntInput {
   disabled?: boolean;
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   className?: string;
-  require?: NodeRequire;
+  require?: boolean;
 }
 
 export default function AntInput(props: IAntInput) {

@@ -10,19 +10,20 @@ interface IEmailInputProps {
   defaultValue?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   className?: string;
-  require?: NodeRequire;
+  require?: boolean;
 }
 
 export function AntEmail(props: IEmailInputProps) {
-  const { name, labelName, value, onChange, placeholder, className } = props;
+  const { name, labelName, value, onChange, require, placeholder, className } =
+    props;
   const emailValidator: Rule[] = [
     {
       pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
       message: "Invalid email address",
     },
     {
-      required: true,
-      message: `${name} is required`,
+      required: require !== undefined,
+      message: `Please input ${labelName}!`,
     },
   ];
 
