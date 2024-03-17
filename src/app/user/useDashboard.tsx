@@ -64,8 +64,6 @@ const useDashboard = () => {
     },
   ];
 
-  console.log("this data", dashData);
-
   async function getParticipants() {
     await api.get("/backoffice/participant?page=1&limit=5000").then((res) => {
       setDashData({ ...dashData, participants: res.data.metadata.total });
@@ -73,13 +71,11 @@ const useDashboard = () => {
   }
   async function getSchools() {
     await api.get("/backoffice/school?page=1&limit=4000").then((res) => {
-      console.log(res.data.metadata.total);
       setDashData({ ...dashData, schools: res.data.metadata.total });
     });
   }
   async function getRegion() {
     await api.get("/backoffice/region?page=1&limit=4000").then((res) => {
-      console.log(res.data.metadata.total);
       setDashData((prev) => ({
         ...prev,
         region: res.data.metadata.total,

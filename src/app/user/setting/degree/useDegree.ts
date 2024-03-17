@@ -31,7 +31,6 @@ export function useDegree() {
     name: "",
     register_price: "",
   });
-  console.log("this", payload);
 
   const payloadDefaultValue: IDegree = {
     id: "",

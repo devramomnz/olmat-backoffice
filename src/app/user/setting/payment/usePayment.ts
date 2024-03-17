@@ -89,9 +89,7 @@ export function usePayment() {
    * CRUD
    */
   async function postToken() {
-    await api
-      .post("/backoffice/settings/xendit", apiPayload)
-      .then((res) => console.log(res.data));
+    await api.post("/backoffice/settings/xendit", apiPayload);
   }
 
   async function getPayments() {
@@ -102,7 +100,6 @@ export function usePayment() {
 
   async function getPaymentById(i: number) {
     await api.get(`/backoffice/payment-gateway/${i}`).then((res) => {
-      console.log(res);
       setPayPayload(res.data);
       setLogo({
         ...logo,
@@ -135,9 +132,8 @@ export function usePayment() {
         postPayload.append("img", file.originFileObj);
       });
 
-      await api.post("/backoffice/payment-gateway", postPayload).then((res) => {
+      await api.post("/backoffice/payment-gateway", postPayload).then(() => {
         setIsSuccess(true, "Berhasil Menambahkan Payment Gateway");
-        console.log(res);
         setIsButtonLoading(false);
         handleCancel();
         getPayments();
@@ -152,8 +148,7 @@ export function usePayment() {
     setIsButtonLoading(true);
     await api
       .delete(`/backoffice/payment-gateway/${i}`)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         setIsSuccess(true, "Berhasil hapus payment method");
         setIsButtonLoading(false);
         getPayments();
@@ -171,7 +166,6 @@ export function usePayment() {
   function handleChangeApi(
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
-    console.log(e);
     setApiPayload({ ...apiPayload, [e.target.name]: e.target.value });
   }
 
@@ -209,7 +203,6 @@ export function usePayment() {
   }
 
   function handleDeletePayment(i: number) {
-    console.log(i);
     Swal.fire({
       title: "Apakah kamu yakin ?",
       showCancelButton: true,

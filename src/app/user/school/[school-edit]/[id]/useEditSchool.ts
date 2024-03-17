@@ -1,49 +1,57 @@
 import api from "@/config/axiosConfig";
 import useSecurePage from "@/hooks/useSecurePage";
+import { ISchool } from "@/interfaces/ISchool";
 import { Form } from "antd";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 interface IOptions {
   province: { label: string; value: string }[];
   city: { label: string; value: string }[];
   subdistrict: { label: string; value: string }[];
-  degree: { label: string; value: string }[];
-}
-
-interface ISchool {
-  province_id: string;
-  city_id: string;
-  subdistrict_id: number;
-  address: string;
-  degree_id: string;
-  name: string;
-  email: string;
-  phone: string;
-  whatsapp: string;
+  degree?: { label: string; value: string }[];
 }
 
 const useEditSchool = () => {
+  /**
+   * HOOK
+   */
   const routerParams = useParams();
   const id = routerParams.id;
   const { securePage } = useSecurePage(3);
   const [form] = Form.useForm();
 
+  /**
+   * STATE
+   */
+
   const [payload, setPayload] = useState<ISchool>({
-    province_id: "",
-    city_id: "",
-    subdistrict_id: 0,
-    address: "",
-    degree_id: "",
     name: "",
+    degree: "",
+    region: "",
     email: "",
     phone: "",
+    status: "",
     whatsapp: "",
+    province: "",
+    city: "",
+    subdistrict: 0,
+    address: "",
+    is_accept: true,
   });
 
+  /**
+   * CRUD
+   */
+
   async function getSchoolById() {
-    await api.patch(`/backoffice/school/accept/${id}`).then((res) => {
-      console.log("this response", res.data);
+    await api.get(`/backoffice/school/${id}`).then((res) => {
+      setPayload(res.data);
+      form.setFieldsValue(res.data);
+      form.setFieldValue("degree", res.data.degree.name);
+      form.setFieldValue("province", res.data.province.id);
+      form.setFieldValue("city", res.data.city.name);
+      form.setFieldValue("subdistrict", res.data.subdistrict.name);
     });
   }
 
@@ -51,12 +59,21 @@ const useEditSchool = () => {
     province: [{ label: "", value: "" }],
     city: [{ label: "", value: "" }],
     subdistrict: [{ label: "", value: "" }],
-    degree: [
-      { label: "SD/MI", value: "004" },
-      { label: "SMP/MTs", value: "002" },
-      { label: "SMA/MA", value: "001" },
-    ],
   });
+
+  const [degreeOptions, setDegreeOptions] = useState<
+    { label: ""; value: "" }[]
+  >([]);
+
+  async function getDegree() {
+    await api.get(`/backoffice/degree`).then((res) => {
+      const Options = res.data.map((deg: any) => ({
+        value: `${deg.id}`,
+        label: deg.name,
+      }));
+      setDegreeOptions(Options);
+    });
+  }
 
   async function getProvince() {
     await api.get("/location-api/province").then((res) => {
@@ -87,31 +104,54 @@ const useEditSchool = () => {
     });
   }
 
+  /**
+   * HANDLE CHANGE
+   */
+
   function handleOptionSelect(name: string, e: any) {
     if (name === "province") {
-      setPayload({ ...payload, province_id: e });
+      setPayload({ ...payload, province: e });
       getCity(e);
+      form.setFieldValue("city", "");
+      form.setFieldValue("subdistrict", "");
+      setPayload({ ...payload, city: "" });
+      setPayload({ ...payload, subdistrict: 0 });
     }
     if (name === "city") {
-      setPayload({ ...payload, city_id: e });
+      setPayload({ ...payload, city: e });
       getSubdistrict(e);
+      form.setFieldValue("subdistrict", "");
+      setPayload({ ...payload, subdistrict: 0 });
     }
     if (name === "subdistrict") {
-      setPayload({ ...payload, subdistrict_id: e });
-      // getDegree();
+      setPayload({ ...payload, subdistrict: e });
     }
     if (name === "degree") {
-      setPayload({ ...payload, degree_id: e });
+      setPayload({ ...payload, degree: e });
       // getDegree();
     }
+  }
+
+  function handleChangeInput(
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    setPayload({ ...payload, [e.target.name]: e.target.value });
   }
 
   useEffect(() => {
     securePage();
     getProvince();
+    getDegree();
     getSchoolById();
   }, []);
 
-  return { form, option, handleOptionSelect };
+  return {
+    form,
+    payload,
+    option,
+    degreeOptions,
+    handleOptionSelect,
+    handleChangeInput,
+  };
 };
 export default useEditSchool;

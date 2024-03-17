@@ -11,42 +11,75 @@ import useEditSchool from "./useEditSchool";
 import { IoSchool } from "react-icons/io5";
 
 export default function SchoolData() {
-  const { form, option, handleOptionSelect } = useEditSchool();
+  const {
+    form,
+    payload,
+    option,
+    degreeOptions,
+    handleOptionSelect,
+    handleChangeInput,
+  } = useEditSchool();
   return (
     <>
       <label className="font-bold flex items-center gap-2 text-xl">
         <IoSchool />
-        SMA SURABAY
+        {payload.name === "" ? "Sekolah" : `${payload.name}`}
       </label>
       <Form form={form} className="bg-white w-full text-lg p-3 rounded-md mt-3">
         <div className="grid md:grid-cols-2 gap-5">
-          <AntInput name="name" labelName="Nama Sekolah" />
+          <AntInput
+            onChange={handleChangeInput}
+            name="name"
+            require
+            labelName="Nama Sekolah"
+          />
           <AntItemSelect
+            require
             onChange={(e) => handleOptionSelect("degree", e)}
             name="degree"
+            // value={payload.degree}
+            option={degreeOptions}
             labelName="Pilih Jenjang"
           />
-          <AntEmail name="email" labelName="Email Sekolah" />
-          <AntInput name="phone" labelName="No Tlp Sekolah" />
+          <AntEmail
+            require
+            onChange={handleChangeInput}
+            name="email"
+            labelName="Email Sekolah"
+          />
+          <AntInput
+            require
+            onChange={handleChangeInput}
+            name="phone"
+            labelName="No Tlp Sekolah"
+          />
           <AntItemSelect
+            require
             onChange={(e) => handleOptionSelect("province", e)}
             name="province"
             option={option.province}
             labelName="Provinsi"
           />
           <AntItemSelect
+            require
             onChange={(e) => handleOptionSelect("city", e)}
             name="city"
             option={option.city}
             labelName="Kota"
           />
           <AntItemSelect
+            require
             onChange={(e) => handleOptionSelect("subdistrict", e)}
             name="subdistrict"
             option={option.subdistrict}
             labelName="Kecamatan"
           />
-          <AntText name="address" labelName="Alamat Lengkap" />
+          <AntText
+            require
+            onChange={handleChangeInput}
+            name="address"
+            labelName="Alamat Lengkap"
+          />
         </div>
         <Button className="">Selesai</Button>
       </Form>

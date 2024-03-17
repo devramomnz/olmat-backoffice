@@ -1,12 +1,15 @@
 export interface ISchool {
-  id: number;
+  id?: number;
   name: string;
-  address: string;
+  degree: string;
+  region: string;
   email: string;
   phone: string;
   whatsapp: string;
   status: string;
   is_accept: boolean;
-  city?: string;
-  region?: string;
+  province: string;
+  city: string;
+  subdistrict: number;
+  address: string;
 }

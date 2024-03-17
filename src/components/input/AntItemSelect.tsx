@@ -23,7 +23,7 @@ export default function AntItemSelect(props: IAntSelect) {
             message: `Please input ${labelName}!`,
           },
         ]}
-        hasFeedback
+        // hasFeedback
         name={name}
       >
         <Select

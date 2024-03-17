@@ -1,16 +1,13 @@
 "use client";
 
-import React, { useEffect } from "react";
-import TablePeserta from "./TablePeserta";
+import React from "react";
+import TablePeserta from "./components/TablePeserta";
 import Search from "antd/es/input/Search";
 import Button from "@/components/button/Button";
-import useSecurePage from "@/hooks/useSecurePage";
+import useParticipant from "./useParticipant";
 
 export default function Peserta() {
-  const { securePage } = useSecurePage(2);
-  useEffect(() => {
-    securePage();
-  }, []);
+  const { isModal, participants, permissions, setIsModal } = useParticipant();
   return (
     <>
       <label className="font-bold">Data Peserta</label>
@@ -19,7 +16,12 @@ export default function Peserta() {
           <Search placeholder="cari" style={{ width: 200 }} className="" />
           <Button className="text-xs text-nowrap">Export Excel</Button>
         </div>
-        <TablePeserta />
+        <TablePeserta
+          isModal={isModal}
+          setIsModal={setIsModal}
+          permissions={permissions}
+          participants={participants}
+        />
       </div>
     </>
   );

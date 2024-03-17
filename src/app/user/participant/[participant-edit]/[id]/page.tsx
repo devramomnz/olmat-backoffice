@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useEditPeserta } from "./useEditPeserta";
-import FormDaftar from "./FormDaftar";
+import FormDaftar from "../../components/FormDaftar";
 
 export default function EditPeserta() {
   const {

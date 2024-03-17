@@ -20,6 +20,7 @@ import { PERMISSIONS } from "@/enum/permission.enum";
 export default function TableSekolah() {
   const { permissions } = useLayout();
   const { schoolData } = useSchool();
+
   return (
     <div className="bg-white p-3 rounded-md">
       <div className="flex justify-between">
@@ -46,9 +47,12 @@ export default function TableSekolah() {
             <TableColumn align="center" scope="col">
               Nama Sekolah
             </TableColumn>
-            {/* <TableColumn align="center" scope="col">
+            <TableColumn align="center" scope="col">
               Jenjang
-            </TableColumn> */}
+            </TableColumn>
+            <TableColumn align="center" scope="col">
+              Rayon
+            </TableColumn>
             <TableColumn align="center" className="" scope="col">
               Email
             </TableColumn>
@@ -62,10 +66,13 @@ export default function TableSekolah() {
               Status
             </TableColumn>
             <TableColumn align="center" className="" scope="col">
-              Rayon
+              Provinsi
             </TableColumn>
             <TableColumn align="center" scope="col">
               Kab/Kota
+            </TableColumn>
+            <TableColumn align="center" scope="col">
+              Kecamatan
             </TableColumn>
             <TableColumn
               align="center"
@@ -81,16 +88,18 @@ export default function TableSekolah() {
             {schoolData?.map((data, i) => (
               <TableRow key={i}>
                 <TableCell data-label="No">{i + 1}</TableCell>
-                <TableCell className="text-start" data-label="nama_peserta">
+                <TableCell className="text-start" data-label="name">
                   {data.name}
                 </TableCell>
-                {/* <TableCell data-label="jenjang">{data.}</TableCell> */}
+                <TableCell data-label="degree_id">{data.degree_id}</TableCell>
+                <TableCell data-label="region">{data.region}</TableCell>
                 <TableCell data-label="email">{data.email}</TableCell>
-                <TableCell data-label="rayon">{data.phone}</TableCell>
-                <TableCell data-label="kota">{data.whatsapp}</TableCell>
-                <TableCell data-label="kecamatan">{data.status}</TableCell>
-                <TableCell data-label="kecamatan">{data.region}</TableCell>
-                <TableCell data-label="kecamatan">{data.city}</TableCell>
+                <TableCell data-label="phone">{data.phone}</TableCell>
+                <TableCell data-label="whatsapp">{data.whatsapp}</TableCell>
+                <TableCell data-label="status">{data.status}</TableCell>
+                <TableCell data-label="province">{data.province_id}</TableCell>
+                <TableCell data-label="city">{data.city_id}</TableCell>
+                <TableCell data-label="city">{data.subdistrict_id}</TableCell>
                 <TableCell
                   data-label="Actions"
                   className={`${

@@ -7,32 +7,40 @@ const useSchool = () => {
     {
       id: 0,
       name: "",
+      degree: "",
+      region: "",
       address: "",
       email: "",
       phone: "",
       whatsapp: "",
       status: "",
       is_accept: true,
+      province: "",
       city: "",
-      region: "",
+      subdistrict: 0,
     },
   ]);
 
   async function getSchool() {
     await api.get("/backoffice/school?page=1&limit=10").then((res) => {
-      const school = Object.values(res.data.data).map((sch: any) => ({
-        id: sch.id,
-        name: sch.name,
-        address: sch.address,
-        email: sch.email,
-        phone: sch.phone,
-        whatsapp: sch.whatsapp,
-        status: sch.status,
-        is_accept: sch.is_accept,
-        city: sch.city.name,
-        region: sch.city.region.name,
-      }));
-      setSchoolData(() => [...school]);
+      const school: ISchool[] = Object.values(res.data.data).map(
+        (sch: any) => ({
+          id: sch.id,
+          name: sch.name,
+          degree: sch.degree.name,
+          status: sch.status,
+          is_accept: sch.is_accept,
+          email: sch.email,
+          phone: sch.phone,
+          whatsapp: sch.whatsapp,
+          province: sch.province.name,
+          city: sch.city.name,
+          subdistrict: sch.subdistrict.name,
+          address: sch.address,
+          region: sch.city.region.name,
+        })
+      );
+      setSchoolData(school);
     });
   }
 

@@ -1,6 +1,6 @@
 import Button from "@/components/button/Button";
 import { PERMISSIONS } from "@/enum/permission.enum";
-import { useLayout } from "@/hooks/zustand/layout";
+import { IParticipant } from "@/interfaces/IPeserta";
 import { ROUTES } from "@/prefix/route.constant";
 import {
   Table,
@@ -12,52 +12,19 @@ import {
 } from "@nextui-org/react";
 import { Modal } from "antd";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import { AiTwotoneEdit } from "react-icons/ai";
 import { MdOutlineDelete } from "react-icons/md";
 
-export default function TablePeserta() {
-  const { permissions } = useLayout();
-  const [isModal, setIsModal] = useState(false);
+interface IProps {
+  permissions: any;
+  isModal: any;
+  participants: IParticipant[];
+  setIsModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-  const dataPeserta = [
-    {
-      id: 0,
-      nama_peserta: "JohnDoe",
-      jenis_kelamin: "laki-laki",
-      no_tlp: 324698924869,
-      email: "a@b.com",
-      sekolah: "MA Sby",
-      rayon: "ssurabayah",
-    },
-    {
-      id: 1,
-      nama_peserta: "John",
-      sekolah: "MA Sby",
-      rayon: "ssurabayah",
-      jenis_kelamin: "laki-laki",
-      no_tlp: 32,
-      email: "a@b.com",
-    },
-    {
-      id: 2,
-      nama_peserta: "John",
-      sekolah: "MA Sby",
-      rayon: "ssurabayah",
-      jenis_kelamin: "laki-laki",
-      no_tlp: 3232532632632,
-      email: "a@b.com",
-    },
-    {
-      id: 3,
-      nama_peserta: "John",
-      sekolah: "MA Sby",
-      rayon: "ssurabayah",
-      jenis_kelamin: "laki-laki",
-      no_tlp: 32,
-      email: "a@b.com",
-    },
-  ];
+export default function TablePeserta(props: IProps) {
+  const { isModal, permissions, participants, setIsModal } = props;
 
   // const pages = Math.ceil(dataPeserta.length / rowsPerPage);
   //   const end = start + rowsPerPage;
@@ -105,10 +72,10 @@ export default function TablePeserta() {
             Nama Peserta
           </TableColumn>
           <TableColumn align="center" className="" scope="col">
-            Sekolah
+            Jenjang
           </TableColumn>
-          <TableColumn align="center" scope="col">
-            Rayon
+          <TableColumn align="center" className="" scope="col">
+            Sekolah
           </TableColumn>
           <TableColumn align="center" scope="col">
             Jenis Kelamin
@@ -118,6 +85,9 @@ export default function TablePeserta() {
           </TableColumn>
           <TableColumn align="center" scope="col">
             Email
+          </TableColumn>
+          <TableColumn align="center" scope="col">
+            Status
           </TableColumn>
           <TableColumn
             align="center"
@@ -130,21 +100,22 @@ export default function TablePeserta() {
           </TableColumn>
         </TableHeader>
         <TableBody className="">
-          {dataPeserta?.map((data, i) => (
+          {participants?.map((data, i) => (
             <TableRow key={i}>
               <TableCell data-label="No">{i + 1}</TableCell>
-              <TableCell className="text-start" data-label="nama_peserta">
-                {data.nama_peserta}
+              <TableCell className="text-start" data-label="name">
+                {data.name}
               </TableCell>
-              <TableCell className="text-start" data-label="sekolah">
-                {data.sekolah}
+              <TableCell className="text-start" data-label="school">
+                {data.school}
               </TableCell>
-              <TableCell data-label="jenis_kelamin">
-                {data.jenis_kelamin}
+              <TableCell className="text-start" data-label="region">
+                {data.region}
               </TableCell>
-              <TableCell data-label="rayon">{data.rayon}</TableCell>
-              <TableCell data-label="no_tlp">{data.no_tlp}</TableCell>
+              <TableCell data-label="gender">{data.gender}</TableCell>
+              <TableCell data-label="phone">{data.phone}</TableCell>
               <TableCell data-label="email">{data.email}</TableCell>
+              <TableCell data-label="status">{data.status}</TableCell>
               <TableCell
                 data-label="Actions"
                 className={`${
