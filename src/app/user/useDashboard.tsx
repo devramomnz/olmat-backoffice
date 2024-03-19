@@ -15,71 +15,59 @@ interface IDashboard {
 }
 
 interface IDashData {
-  incomes: number;
-  participants: number;
-  schools: number;
-  canceled: number;
-  region: number;
+  total_pendapatan: any;
+  total_sekolah: string;
+  total_peserta: string;
+  total_peserta_cancel: string;
+  total_region: string;
 }
 
 const useDashboard = () => {
   const [dashData, setDashData] = useState<IDashData>({
-    incomes: 0,
-    participants: 0,
-    schools: 0,
-    canceled: 0,
-    region: 0,
+    total_pendapatan: null,
+    total_sekolah: "1",
+    total_peserta: "0",
+    total_peserta_cancel: "0",
+    total_region: "18",
   });
 
   const DASHBOARD: IDashboard[] = [
     {
       icon: <FaMoneyBillTrendUp />,
       name: "Total Pendapatan",
-      value: convertRupiah(dashData.incomes),
+      value: convertRupiah(dashData.total_pendapatan),
       route: ROUTES.TRANSACTION,
     },
     {
       icon: <PiStudentFill />,
       name: "Total Peserta",
-      value: dashData.participants,
+      value: dashData.total_peserta,
       route: ROUTES.PARTICIPANT,
     },
     {
       icon: <IoSchool />,
       name: "Total Sekolah",
-      value: dashData.schools,
+      value: dashData.total_sekolah,
       route: ROUTES.SCHOOL,
     },
     {
       icon: <ImCancelCircle />,
       name: "Total Pembatalan",
-      value: 1000,
+      value: dashData.total_peserta_cancel,
       route: ROUTES.PARTICIPANT,
     },
     {
       icon: <ImCancelCircle />,
       name: "Total Rayon",
-      value: dashData.region,
+      value: dashData.total_region,
       route: ROUTES.REGION,
     },
   ];
 
-  async function getParticipants() {
-    await api.get("/backoffice/participant?page=1&limit=5000").then((res) => {
-      setDashData({ ...dashData, participants: res.data.metadata.total });
-    });
-  }
-  async function getSchools() {
-    await api.get("/backoffice/school?page=1&limit=4000").then((res) => {
-      setDashData({ ...dashData, schools: res.data.metadata.total });
-    });
-  }
-  async function getRegion() {
-    await api.get("/backoffice/region?page=1&limit=4000").then((res) => {
-      setDashData((prev) => ({
-        ...prev,
-        region: res.data.metadata.total,
-      }));
+  async function getDashboardData() {
+    await api.get("/backoffice/dashboard").then((res) => {
+      console.log(res.data);
+      setDashData(res.data[0]);
     });
   }
 
@@ -93,9 +81,7 @@ const useDashboard = () => {
   //   });
 
   useEffect(() => {
-    getParticipants();
-    getSchools();
-    getRegion();
+    getDashboardData();
   }, []);
 
   return { DASHBOARD, dashData };

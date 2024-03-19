@@ -18,20 +18,21 @@ export default function SchoolDetail() {
           SMA SURABAY
         </label>
         <Form
+          disabled
           onFinish={handleAcceptSchool}
           contentEditable={false}
           form={form}
           className="bg-white w-full text-lg p-3 rounded-md mt-1"
         >
           <div className="grid md:grid-cols-2 gap-3 ">
-            <AntInput labelName="Nama Sekolah" />
-            <AntInput labelName="Jenjang" />
-            <AntInput labelName="Email Sekolah" />
-            <AntInput labelName="No Tlp Sekolah" />
-            <AntText labelName="Alamat Lengkap" />
-            <AntInput labelName="Kecamatan" />
-            <AntInput labelName="Kota" />
-            <AntInput labelName="Provinsi" />
+            <AntInput name="name" labelName="Nama Sekolah" />
+            <AntInput name="degree" labelName="Jenjang" />
+            <AntInput name="email" labelName="Email Sekolah" />
+            <AntInput name="phone" labelName="No Tlp Sekolah" />
+            <AntText name="address" labelName="Alamat Lengkap" />
+            <AntInput name="subdistrict" labelName="Kecamatan" />
+            <AntInput name="city" labelName="Kota" />
+            <AntInput name="province" labelName="Provinsi" />
           </div>
           <div className="w-full flex justify-center">
             <Button onClick={handleAcceptSchool}>Terima</Button>

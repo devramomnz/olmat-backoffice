@@ -15,6 +15,8 @@ const useWaitingSchool = () => {
   const { setIsButtonLoading } = useButtonLoading();
   const [form] = Form.useForm();
 
+  console.log(id);
+
   const [waitingData, setWaitingData] = useState<ISchool[]>([
     {
       id: 0,
@@ -27,6 +29,9 @@ const useWaitingSchool = () => {
       is_accept: true,
       city: "",
       region: "",
+      degree: "",
+      province: "",
+      subdistrict: 0,
     },
   ]);
 
@@ -52,6 +57,7 @@ const useWaitingSchool = () => {
     await api
       .get("/backoffice/school/request-lists?page=1&limit=20")
       .then((res) => {
+        console.log(res.data);
         const school = Object.values(res.data.data).map((sch: any) => ({
           id: sch.id,
           name: sch.name,
@@ -63,10 +69,22 @@ const useWaitingSchool = () => {
           is_accept: sch.is_accept,
           city: sch.city.name,
           region: sch.city.region.name,
+          degree: "", // Add default value for missing properties
+          province: "",
+          subdistrict: 0,
         }));
+        // form.setFields(school);
 
-        setWaitingData([...school]);
+        setWaitingData(school);
       });
+  }
+
+  async function getSchoolById() {
+    await api.get(`/backoffice/school/${id}`).then((res) => {
+      console.log(res.data);
+      form.setFieldsValue(res.data);
+      form.setFieldValue("degree", res.data.degree.name);
+    });
   }
 
   function handleAcceptSchool() {
@@ -75,6 +93,9 @@ const useWaitingSchool = () => {
 
   useEffect(() => {
     getWaitingSchool();
+    if (id !== undefined) {
+      getSchoolById();
+    }
   }, []);
 
   return { waitingData, form, handleAcceptSchool };
