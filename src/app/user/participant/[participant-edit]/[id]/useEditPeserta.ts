@@ -1,23 +1,24 @@
-import { IPeserta } from "@/interfaces/IPeserta";
 import { UploadFile } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { ChangeEvent, useEffect, useState } from "react";
 import dayjs from "dayjs";
 import useSecurePage from "@/hooks/useSecurePage";
+import { IParticipant } from "@/interfaces/IParticipant";
 
 export function useEditPeserta() {
   const { securePage } = useSecurePage(3);
-  const [payload, setPayload] = useState<IPeserta[]>([
+  const [payload, setPayload] = useState<IParticipant[]>([
     {
-      payment_id: 0,
-      school_id: 0,
       name: "",
       gender: "Pilih Jenis Kelamin",
-      telepon: "",
       email: "",
       birthday: "",
-      picture: "",
-      attachment: "",
+      status: "",
+      phone: "",
+      region: "",
+      school: 0,
+      img: [],
+      attachment: [],
     },
   ]);
   const [iPayload, setIPayload] = useState<number>(0);
@@ -73,7 +74,7 @@ export function useEditPeserta() {
       const updateImage = [...prev];
       updateImage[i] = {
         ...updateImage[i],
-        picture: e.file,
+        img: e.file,
       };
       return updateImage;
     });
@@ -94,22 +95,23 @@ export function useEditPeserta() {
     // form.setFieldsValue(payload[i]);
     form.setFieldValue("gender", payload[i].gender);
     form.setFieldValue("email", payload[i].email);
-    form.setFieldValue("telepon", payload[i].telepon);
-    form.setFieldValue("picture", payload[i].picture);
+    form.setFieldValue("telepon", payload[i].phone);
+    form.setFieldValue("picture", payload[i].img);
     form.setFieldValue("attachment", payload[i].attachment);
   }
 
   function handleAddMore() {
-    const newPeserta: IPeserta = {
-      payment_id: 0,
-      school_id: 0,
+    const newPeserta: IParticipant = {
       name: "",
       gender: "Pilih Jenis Kelamin",
-      telepon: "",
       email: "",
       birthday: "",
-      picture: "",
-      attachment: "",
+      status: "",
+      phone: "",
+      region: "",
+      school: 0,
+      img: [],
+      attachment: [],
     };
 
     setPayload((prev) => [...prev, newPeserta]);

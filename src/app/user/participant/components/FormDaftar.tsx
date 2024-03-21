@@ -3,13 +3,13 @@ import AntEmail from "@/components/input/AntEmail";
 import AntInput from "@/components/input/AntInput";
 import AntItemSelect from "@/components/input/AntItemSelect";
 import AntUpload from "@/components/input/AntUpload";
-import { IPeserta } from "@/interfaces/IPeserta";
+import { IParticipant } from "@/interfaces/IParticipant";
 import { Form } from "antd";
 import React, { ChangeEvent } from "react";
 
 interface IProps {
   form: any;
-  payload: IPeserta[];
+  payload: IParticipant[];
   iPayload: number;
   genderOption: any;
   filePicture: any;

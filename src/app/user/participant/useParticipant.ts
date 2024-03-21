@@ -1,7 +1,7 @@
 import api from "@/config/axiosConfig";
 import useSecurePage from "@/hooks/useSecurePage";
 import { useLayout } from "@/hooks/zustand/layout";
-import { IParticipant } from "@/interfaces/IPeserta";
+import { IParticipant } from "@/interfaces/IParticipant";
 import { useEffect, useState } from "react";
 
 export default function useParticipant() {
@@ -26,8 +26,8 @@ export default function useParticipant() {
       phone: "",
       email: "",
       birthday: "",
-      img: "",
-      attachment: "",
+      img: [],
+      attachment: [],
     },
   ]);
 

@@ -8,6 +8,6 @@ export interface IParticipant {
   phone: string;
   email: string;
   birthday: string;
-  img: string;
-  attachment: string;
+  img: any[];
+  attachment: any[];
 }

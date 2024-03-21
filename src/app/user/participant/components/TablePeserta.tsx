@@ -1,6 +1,6 @@
 import Button from "@/components/button/Button";
 import { PERMISSIONS } from "@/enum/permission.enum";
-import { IParticipant } from "@/interfaces/IPeserta";
+import { IParticipant } from "@/interfaces/IParticipant";
 import { ROUTES } from "@/prefix/route.constant";
 import {
   Table,

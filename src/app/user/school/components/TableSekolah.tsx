@@ -91,15 +91,15 @@ export default function TableSekolah() {
                 <TableCell className="text-start" data-label="name">
                   {data.name}
                 </TableCell>
-                <TableCell data-label="degree_id">{data.degree_id}</TableCell>
+                <TableCell data-label="degree_id">{data.degree}</TableCell>
                 <TableCell data-label="region">{data.region}</TableCell>
                 <TableCell data-label="email">{data.email}</TableCell>
                 <TableCell data-label="phone">{data.phone}</TableCell>
                 <TableCell data-label="whatsapp">{data.whatsapp}</TableCell>
                 <TableCell data-label="status">{data.status}</TableCell>
-                <TableCell data-label="province">{data.province_id}</TableCell>
-                <TableCell data-label="city">{data.city_id}</TableCell>
-                <TableCell data-label="city">{data.subdistrict_id}</TableCell>
+                <TableCell data-label="province">{data.province}</TableCell>
+                <TableCell data-label="city">{data.city}</TableCell>
+                <TableCell data-label="city">{data.subdistrict}</TableCell>
                 <TableCell
                   data-label="Actions"
                   className={`${
