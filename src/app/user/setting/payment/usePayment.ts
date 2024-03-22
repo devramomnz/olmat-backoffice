@@ -97,6 +97,7 @@ export function usePayment() {
       form.resetFields();
     } catch (error) {
       setIsButtonLoading(false);
+      setError(true, "Gagal Menambahkan API TOKEN");
     }
   }
 
