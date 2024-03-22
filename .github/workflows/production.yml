@@ -13,9 +13,9 @@ jobs:
       - name: Deploy Production
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.SSH_HOSTNAME_BBIZ }}
-          username: ${{ secrets.SSH_USERNAME_BBIZ }}
-          password: ${{ secrets.SSH_PASSWORD_BBIZ }}
+          host: ${{ secrets.SSH_HOSTNAME }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
           script: |
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
