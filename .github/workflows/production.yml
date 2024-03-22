@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy Prod Daftar
+      - name: Deploy Prod Olim
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOSTNAME }}
