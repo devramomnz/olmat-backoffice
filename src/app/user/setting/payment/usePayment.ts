@@ -89,7 +89,15 @@ export function usePayment() {
    * CRUD
    */
   async function postToken() {
-    await api.post("/backoffice/settings/xendit", apiPayload);
+    setIsButtonLoading(true);
+    try {
+      await api.post("/backoffice/settings/xendit", apiPayload);
+      setIsSuccess(true, "Berhasil Menambahkan API TOKEN");
+      setIsButtonLoading(false);
+      form.resetFields();
+    } catch (error) {
+      setIsButtonLoading(false);
+    }
   }
 
   async function getPayments() {
