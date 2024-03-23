@@ -8,9 +8,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Debug SSH Hostname
-        run: echo "SSH Hostname is ${{ secrets.SSH_HOSTNAME }}"
-
       - name: Deploy OlimBackoffice
         uses: appleboy/ssh-action@master
         with:
@@ -20,7 +17,7 @@ jobs:
           script: |
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            cd /home/cathabot/mine/olmat-backoffice
+            cd /var/www/olmat-backoffice
             git reset --hard
             git pull
             yarn install

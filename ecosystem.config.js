@@ -4,7 +4,7 @@ module.exports = {
       name: "prod-olmat-backoffice",
       script: "yarn",
       args: "start",
-      cwd: "/home/cathabot/mine/olmat-backoffice",
+      cwd: "/var/www/olmat-backoffice",
       instances: 1,
       autorestart: true,
       watch: false,
