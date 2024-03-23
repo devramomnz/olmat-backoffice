@@ -20,7 +20,7 @@ jobs:
           script: |
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            cd /var/www/olmat-backoffice
+            cd /home/cathabot/mine/olmat-backoffice
             git reset --hard
             git pull
             yarn install
