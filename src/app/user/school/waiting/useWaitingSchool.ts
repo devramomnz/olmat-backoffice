@@ -15,8 +15,6 @@ const useWaitingSchool = () => {
   const { setIsButtonLoading } = useButtonLoading();
   const [form] = Form.useForm();
 
-  console.log(id);
-
   const [waitingData, setWaitingData] = useState<ISchool[]>([
     {
       id: 0,
@@ -55,7 +53,7 @@ const useWaitingSchool = () => {
 
   async function getWaitingSchool() {
     await api
-      .get("/backoffice/school/request-lists?page=1&limit=20")
+      .get("/backoffice/school/request-lists?page=1&limit=10")
       .then((res) => {
         console.log(res.data);
         const school = Object.values(res.data.data).map((sch: any) => ({

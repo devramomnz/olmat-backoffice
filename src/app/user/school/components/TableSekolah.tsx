@@ -40,7 +40,7 @@ export default function TableSekolah() {
           isStriped
           className=" text-nowrap w-full min-w-[700px] rounded-lg overflow-hidden"
         >
-          <TableHeader className="bg-brand-dark h-10 text-white text-center">
+          <TableHeader className=" h-10 text-white text-center">
             <TableColumn align="center" scope="col" className="w-[80px]">
               No.
             </TableColumn>
@@ -84,22 +84,42 @@ export default function TableSekolah() {
               Action
             </TableColumn>
           </TableHeader>
-          <TableBody className="">
+          <TableBody className="text-sm">
             {schoolData?.map((data, i) => (
               <TableRow key={i}>
-                <TableCell data-label="No">{i + 1}</TableCell>
-                <TableCell className="text-start" data-label="name">
+                <TableCell data-label="No" className="text-xs">
+                  {i + 1}
+                </TableCell>
+                <TableCell className="text-start text-xs" data-label="name">
                   {data.name}
                 </TableCell>
-                <TableCell data-label="degree_id">{data.degree}</TableCell>
-                <TableCell data-label="region">{data.region}</TableCell>
-                <TableCell data-label="email">{data.email}</TableCell>
-                <TableCell data-label="phone">{data.phone}</TableCell>
-                <TableCell data-label="whatsapp">{data.whatsapp}</TableCell>
-                <TableCell data-label="status">{data.status}</TableCell>
-                <TableCell data-label="province">{data.province}</TableCell>
-                <TableCell data-label="city">{data.city}</TableCell>
-                <TableCell data-label="city">{data.subdistrict}</TableCell>
+                <TableCell className="text-xs" data-label="degree_id">
+                  {data.degree}
+                </TableCell>
+                <TableCell className="text-xs" data-label="region">
+                  {data.region}
+                </TableCell>
+                <TableCell className="text-xs" data-label="email">
+                  {data.email}
+                </TableCell>
+                <TableCell className="text-xs" data-label="phone">
+                  {data.phone}
+                </TableCell>
+                <TableCell className="text-xs" data-label="whatsapp">
+                  {data.whatsapp}
+                </TableCell>
+                <TableCell className="text-xs" data-label="status">
+                  {data.status}
+                </TableCell>
+                <TableCell className="text-xs" data-label="province">
+                  {data.province}
+                </TableCell>
+                <TableCell className="text-xs" data-label="city">
+                  {data.city}
+                </TableCell>
+                <TableCell className="text-xs" data-label="city">
+                  {data.subdistrict}
+                </TableCell>
                 <TableCell
                   data-label="Actions"
                   className={`${

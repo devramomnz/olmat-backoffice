@@ -33,9 +33,9 @@ const useSchool = () => {
           email: sch.email,
           phone: sch.phone,
           whatsapp: sch.whatsapp,
-          province: sch.province.name,
+          province: "",
           city: sch.city.name,
-          subdistrict: sch.subdistrict.name,
+          subdistrict: 0,
           address: sch.address,
           region: sch.city.region.name,
         })

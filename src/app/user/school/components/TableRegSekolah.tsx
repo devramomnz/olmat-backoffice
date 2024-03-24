@@ -11,13 +11,17 @@ import {
 } from "@nextui-org/react";
 import Link from "next/link";
 import React from "react";
-import useWaitingSchool from "../waiting/useWaitingSchool";
 import { useLayout } from "@/hooks/zustand/layout";
 import { PERMISSIONS } from "@/enum/permission.enum";
+import { ISchool } from "@/interfaces/ISchool";
 
-export default function TableRegSekolah() {
+interface IProps {
+  tableData: ISchool[];
+}
+
+export default function TableRegSekolah(props: IProps) {
+  const { tableData } = props;
   const { permissions } = useLayout();
-  const { waitingData } = useWaitingSchool();
 
   return (
     <div className="overflow-x-scroll no-scrollbar">
@@ -32,6 +36,9 @@ export default function TableRegSekolah() {
           </TableColumn>
           <TableColumn align="center" scope="col">
             Nama Sekolah
+          </TableColumn>
+          <TableColumn align="center" className="" scope="col">
+            Jenjang
           </TableColumn>
           <TableColumn align="center" className="" scope="col">
             Rayon
@@ -50,12 +57,13 @@ export default function TableRegSekolah() {
           </TableColumn>
         </TableHeader>
         <TableBody className="">
-          {waitingData?.map((data, i) => (
+          {tableData?.map((data, i) => (
             <TableRow key={i}>
               <TableCell data-label="No">{i + 1}</TableCell>
               <TableCell className="text-start" data-label="name">
                 {data.name}
               </TableCell>
+              <TableCell data-label="degree">{data.degree}</TableCell>
               <TableCell data-label="region">{data.region}</TableCell>
               <TableCell data-label="city">{data.city}</TableCell>
               <TableCell
@@ -78,6 +86,11 @@ export default function TableRegSekolah() {
           ))}
         </TableBody>
       </Table>
+      {tableData.length === 0 && (
+        <h2 className="text-center text-sm text-gray-400 font-bold pb-5">
+          Tidak ada data
+        </h2>
+      )}
     </div>
   );
 }

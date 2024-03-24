@@ -3,7 +3,6 @@
 import Link from "next/link";
 import React from "react";
 import TableRegSekolah from "./school/components/TableRegSekolah";
-import TablePayWaiting from "./components/TablePayWaiting";
 import { ROUTES } from "@/prefix/route.constant";
 import useDashboard from "./useDashboard";
 import { useLayout } from "@/hooks/zustand/layout";
@@ -11,7 +10,7 @@ import { PERMISSIONS } from "@/enum/permission.enum";
 
 export default function Home() {
   const { permissions } = useLayout();
-  const { DASHBOARD } = useDashboard();
+  const { DASHBOARD, waitingData } = useDashboard();
   return (
     <div className="flex flex-col gap-3">
       <label className="font-bold">Dashboard</label>
@@ -42,9 +41,9 @@ export default function Home() {
             </Link>
           )}
         </div>
-        <TableRegSekolah />
+        <TableRegSekolah tableData={waitingData} />
       </div>
-      <TablePayWaiting />
+      {/* <TablePayWaiting /> */}
     </div>
   );
 }

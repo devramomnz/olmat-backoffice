@@ -1,5 +1,6 @@
 import api from "@/config/axiosConfig";
 import { convertRupiah } from "@/helper/common";
+import { ISchool } from "@/interfaces/ISchool";
 import { ROUTES } from "@/prefix/route.constant";
 import { ReactNode, useEffect, useState } from "react";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
@@ -30,6 +31,23 @@ const useDashboard = () => {
     total_peserta_cancel: "0",
     total_region: "18",
   });
+  const [waitingData, setWaitingData] = useState<ISchool[]>([
+    {
+      id: 0,
+      name: "",
+      address: "",
+      email: "",
+      phone: "",
+      whatsapp: "",
+      status: "",
+      is_accept: true,
+      city: "",
+      region: "",
+      degree: "",
+      province: "",
+      subdistrict: 0,
+    },
+  ]);
 
   const DASHBOARD: IDashboard[] = [
     {
@@ -71,6 +89,32 @@ const useDashboard = () => {
     });
   }
 
+  async function getWaitingSchool() {
+    await api
+      .get("/backoffice/school/request-lists?page=1&limit=5")
+      .then((res) => {
+        console.log(res.data);
+        const school = Object.values(res.data.data).map((sch: any) => ({
+          id: sch.id,
+          name: sch.name,
+          address: sch.address,
+          email: sch.email,
+          phone: sch.phone,
+          whatsapp: sch.whatsapp,
+          status: sch.status,
+          is_accept: sch.is_accept,
+          city: sch.city.name,
+          region: sch.city.region.name,
+          degree: "", // Add default value for missing properties
+          province: "",
+          subdistrict: 0,
+        }));
+        // form.setFields(school);
+
+        setWaitingData(school);
+      });
+  }
+
   //  setPayload((prev) => {
   //     const updatedGender = [...prev];
   //     updatedGender[i] = {
@@ -82,9 +126,10 @@ const useDashboard = () => {
 
   useEffect(() => {
     getDashboardData();
+    getWaitingSchool();
   }, []);
 
-  return { DASHBOARD, dashData };
+  return { DASHBOARD, waitingData, dashData };
 };
 
 export default useDashboard;

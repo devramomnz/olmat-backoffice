@@ -1,20 +1,17 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import TablePayWaiting from "../components/TablePayWaiting";
-import useSecurePage from "@/hooks/useSecurePage";
+import useTransaction from "./useTransaction";
 
 export default function Transaction() {
-  const { securePage } = useSecurePage(2);
-  useEffect(() => {
-    securePage();
-  }, []);
+  const { payments } = useTransaction();
 
   return (
     <>
       <label className="font-bold">Dashboard</label>
       <div className="w-full p-4 bg-white mt-5 rounded-md drop-shadow-md">
-        <TablePayWaiting />
+        <TablePayWaiting tableData={payments} />
       </div>
     </>
   );
