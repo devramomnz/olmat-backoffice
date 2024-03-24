@@ -29,10 +29,12 @@ export default function ApiKey(props: IProps) {
             <AntInput
               onChange={handleChange}
               name="apiKey"
+              require
               labelName="Api Key"
             />
             <AntInput
               onChange={handleChange}
+              require
               name="callbackToken"
               labelName="Callback Token"
             />
