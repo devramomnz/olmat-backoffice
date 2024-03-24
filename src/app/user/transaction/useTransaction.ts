@@ -8,12 +8,12 @@ import { useEffect, useState } from "react";
 
 const useTransaction = () => {
   const { securePage } = useSecurePage(2);
-  const [payments, setPayments] = useState([]);
+  const [payments, setPayments] = useState<any[]>([]);
 
   async function getPayments() {
     await api.get(`backoffice/payment?page=1&limit=10`).then((res) => {
       console.log(res);
-      setPayments(res.data);
+      setPayments(res.data.data);
     });
   }
 
