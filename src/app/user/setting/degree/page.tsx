@@ -70,6 +70,8 @@ export default function DegreeSetting() {
           <Table
             aria-label="Peserta Terdaftar"
             isStriped
+            isCompact
+            removeWrapper
             className=" text-nowrap rounded-lg overflow-hidden"
           >
             <TableHeader className="bg-brand-dark h-10 text-white text-center">

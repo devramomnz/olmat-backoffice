@@ -23,11 +23,13 @@ export default function TableUser(props: IProps) {
   const { permissions } = useLayout();
   const { userData } = props;
   return (
-    <div>
+    <div className="bg-white drop-shadow p-3 rounded-lg">
       <>
         <Table
           aria-label="Peserta Terdaftar"
           isStriped
+          isCompact
+          removeWrapper
           className=" text-nowrap w-full min-w-[700px] rounded-lg overflow-hidden"
         >
           <TableHeader className="h-10 text-center text-white bg-brand-dark">

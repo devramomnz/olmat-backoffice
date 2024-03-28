@@ -6,6 +6,7 @@ import { ROUTES } from "@/prefix/route.constant";
 import { GiLevelEndFlag } from "react-icons/gi";
 import { RiSecurePaymentFill } from "react-icons/ri";
 import SettingCard from "./components/SettingCard";
+import { MdOutlineDisplaySettings } from "react-icons/md";
 
 export default function Setting() {
   const setting = [
@@ -13,6 +14,11 @@ export default function Setting() {
       name: "Pengaturan Jenjang",
       icon: <GiLevelEndFlag />,
       route: ROUTES.DEGREE,
+    },
+    {
+      name: "Event Setting",
+      icon: <MdOutlineDisplaySettings />,
+      route: ROUTES.EVENTSETTING,
     },
     {
       name: "Payment Gateway",

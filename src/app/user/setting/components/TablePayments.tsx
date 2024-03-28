@@ -94,6 +94,8 @@ export default function TablePayments(props: IProps) {
         <Table
           aria-label="Peserta Terdaftar"
           isStriped
+          isCompact
+          removeWrapper
           className="text-nowrap w-full rounded-lg overflow-hidden"
         >
           <TableHeader className="h-10 text-center text-white bg-brand-dark">

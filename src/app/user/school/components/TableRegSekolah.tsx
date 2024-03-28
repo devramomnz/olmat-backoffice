@@ -28,6 +28,8 @@ export default function TableRegSekolah(props: IProps) {
       <Table
         aria-label="Peserta Terdaftar"
         isStriped
+        isCompact
+        removeWrapper
         className=" text-nowrap w-full min-w-[700px] rounded-lg overflow-hidden"
       >
         <TableHeader className="bg-brand-dark h-10 text-white text-center">

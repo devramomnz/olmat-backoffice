@@ -14,6 +14,7 @@ export const ROUTES = {
   SETTING: "/user/setting",
   DEGREE: "/user/setting/degree",
   PAYMENT: "/user/setting/payment",
+  EVENTSETTING: "/user/setting/event-setting",
   ADMIN: "/user/admin",
   ADMIN_ROLE: "/user/admin/role",
 };

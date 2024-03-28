@@ -62,6 +62,8 @@ export default function TablePeserta(props: IProps) {
       <Table
         aria-label="Peserta Terdaftar"
         isStriped
+        isCompact
+        removeWrapper
         className=" text-nowrap w-full min-w-[700px] rounded-lg overflow-hidden"
       >
         <TableHeader className="h-10 text-center text-white bg-brand-dark">
@@ -142,6 +144,11 @@ export default function TablePeserta(props: IProps) {
           ))}
         </TableBody>
       </Table>
+      {participants.length < 1 && (
+        <h1 className="text-center text-sm text-gray-400 font-bold pb-5">
+          Tidak ada data
+        </h1>
+      )}
     </>
   );
 }

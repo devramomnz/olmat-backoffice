@@ -15,13 +15,15 @@ interface IProps {
 export default function TablePayWaiting(props: IProps) {
   const { tableData } = props;
   return (
-    <div>
-      <div className="bg-white p-3 rounded-md">
+    <>
+      <div className="bg-white p-1 rounded-md">
         <label>Menunggu Pembayaran</label>
         <div className="overflow-x-scroll no-scrollbar">
           <Table
             aria-label="Peserta Terdaftar"
             isStriped
+            isCompact
+            removeWrapper
             className=" text-nowrap w-full min-w-[700px] rounded-lg overflow-hidden"
           >
             <TableHeader className="bg-brand-dark h-10 text-white text-center">
@@ -59,8 +61,13 @@ export default function TablePayWaiting(props: IProps) {
               ))}
             </TableBody>
           </Table>
+          {tableData.length < 1 && (
+            <h1 className="text-center text-sm text-gray-400 font-bold pb-5">
+              Tidak ada data
+            </h1>
+          )}
         </div>
       </div>
-    </div>
+    </>
   );
 }
