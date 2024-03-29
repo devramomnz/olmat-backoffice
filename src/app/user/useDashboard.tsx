@@ -84,7 +84,6 @@ const useDashboard = () => {
 
   async function getDashboardData() {
     await api.get("/backoffice/dashboard").then((res) => {
-      console.log(res.data);
       setDashData(res.data[0]);
     });
   }
@@ -93,7 +92,6 @@ const useDashboard = () => {
     await api
       .get("/backoffice/school/request-lists?page=1&limit=5")
       .then((res) => {
-        console.log(res.data);
         const school = Object.values(res.data.data).map((sch: any) => ({
           id: sch.id,
           name: sch.name,

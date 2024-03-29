@@ -72,7 +72,39 @@ export function Providers({ children }: { children: React.ReactNode }) {
         easing="ease"
       />
       <Toaster />
-      <ConfigProvider locale={id_ID}>{children}</ConfigProvider>
+      <ConfigProvider
+        theme={{
+          token: {
+            // colorBgBase: "#7FC7D9",
+            // colorFillSecondary: "#0F1035",
+            // colorBorder: "#0F1035",
+            // colorBgContainer: "#0F1035",
+          },
+
+          components: {
+            Button: {
+              // defaultBg: "#0F1035",
+              defaultGhostColor: "#0F1035",
+            },
+            DatePicker: {
+              colorBgContainer: "#0F1035",
+              addonBg: "#0F1035",
+              colorText: "#0F1035",
+              hoverBg: "#0F1035",
+              multipleItemBg: "#0F1035",
+              colorBorderSecondary: "#0F1035",
+              colorFill: "#0F1035",
+              colorFillTertiary: "#0F1035",
+              activeBorderColor: "#0F1035",
+              activeBg: "#0F1035",
+              colorIcon: "#0F1035",
+            },
+          },
+        }}
+        locale={id_ID}
+      >
+        {children}
+      </ConfigProvider>
     </NextUIProvider>
   );
 }

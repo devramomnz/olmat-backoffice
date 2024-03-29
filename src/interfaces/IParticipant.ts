@@ -1,13 +1,14 @@
 export interface IParticipant {
-  id?: number;
+  id?: string;
   status: string;
-  school: number;
-  region: string;
+  school?: number;
+  region?: string;
+  degree?: number;
   name: string;
   gender: string;
   phone: string;
   email: string;
-  birthday: string;
-  img: any[];
-  attachment: any[];
+  birth: string;
+  img?: any[];
+  attachment?: any[];
 }

@@ -2,6 +2,7 @@
 
 import { ROUTES } from "@/prefix/route.constant";
 import {
+  Chip,
   Table,
   TableBody,
   TableCell,
@@ -20,6 +21,16 @@ import { PERMISSIONS } from "@/enum/permission.enum";
 export default function TableSekolah() {
   const { permissions } = useLayout();
   const { schoolData } = useSchool();
+
+  function statusColor(data: string) {
+    if (data === "hitam") {
+      return "default";
+    } else if (data === "putih") {
+      return "secondary";
+    } else if (data === "emas") {
+      return "warning";
+    }
+  }
 
   return (
     <div className="bg-white p-3 rounded-md">
@@ -40,10 +51,10 @@ export default function TableSekolah() {
           isStriped
           isCompact
           removeWrapper
-          className=" text-nowrap w-full min-w-[700px] rounded-lg overflow-hidden"
+          className=" text-nowrap w-full min-w-[700px] rounded-lg "
         >
           <TableHeader className=" h-10 text-white text-center">
-            <TableColumn align="center" scope="col" className="w-[80px]">
+            <TableColumn align="center" scope="col" className="w-[50px]">
               No.
             </TableColumn>
             <TableColumn align="center" scope="col">
@@ -111,7 +122,16 @@ export default function TableSekolah() {
                   {data.whatsapp}
                 </TableCell>
                 <TableCell className="text-xs" data-label="status">
-                  {data.status}
+                  <Chip
+                    variant="flat"
+                    size="sm"
+                    color={statusColor(data.status)}
+                    className={`${statusColor(
+                      data.status
+                    )} px-3 rounded-full font-black w-fit`}
+                  >
+                    {data.status}
+                  </Chip>
                 </TableCell>
                 <TableCell className="text-xs" data-label="province">
                   {data.province}

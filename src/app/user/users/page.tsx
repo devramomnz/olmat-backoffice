@@ -14,7 +14,11 @@ export default function Users() {
   return (
     <div className="flex flex-col gap-3">
       <label className="font-bold">Data User</label>
-      <TableUser userData={usersData} />
+      <div className="overflow-hidden drop-shadow p-3 rounded-lg bg-white">
+        <div className=" overflow-x-scroll no-scrollbar">
+          <TableUser userData={usersData} />
+        </div>
+      </div>
     </div>
   );
 }

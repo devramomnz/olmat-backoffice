@@ -1,4 +1,5 @@
 import Button from "@/components/button/Button";
+import AppChip from "@/components/chip/AppChip";
 import { PERMISSIONS } from "@/enum/permission.enum";
 import { IParticipant } from "@/interfaces/IParticipant";
 import { ROUTES } from "@/prefix/route.constant";
@@ -26,13 +27,13 @@ interface IProps {
 export default function TablePeserta(props: IProps) {
   const { isModal, permissions, participants, setIsModal } = props;
 
-  // const pages = Math.ceil(dataPeserta.length / rowsPerPage);
-  //   const end = start + rowsPerPage;
-
-  // const items = React.useMemo(() => {
-  //   const start = (page - 1) * rowsPerPage;
-  //   return dataPeserta.slice(start, end);
-  // }, [page, dataPeserta]);
+  function genderLabel(data: string) {
+    if (data === "L") {
+      return "Laki-Laki";
+    } else if (data === "P") {
+      return "Perempuan";
+    }
+  }
 
   return (
     <>
@@ -64,7 +65,7 @@ export default function TablePeserta(props: IProps) {
         isStriped
         isCompact
         removeWrapper
-        className=" text-nowrap w-full min-w-[700px] rounded-lg overflow-hidden"
+        className="text-nowrap w-full min-w-[700px] rounded-lg "
       >
         <TableHeader className="h-10 text-center text-white bg-brand-dark">
           <TableColumn align="center" scope="col" className="w-[80px]">
@@ -104,20 +105,30 @@ export default function TablePeserta(props: IProps) {
         <TableBody className="">
           {participants?.map((data, i) => (
             <TableRow key={i}>
-              <TableCell data-label="No">{i + 1}</TableCell>
-              <TableCell className="text-start" data-label="name">
+              <TableCell className="text-xs" data-label="No">
+                {i + 1}
+              </TableCell>
+              <TableCell className="text-xs text-start" data-label="name">
                 {data.name}
               </TableCell>
-              <TableCell className="text-start" data-label="school">
+              <TableCell className="text-start text-xs" data-label="name">
+                {data.degree}
+              </TableCell>
+              <TableCell className="text-start text-xs" data-label="school">
                 {data.school}
               </TableCell>
-              <TableCell className="text-start" data-label="region">
-                {data.region}
+              <TableCell data-label="gender" className="text-xs">
+                {genderLabel(data.gender)}
               </TableCell>
-              <TableCell data-label="gender">{data.gender}</TableCell>
-              <TableCell data-label="phone">{data.phone}</TableCell>
-              <TableCell data-label="email">{data.email}</TableCell>
-              <TableCell data-label="status">{data.status}</TableCell>
+              <TableCell className="text-xs" data-label="phone">
+                {data.phone}
+              </TableCell>
+              <TableCell className="text-xs" data-label="email">
+                {data.email}
+              </TableCell>
+              <TableCell className="text-xs" data-label="status">
+                <AppChip value={data.status} />
+              </TableCell>
               <TableCell
                 data-label="Actions"
                 className={`${

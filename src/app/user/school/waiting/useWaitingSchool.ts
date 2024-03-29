@@ -55,7 +55,6 @@ const useWaitingSchool = () => {
     await api
       .get("/backoffice/school/request-lists?page=1&limit=10")
       .then((res) => {
-        console.log(res.data);
         const school = Object.values(res.data.data).map((sch: any) => ({
           id: sch.id,
           name: sch.name,
@@ -79,7 +78,6 @@ const useWaitingSchool = () => {
 
   async function getSchoolById() {
     await api.get(`/backoffice/school/${id}`).then((res) => {
-      console.log(res.data);
       form.setFieldsValue(res.data);
       form.setFieldValue("degree", res.data.degree.name);
     });

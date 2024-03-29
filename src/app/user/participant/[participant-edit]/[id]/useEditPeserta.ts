@@ -4,138 +4,160 @@ import { ChangeEvent, useEffect, useState } from "react";
 import dayjs from "dayjs";
 import useSecurePage from "@/hooks/useSecurePage";
 import { IParticipant } from "@/interfaces/IParticipant";
+import { useParams, useRouter } from "next/navigation";
+import api from "@/config/axiosConfig";
+import { useButtonLoading } from "@/hooks/zustand/useButtonLoading";
+import { useLayout } from "@/hooks/zustand/layout";
+import { ROUTES } from "@/prefix/route.constant";
 
 export function useEditPeserta() {
+  /**
+   * HOOK
+   */
+  const { setError, setIsSuccess } = useLayout();
+  const { setIsButtonLoading } = useButtonLoading();
+  const params = useParams().id;
   const { securePage } = useSecurePage(3);
-  const [payload, setPayload] = useState<IParticipant[]>([
-    {
-      name: "",
-      gender: "Pilih Jenis Kelamin",
-      email: "",
-      birthday: "",
-      status: "",
-      phone: "",
-      region: "",
-      school: 0,
-      img: [],
-      attachment: [],
-    },
-  ]);
-  const [iPayload, setIPayload] = useState<number>(0);
+  const router = useRouter();
+
+  /**
+   * STATE
+   */
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [payload, setPayload] = useState<IParticipant>({
+    id: "",
+    name: "",
+    birth: "",
+    phone: "",
+    email: "",
+    gender: "Pilih Jenis Kelamin",
+    status: "",
+    img: [],
+    attachment: [],
+  });
+
   const [form] = useForm();
   const genderOption = [
     { label: "Laki-laki", value: "L" },
     { label: "Perempuan", value: "P" },
   ];
-  const [filePicture, setFilePicture] = useState<UploadFile>();
-  const [fileAtc, setFileAtc] = useState<UploadFile>();
+  const [filePicture, setFilePicture] = useState<UploadFile>({
+    uid: "",
+    name: "",
+    url: "",
+  });
+  const [fileAtc, setFileAtc] = useState<UploadFile>({
+    uid: "",
+    name: "",
+    url: "",
+  });
+
+  /**
+   * CRUD
+   */
+
+  async function getParticipantById() {
+    await api.get(`/backoffice/participant/${params}`).then((res) => {
+      const participantData = {
+        id: res.data.id,
+        name: res.data.name,
+        gender: res.data.gender,
+        phone: res.data.phone,
+        email: res.data.email,
+        birth: res.data.birth,
+        img: res.data.img,
+        status: "",
+        attachment: res.data.attachment,
+      };
+      setPayload(participantData);
+      setFilePicture({
+        ...fileAtc,
+        url: `${process.env.NEXT_PUBLIC_IMG_CDN}imgs/${res.data.img}`,
+      });
+      setFileAtc({
+        ...fileAtc,
+        url: `${process.env.NEXT_PUBLIC_IMG_CDN}attachments/${res.data.attachment}`,
+      });
+      form.setFieldValue(
+        "birth",
+        dayjs(`${res.data.birth}`, "DD-MM-YYYY").locale("id")
+      );
+      form.setFieldValue("name", res.data.name);
+      form.setFieldValue("gender", res.data.gender);
+      form.setFieldValue("email", res.data.email);
+      form.setFieldValue("phone", res.data.phone);
+    });
+  }
+
+  async function updateParticipant() {
+    setIsButtonLoading(true);
+    try {
+      const payloadForm = new FormData();
+      payloadForm.append("name", String(payload.name));
+      payloadForm.append("birth", String(payload.birth));
+      payloadForm.append("phone", String(payload.phone));
+      payloadForm.append("email", String(payload.email));
+      payloadForm.append("gender", String(payload.gender));
+      if (filePicture && filePicture.originFileObj) {
+        payloadForm.append("img", filePicture.originFileObj);
+      }
+      if (fileAtc && fileAtc.originFileObj) {
+        payloadForm.append("attachment", fileAtc.originFileObj);
+      }
+
+      await api
+        .put(`/backoffice/participant/${payload.id}`, payloadForm, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then(() => {
+          setIsSuccess(true, "Update Berhasil");
+          router.push(ROUTES.PARTICIPANT);
+          setIsButtonLoading(false);
+        });
+    } catch (error: any) {
+      setIsButtonLoading(false);
+      if (error?.response?.data?.errors?.message) {
+        setError(true, `${error.response.data.errors.message}`);
+      }
+    }
+  }
+
+  /**
+   *  HANDLE CHANGE
+   */
 
   function handleInputChange(
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    i: number
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
-    setPayload((prev) => {
-      const updatedPayload = [...prev];
-      updatedPayload[i] = {
-        ...updatedPayload[i],
-        [e.target.name]: e.target.value,
-      };
-      return updatedPayload;
-    });
+    setPayload({ ...payload, [e.target.name]: e.target.value });
   }
 
-  function handleGenderSelect(e: any, i: number) {
-    setPayload((prev) => {
-      const updatedGender = [...prev];
-      updatedGender[i] = {
-        ...updatedGender[i],
-        gender: e,
-      };
-      return updatedGender;
-    });
+  function handleGenderSelect(e: any) {
+    setPayload({ ...payload, gender: e });
   }
 
-  function handleBirthday(e: any, i: number) {
+  function handleBirthday(e: any) {
     const birthday = dayjs(e);
     const formatted = birthday.format("YYYY-MM-DDTHH:mm:ss.SSS[Z]");
-
-    setPayload((prev) => {
-      const updateBirthday = [...prev];
-      updateBirthday[i] = {
-        ...updateBirthday[i],
-        birthday: formatted,
-      };
-      return updateBirthday;
-    });
+    setPayload({ ...payload, birth: formatted });
   }
 
-  function handlePicture(e: any, i: number) {
-    setPayload((prev) => {
-      const updateImage = [...prev];
-      updateImage[i] = {
-        ...updateImage[i],
-        img: e.file,
-      };
-      return updateImage;
-    });
+  function handlePicture(e: any) {
+    setFilePicture(e.file);
   }
 
-  function handleAttachment(e: any, i: number) {
-    setPayload((prev) => {
-      const updataAttachment = [...prev];
-      updataAttachment[i] = {
-        ...updataAttachment[i],
-        attachment: e.file,
-      };
-      return updataAttachment;
-    });
+  function handleAttachment(e: any) {
+    setFileAtc(e.file);
   }
 
-  function handleSelect(i: number) {
-    // form.setFieldsValue(payload[i]);
-    form.setFieldValue("gender", payload[i].gender);
-    form.setFieldValue("email", payload[i].email);
-    form.setFieldValue("telepon", payload[i].phone);
-    form.setFieldValue("picture", payload[i].img);
-    form.setFieldValue("attachment", payload[i].attachment);
-  }
-
-  function handleAddMore() {
-    const newPeserta: IParticipant = {
-      name: "",
-      gender: "Pilih Jenis Kelamin",
-      email: "",
-      birthday: "",
-      status: "",
-      phone: "",
-      region: "",
-      school: 0,
-      img: [],
-      attachment: [],
-    };
-
-    setPayload((prev) => [...prev, newPeserta]);
-    setIPayload(iPayload + 1);
-    form.resetFields();
-  }
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  function handleDelete(i: number) {
-    handleSelect(i);
-    setIsModalOpen(true);
-    setIPayload(i);
-  }
-  function deletePeserta(i: number) {
-    setPayload((prevPayload) => {
-      const updatedPayload = prevPayload.filter((_, idx) => idx !== i);
-      return updatedPayload;
-    });
-    handleSelect(i - 1);
-    setIPayload(i - 1);
-    setIsModalOpen(false);
+  function handleSubmit() {
+    updateParticipant();
   }
 
   useEffect(() => {
+    getParticipantById();
     securePage();
   }, []);
 
@@ -143,23 +165,18 @@ export function useEditPeserta() {
     form,
     payload,
     genderOption,
-    iPayload,
     filePicture,
     fileAtc,
     isModalOpen,
     setIsModalOpen,
     setFileAtc,
     setFilePicture,
-    handleSelect,
     setPayload,
-    setIPayload,
-    handleAddMore,
     handleGenderSelect,
     handleInputChange,
     handleBirthday,
     handlePicture,
     handleAttachment,
-    handleDelete,
-    deletePeserta,
+    handleSubmit,
   };
 }

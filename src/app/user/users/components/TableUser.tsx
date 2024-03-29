@@ -1,7 +1,4 @@
-import { PERMISSIONS } from "@/enum/permission.enum";
-import { useLayout } from "@/hooks/zustand/layout";
 import { IUsers } from "@/interfaces/IUsers";
-import { ROUTES } from "@/prefix/route.constant";
 import {
   Table,
   TableBody,
@@ -10,52 +7,47 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
-import Link from "next/link";
 import React from "react";
-import { AiTwotoneEdit } from "react-icons/ai";
-import { MdOutlineDelete } from "react-icons/md";
 
 interface IProps {
   userData: IUsers[];
 }
 
 export default function TableUser(props: IProps) {
-  const { permissions } = useLayout();
   const { userData } = props;
   return (
-    <div className="bg-white drop-shadow p-3 rounded-lg">
-      <>
-        <Table
-          aria-label="Peserta Terdaftar"
-          isStriped
-          isCompact
-          removeWrapper
-          className=" text-nowrap w-full min-w-[700px] rounded-lg overflow-hidden"
-        >
-          <TableHeader className="h-10 text-center text-white bg-brand-dark">
-            <TableColumn
-              align="center"
-              className="text-center max-w-2"
-              scope="col"
-            >
-              No
-            </TableColumn>
-            <TableColumn align="center" scope="col">
-              Nama
-            </TableColumn>
-            <TableColumn align="center" scope="col" className="text-center">
-              Email
-            </TableColumn>
-            <TableColumn align="center" scope="col" className="text-center">
-              Phone
-            </TableColumn>
-            <TableColumn align="center" scope="col" className="text-center">
-              Sekolah
-            </TableColumn>
-            <TableColumn align="center" scope="col" className="text-center">
-              Jenjang
-            </TableColumn>
-            <TableColumn
+    <>
+      <Table
+        aria-label="Peserta Terdaftar"
+        isStriped
+        isCompact
+        removeWrapper
+        className=" text-nowrap w-full min-w-[700px] rounded-lg "
+      >
+        <TableHeader className="h-10 text-center text-white bg-brand-dark">
+          <TableColumn
+            align="center"
+            className="text-center max-w-2"
+            scope="col"
+          >
+            No
+          </TableColumn>
+          <TableColumn align="center" scope="col">
+            Nama
+          </TableColumn>
+          <TableColumn align="center" scope="col" className="text-center">
+            Email
+          </TableColumn>
+          <TableColumn align="center" scope="col" className="text-center">
+            Phone
+          </TableColumn>
+          <TableColumn align="center" scope="col" className="text-center">
+            Sekolah
+          </TableColumn>
+          <TableColumn align="center" scope="col" className="text-center">
+            Jenjang
+          </TableColumn>
+          {/* <TableColumn
               align="center"
               className={`${
                 !permissions.includes(PERMISSIONS.USER_EDIT) && "hidden"
@@ -63,30 +55,30 @@ export default function TableUser(props: IProps) {
               scope="col"
             >
               Action
-            </TableColumn>
-          </TableHeader>
-          <TableBody className="">
-            {userData.map((data, i) => (
-              <TableRow key={i}>
-                <TableCell className="text-center max-w-2" data-label="name">
-                  {i + 1}
-                </TableCell>
-                <TableCell className="text-start" data-label="name">
-                  {data.name}
-                </TableCell>
-                <TableCell className="text-center" data-label="name">
-                  {data.email}
-                </TableCell>
-                <TableCell className="text-center" data-label="name">
-                  {data.phone}
-                </TableCell>
-                <TableCell className="text-center" data-label="name">
-                  Sekolah
-                </TableCell>
-                <TableCell className="text-center" data-label="name">
-                  Jenjang
-                </TableCell>
-                <TableCell
+            </TableColumn> */}
+        </TableHeader>
+        <TableBody className="">
+          {userData.map((data, i) => (
+            <TableRow key={i}>
+              <TableCell className="text-center max-w-2" data-label="name">
+                {i + 1}
+              </TableCell>
+              <TableCell className="text-start" data-label="name">
+                {data.name}
+              </TableCell>
+              <TableCell className="text-start" data-label="name">
+                {data.email}
+              </TableCell>
+              <TableCell className="text-start" data-label="name">
+                {data.phone}
+              </TableCell>
+              <TableCell className="text-start" data-label="name">
+                Sekolah
+              </TableCell>
+              <TableCell className="text-center" data-label="name">
+                Jenjang
+              </TableCell>
+              {/* <TableCell
                   data-label="Actions"
                   className={`${
                     !permissions.includes(PERMISSIONS.PARTICIPANT_EDIT)
@@ -110,20 +102,19 @@ export default function TableUser(props: IProps) {
                       <MdOutlineDelete />
                     </button>
                   </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+                </TableCell> */}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
 
-        <div
-          className={`${
-            userData.length !== 0 && "hidden"
-          } w-full flex justify-center items-center`}
-        >
-          <h1>Tidak ada Data</h1>
-        </div>
-      </>
-    </div>
+      <div
+        className={`${
+          userData.length !== 0 && "hidden"
+        } w-full flex justify-center items-center`}
+      >
+        <h1>Tidak ada Data</h1>
+      </div>
+    </>
   );
 }

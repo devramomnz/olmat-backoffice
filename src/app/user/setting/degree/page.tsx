@@ -72,7 +72,7 @@ export default function DegreeSetting() {
             isStriped
             isCompact
             removeWrapper
-            className=" text-nowrap rounded-lg overflow-hidden"
+            // className=" text-nowrap rounded-lg overflow-hidden"
           >
             <TableHeader className="bg-brand-dark h-10 text-white text-center">
               <TableColumn align="center" scope="col" className="w-14">

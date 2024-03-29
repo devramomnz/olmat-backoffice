@@ -8,7 +8,6 @@ export default function EditPeserta() {
   const {
     form,
     payload,
-    iPayload,
     fileAtc,
     filePicture,
     genderOption,
@@ -17,12 +16,13 @@ export default function EditPeserta() {
     handleAttachment,
     handlePicture,
     handleBirthday,
+    handleSubmit,
   } = useEditPeserta();
   return (
     <>
       <FormDaftar
         form={form}
-        iPayload={iPayload}
+        handleSubmit={handleSubmit}
         payload={payload}
         fileAtc={fileAtc}
         filePicture={filePicture}

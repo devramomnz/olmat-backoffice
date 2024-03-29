@@ -18,16 +18,15 @@ export default function useParticipant() {
 
   const [participants, setParticipants] = useState<IParticipant[]>([
     {
+      id: "",
       status: "",
       school: 0,
-      region: "",
+      degree: 0,
       name: "",
       gender: "",
       phone: "",
       email: "",
-      birthday: "",
-      img: [],
-      attachment: [],
+      birth: "",
     },
   ]);
 
@@ -35,14 +34,29 @@ export default function useParticipant() {
    * CRUD
    */
 
-  console.log(participants);
-
   async function getParticipants() {
     await api.get(`backoffice/participant?page=1&limit=10`).then((res) => {
-      setParticipants(res.data.data);
-      console.log("cok", res.data);
+      const participantData = res.data.data.map((participant: any) => ({
+        id: participant.id,
+        status: participant.status,
+        school: participant.school.name,
+        degree: participant.school.degree.name,
+        name: participant.name,
+        gender: participant.gender,
+        phone: participant.phone,
+        email: participant.email,
+        birth: participant.birth,
+      }));
+
+      setParticipants(participantData);
     });
   }
+
+  // function handleDelete(i: number) {
+  //   handleSelect(i);
+  //   setIsModalOpen(true);
+  //   setIPayload(i);
+  // }
 
   useEffect(() => {
     securePage();

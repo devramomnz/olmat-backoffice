@@ -7,9 +7,10 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
+import { IPayment } from "../useTransaction";
 
 interface IProps {
-  tableData: any[];
+  tableData: IPayment[];
 }
 
 export default function TablePayWaiting(props: IProps) {
@@ -31,13 +32,19 @@ export default function TablePayWaiting(props: IProps) {
                 No.
               </TableColumn>
               <TableColumn align="center" scope="col">
-                Waktu Pendaftaran
+                No. Invoice
               </TableColumn>
               <TableColumn align="center" className="" scope="col">
+                Metode
+              </TableColumn>
+              <TableColumn align="center" scope="col">
                 Jumlah Peserta
               </TableColumn>
               <TableColumn align="center" scope="col">
-                Total Pembayaran
+                Harga
+              </TableColumn>
+              <TableColumn align="center" scope="col">
+                Total Harga
               </TableColumn>
               <TableColumn align="center" scope="col">
                 Status
@@ -47,16 +54,18 @@ export default function TablePayWaiting(props: IProps) {
               {tableData?.map((data, i) => (
                 <TableRow key={i}>
                   <TableCell data-label="No">{i + 1}</TableCell>
-                  <TableCell data-label="jenis_kelamin">
-                    {data.waktu_pendaftaran}
+                  <TableCell data-label="invoice">{data.invoice}</TableCell>
+                  <TableCell data-label="code">{data.code}</TableCell>
+                  <TableCell data-label="participantAmount">
+                    {data.participantAmount}
                   </TableCell>
-                  <TableCell data-label="no_tlp">
-                    {data.jumlah_peserta}
+                  <TableCell data-label="amount">{data.amount}</TableCell>
+                  <TableCell data-label="totalAmount">
+                    {data.totalAmount}
                   </TableCell>
-                  <TableCell data-label="jenjang">
-                    {data.total_pembayaran}
+                  <TableCell data-label="status">
+                    <p className="badge">{data.status}</p>
                   </TableCell>
-                  <TableCell data-label="status">{data.status}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
