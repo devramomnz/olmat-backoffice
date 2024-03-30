@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@nextui-org/react";
 import { IPayment } from "../useTransaction";
+import { convertRupiah } from "@/helper/common";
 
 interface IProps {
   tableData: IPayment[];
@@ -28,7 +29,7 @@ export default function TablePayWaiting(props: IProps) {
             className=" text-nowrap w-full min-w-[700px] rounded-lg overflow-hidden"
           >
             <TableHeader className="bg-brand-dark h-10 text-white text-center">
-              <TableColumn align="center" scope="col" className="w-[80px]">
+              <TableColumn align="center" scope="col" className="w-[10px]">
                 No.
               </TableColumn>
               <TableColumn align="center" scope="col">
@@ -59,9 +60,11 @@ export default function TablePayWaiting(props: IProps) {
                   <TableCell data-label="participantAmount">
                     {data.participantAmount}
                   </TableCell>
-                  <TableCell data-label="amount">{data.amount}</TableCell>
+                  <TableCell data-label="amount">
+                    {convertRupiah(data.amount)}
+                  </TableCell>
                   <TableCell data-label="totalAmount">
-                    {data.totalAmount}
+                    {convertRupiah(data.totalAmount)}
                   </TableCell>
                   <TableCell data-label="status">
                     <p className="badge">{data.status}</p>

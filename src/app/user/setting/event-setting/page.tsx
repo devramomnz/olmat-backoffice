@@ -81,7 +81,7 @@ export default function EventSetting() {
                   showTime
                   locale={locale}
                   format={dateFormat}
-                  onChange={handleChangeDate}
+                  onChange={(e) => handleChangeDate("start", e)}
                   variant="borderless"
                   className={`w-full active:bg-gray-100 focus:bg-gray-100 hover:bg-gray-100 bg-gray-100 rounded-full `}
                 />
@@ -101,7 +101,7 @@ export default function EventSetting() {
                   name="end"
                   locale={locale}
                   format={dateFormat}
-                  onChange={handleChangeDate}
+                  onChange={(e) => handleChangeDate("end", e)}
                   variant="borderless"
                   className={`w-full active:bg-gray-100 focus:bg-gray-100 hover:bg-gray-100 bg-gray-100 rounded-full `}
                 />

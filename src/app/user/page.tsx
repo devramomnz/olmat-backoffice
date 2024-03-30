@@ -30,7 +30,7 @@ export default function Home() {
         ))}
       </div>
       <div className="bg-white drop-shadow-lg rounded-lg p-3">
-        <div className="flex justify-between">
+        <div className="flex pb-1 justify-between">
           <label>Pengajuan Sekolah</label>
           {permissions.includes(PERMISSIONS.SCHOOL_ACCEPT) && (
             <Link

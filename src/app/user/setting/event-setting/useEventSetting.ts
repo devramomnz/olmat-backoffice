@@ -90,14 +90,15 @@ const useEventSetting = () => {
     setPayload({ ...payload, [e.target.name]: e.target.value });
   }
 
+  console.log(payload?.start);
+
   function handleChangeDate(name: string, e: any) {
-    const birthday = dayjs(e);
-    const formatted = birthday.format("YYYY-MM-DDTHH:mm:ss.SSS[Z]");
+    const date = dayjs(e).toISOString();
     if (name === "start") {
-      setPayload({ ...payload, start: formatted });
+      setPayload({ ...payload, start: date });
     }
     if (name === "end") {
-      setPayload({ ...payload, end: formatted });
+      setPayload({ ...payload, end: date });
     }
   }
 
