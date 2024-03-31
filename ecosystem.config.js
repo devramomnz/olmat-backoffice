@@ -4,7 +4,7 @@ module.exports = {
       name: "prod-olim-backoffice",
       script: "yarn",
       args: "start",
-      cwd: "/var/www/olmat-backoffice",
+      cwd: "/var/www/olim-backoffice",
       instances: 1,
       autorestart: true,
       watch: false,
