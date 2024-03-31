@@ -38,7 +38,7 @@ export default function TablePayWaiting(props: IProps) {
               <TableColumn align="center" className="" scope="col">
                 Metode
               </TableColumn>
-              <TableColumn align="center" scope="col">
+              <TableColumn align="center" className="text-center" scope="col">
                 Jumlah Peserta
               </TableColumn>
               <TableColumn align="center" scope="col">
@@ -57,7 +57,10 @@ export default function TablePayWaiting(props: IProps) {
                   <TableCell data-label="No">{i + 1}</TableCell>
                   <TableCell data-label="invoice">{data.invoice}</TableCell>
                   <TableCell data-label="code">{data.code}</TableCell>
-                  <TableCell data-label="participantAmount">
+                  <TableCell
+                    className="text-center"
+                    data-label="participantAmount"
+                  >
                     {data.participantAmount}
                   </TableCell>
                   <TableCell data-label="amount">

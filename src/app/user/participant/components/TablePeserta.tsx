@@ -1,9 +1,10 @@
 import Button from "@/components/button/Button";
-import AppChip from "@/components/chip/AppChip";
 import { PERMISSIONS } from "@/enum/permission.enum";
+import { Status } from "@/enum/status.enum";
 import { IParticipant } from "@/interfaces/IParticipant";
 import { ROUTES } from "@/prefix/route.constant";
 import {
+  Chip,
   Table,
   TableBody,
   TableCell,
@@ -15,7 +16,6 @@ import { Modal } from "antd";
 import Link from "next/link";
 import React from "react";
 import { AiTwotoneEdit } from "react-icons/ai";
-import { MdOutlineDelete } from "react-icons/md";
 
 interface IProps {
   permissions: any;
@@ -26,6 +26,16 @@ interface IProps {
 
 export default function TablePeserta(props: IProps) {
   const { isModal, permissions, participants, setIsModal } = props;
+
+  function statusColor(data: string) {
+    if (data === "active") {
+      return "success";
+    } else if (data === Status.PENDING) {
+      return "warning";
+    } else if (data === "cancel") {
+      return "danger";
+    }
+  }
 
   function genderLabel(data: string) {
     if (data === "L") {
@@ -127,7 +137,16 @@ export default function TablePeserta(props: IProps) {
                 {data.email}
               </TableCell>
               <TableCell className="text-xs" data-label="status">
-                <AppChip value={data.status} />
+                <Chip
+                  variant="flat"
+                  size="sm"
+                  color={statusColor(data.status)}
+                  className={`${statusColor(
+                    data.status
+                  )} px-3 rounded-full font-black w-fit`}
+                >
+                  <p className="font-black text-xs">{data.status}</p>
+                </Chip>
               </TableCell>
               <TableCell
                 data-label="Actions"
@@ -144,12 +163,12 @@ export default function TablePeserta(props: IProps) {
                 >
                   <AiTwotoneEdit />
                 </Link>
-                <button
+                {/* <button
                   onClick={() => setIsModal(true)}
                   className="flex items-center gap-2 p-2 mb-2 mr-2 text-sm font-bold text-center text-red-600 duration-500 rounded-full border-1 hover:text-white hover:bg-red-600 focus:outline-none focus:ring-red-300"
                 >
                   <MdOutlineDelete />
-                </button>
+                </button> */}
               </TableCell>
             </TableRow>
           ))}

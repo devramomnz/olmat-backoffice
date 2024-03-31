@@ -10,17 +10,20 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
-import Search from "antd/es/input/Search";
 import Link from "next/link";
 import React from "react";
 import { AiTwotoneEdit } from "react-icons/ai";
-import useSchool from "../useSchool";
 import { useLayout } from "@/hooks/zustand/layout";
 import { PERMISSIONS } from "@/enum/permission.enum";
+import { ISchool } from "@/interfaces/ISchool";
 
-export default function TableSekolah() {
+interface IProps {
+  tableData: ISchool[];
+}
+
+export default function TableSekolah(props: IProps) {
+  const { tableData } = props;
   const { permissions } = useLayout();
-  const { schoolData } = useSchool();
 
   function statusColor(data: string) {
     if (data === "hitam") {
@@ -33,18 +36,7 @@ export default function TableSekolah() {
   }
 
   return (
-    <div className="bg-white p-3 rounded-md">
-      <div className="flex justify-between">
-        <Search placeholder="cari" style={{ width: 200 }} className="" />
-        {permissions.includes(PERMISSIONS.SCHOOL_ACCEPT) && (
-          <Link
-            className="py-1 px-3 bg-brand-dark w-fit rounded-lg text-white flex items-center gap-2 font-bold"
-            href={ROUTES.SCHOOL_WAITING}
-          >
-            Menunggu Persetujuan
-          </Link>
-        )}
-      </div>
+    <>
       <div className="overflow-x-scroll no-scrollbar mt-3">
         <Table
           aria-label="Peserta Terdaftar"
@@ -98,7 +90,7 @@ export default function TableSekolah() {
             </TableColumn>
           </TableHeader>
           <TableBody className="text-sm">
-            {schoolData?.map((data, i) => (
+            {tableData?.map((data, i) => (
               <TableRow key={i}>
                 <TableCell data-label="No" className="text-xs">
                   {i + 1}
@@ -160,12 +152,12 @@ export default function TableSekolah() {
             ))}
           </TableBody>
         </Table>
-        {schoolData.length < 1 && (
+        {tableData.length < 1 && (
           <h2 className="text-center text-sm text-gray-400 font-bold pb-5">
             Tidak ada data
           </h2>
         )}
       </div>
-    </div>
+    </>
   );
 }

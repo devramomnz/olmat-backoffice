@@ -92,6 +92,7 @@ const useDashboard = () => {
     await api
       .get("/backoffice/school/request-lists?page=1&limit=5")
       .then((res) => {
+        console.log(res.data);
         const school = Object.values(res.data.data).map((sch: any) => ({
           id: sch.id,
           name: sch.name,
@@ -103,7 +104,7 @@ const useDashboard = () => {
           is_accept: sch.is_accept,
           city: sch.city.name,
           region: sch.city.region.name,
-          degree: "", // Add default value for missing properties
+          degree: sch.degree.name, // Add default value for missing properties
           province: "",
           subdistrict: 0,
         }));

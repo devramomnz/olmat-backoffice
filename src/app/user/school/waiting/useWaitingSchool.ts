@@ -11,10 +11,12 @@ const useWaitingSchool = () => {
   const router = useRouter();
   const routerId = useParams();
   const id = routerId.id;
+  console.log(id);
   const { setIsSuccess, setError } = useLayout();
   const { setIsButtonLoading } = useButtonLoading();
   const [form] = Form.useForm();
 
+  const [schoolData, setSchoolData] = useState<ISchool>();
   const [waitingData, setWaitingData] = useState<ISchool[]>([
     {
       id: 0,
@@ -66,7 +68,7 @@ const useWaitingSchool = () => {
           is_accept: sch.is_accept,
           city: sch.city.name,
           region: sch.city.region.name,
-          degree: "", // Add default value for missing properties
+          degree: "",
           province: "",
           subdistrict: 0,
         }));
@@ -76,10 +78,26 @@ const useWaitingSchool = () => {
       });
   }
 
+  console.log(schoolData);
   async function getSchoolById() {
     await api.get(`/backoffice/school/${id}`).then((res) => {
-      form.setFieldsValue(res.data);
-      form.setFieldValue("degree", res.data.degree.name);
+      console.log(res.data);
+      const dataSchool = {
+        id: res.data.id,
+        name: res.data.name,
+        address: res.data.address,
+        email: res.data.email,
+        phone: res.data.phone,
+        whatsapp: res.data.whatsapp,
+        status: res.data.status,
+        is_accept: res.data.is_accept,
+        city: res.data.city.name,
+        region: res.data.city.region.name,
+        degree: res.data.degree.name,
+        province: res.data.province.name,
+        subdistrict: res.data.subdistrict.name,
+      };
+      setSchoolData(dataSchool);
     });
   }
 
@@ -94,7 +112,7 @@ const useWaitingSchool = () => {
     }
   }, []);
 
-  return { waitingData, form, handleAcceptSchool };
+  return { waitingData, schoolData, form, handleAcceptSchool };
 };
 
 export default useWaitingSchool;
