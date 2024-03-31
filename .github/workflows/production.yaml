@@ -8,9 +8,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Debug SSH Hostname
-        run: echo "SSH Hostname is ${{ secrets.SSH_HOSTNAME }}"
-
       - name: Deploy OlimBackoffice
         uses: appleboy/ssh-action@master
         with:
