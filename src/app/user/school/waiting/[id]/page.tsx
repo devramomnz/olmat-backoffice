@@ -13,7 +13,7 @@ export default function SchoolDetail() {
       <div className="w-full bg-white text-sm p-3 p- mt-5  rounded-lg drop-shadow-md">
         <label className="font-bold flex items-center gap-2 text-xl">
           <IoSchool />
-          SMA SURABAY
+          {schoolData?.name}
         </label>
         <Form
           disabled

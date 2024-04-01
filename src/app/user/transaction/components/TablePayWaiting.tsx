@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Chip,
   Table,
   TableBody,
   TableCell,
@@ -9,6 +10,7 @@ import {
 } from "@nextui-org/react";
 import { IPayment } from "../useTransaction";
 import { convertRupiah } from "@/helper/common";
+import { PaymentStatus } from "@/enum/payment.enum";
 
 interface IProps {
   tableData: IPayment[];
@@ -16,6 +18,15 @@ interface IProps {
 
 export default function TablePayWaiting(props: IProps) {
   const { tableData } = props;
+  function statusColor(data: string) {
+    if (data === PaymentStatus.PAID) {
+      return "success";
+    } else if (data === PaymentStatus.PENDING) {
+      return "warning";
+    } else if (data === PaymentStatus.EXPIRED) {
+      return "danger";
+    }
+  }
   return (
     <>
       <div className="bg-white p-1 rounded-md">
@@ -70,7 +81,16 @@ export default function TablePayWaiting(props: IProps) {
                     {convertRupiah(data.totalAmount)}
                   </TableCell>
                   <TableCell data-label="status">
-                    <p className="badge">{data.status}</p>
+                    <Chip
+                      variant="flat"
+                      size="sm"
+                      color={statusColor(data.status)}
+                      className={`${statusColor(
+                        data.status
+                      )} px-3 rounded-full font-black w-fit`}
+                    >
+                      <p className="font-black text-xs">{data.status}</p>
+                    </Chip>
                   </TableCell>
                 </TableRow>
               ))}

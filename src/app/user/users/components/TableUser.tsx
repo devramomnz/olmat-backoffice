@@ -41,12 +41,12 @@ export default function TableUser(props: IProps) {
           <TableColumn align="center" scope="col" className="text-center">
             Phone
           </TableColumn>
-          <TableColumn align="center" scope="col" className="text-center">
+          {/* <TableColumn align="center" scope="col" className="text-center">
             Sekolah
           </TableColumn>
           <TableColumn align="center" scope="col" className="text-center">
             Jenjang
-          </TableColumn>
+          </TableColumn> */}
           {/* <TableColumn
               align="center"
               className={`${
@@ -66,18 +66,18 @@ export default function TableUser(props: IProps) {
               <TableCell className="text-start" data-label="name">
                 {data.name}
               </TableCell>
-              <TableCell className="text-start" data-label="name">
+              <TableCell className="text-center" data-label="name">
                 {data.email}
               </TableCell>
-              <TableCell className="text-start" data-label="name">
+              <TableCell className="text-center" data-label="name">
                 {data.phone}
               </TableCell>
-              <TableCell className="text-start" data-label="name">
+              {/* <TableCell className="text-start" data-label="name">
                 Sekolah
               </TableCell>
               <TableCell className="text-center" data-label="name">
                 Jenjang
-              </TableCell>
+              </TableCell> */}
               {/* <TableCell
                   data-label="Actions"
                   className={`${
