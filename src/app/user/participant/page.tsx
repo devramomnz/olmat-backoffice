@@ -5,9 +5,19 @@ import TablePeserta from "./components/TablePeserta";
 import Search from "antd/es/input/Search";
 import Button from "@/components/button/Button";
 import useParticipant from "./useParticipant";
+import PagintaionV1 from "@/components/pagination/PaginationV1";
 
 export default function Peserta() {
-  const { isModal, participants, permissions, setIsModal } = useParticipant();
+  const {
+    isModal,
+    participants,
+    permissions,
+    metaData,
+    paginationOptions,
+    handleChangeCurentPage,
+    handleChangePageSize,
+    setIsModal,
+  } = useParticipant();
   return (
     <>
       <label className="font-bold">Data Peserta</label>
@@ -24,6 +34,12 @@ export default function Peserta() {
             participants={participants}
           />
         </div>
+        <PagintaionV1
+          curentPage={paginationOptions.curentPage}
+          metaData={metaData}
+          handleCurentPage={handleChangeCurentPage}
+          handlePageSize={handleChangePageSize}
+        />
       </div>
     </>
   );

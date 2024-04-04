@@ -9,9 +9,18 @@ import { useLayout } from "@/hooks/zustand/layout";
 import Link from "next/link";
 import { ROUTES } from "@/prefix/route.constant";
 import useSchool from "./useSchool";
+import PagintaionV1 from "@/components/pagination/PaginationV1";
 
 export default function School() {
-  const { schoolData, handleChangeSearch, handleSubmitSearch } = useSchool();
+  const {
+    metaData,
+    paginationOptions,
+    schoolData,
+    handleChangeCurentPage,
+    handleChangePageSize,
+    handleChangeSearch,
+    handleSubmitSearch,
+  } = useSchool();
   const { permissions } = useLayout();
 
   const { securePage } = useSecurePage(2);
@@ -41,6 +50,13 @@ export default function School() {
           onSearch={handleSubmitSearch}
         />
         <TableSekolah tableData={schoolData} />
+
+        <PagintaionV1
+          curentPage={paginationOptions.curentPage}
+          metaData={metaData}
+          handleCurentPage={handleChangeCurentPage}
+          handlePageSize={handleChangePageSize}
+        />
       </div>
     </>
   );

@@ -1,4 +1,5 @@
 import api from "@/config/axiosConfig";
+import { usePaginationProduct } from "@/hooks/pagination/usePagination";
 import { ISchool } from "@/interfaces/ISchool";
 import { useEffect, useState } from "react";
 
@@ -8,6 +9,8 @@ interface ISearch {
 }
 
 const useSchool = () => {
+  const { paginationOptions, metaData, setMetaData, setPaginationOptions } =
+    usePaginationProduct();
   const [isSearch, setIsSearch] = useState<ISearch>();
   const [schoolData, setSchoolData] = useState<ISchool[]>([
     {
@@ -30,31 +33,51 @@ const useSchool = () => {
   console.log(isSearch?.name);
   async function getSchool() {
     const name = isSearch?.name !== undefined ? `&name=${isSearch.name}` : null;
-    await api.get(`/backoffice/school?page=1&limit=10${name}`).then((res) => {
-      const school: ISchool[] = Object.values(res.data.data).map(
-        (sch: any) => ({
-          id: sch.id,
-          name: sch.name,
-          degree: sch.degree.name,
-          status: sch.status,
-          is_accept: sch.is_accept,
-          email: sch.email,
-          phone: sch.phone,
-          whatsapp: sch.whatsapp,
-          province: sch.province.name,
-          city: sch.city.name,
-          subdistrict: sch.subdistrict.name,
-          address: sch.address,
-          region: sch.city.region.name,
-        })
-      );
-      setSchoolData(school);
-    });
+    await api
+      .get(
+        `/backoffice/school?page=${paginationOptions.curentPage}&limit=${paginationOptions.pageSize}&${name}`
+      )
+      .then((res) => {
+        const school: ISchool[] = Object.values(res.data.data).map(
+          (sch: any) => ({
+            id: sch.id,
+            name: sch.name,
+            degree: sch.degree.name,
+            status: sch.status,
+            is_accept: sch.is_accept,
+            email: sch.email,
+            phone: sch.phone,
+            whatsapp: sch.whatsapp,
+            province: sch.province.name,
+            city: sch.city.name,
+            subdistrict: sch.subdistrict.name,
+            address: sch.address,
+            region: sch.city.region.name,
+          })
+        );
+        setMetaData(res.data.metadata);
+        setSchoolData(school);
+      });
   }
 
   /**
    * HANDLE CHANGE
    */
+
+  function handleChangePageSize(pageSizeParam: number) {
+    if (pageSizeParam != paginationOptions.pageSize) {
+      setPaginationOptions({ ...paginationOptions, pageSize: pageSizeParam });
+    }
+  }
+
+  function handleChangeCurentPage(curentPageParam: number) {
+    if (curentPageParam != paginationOptions.curentPage) {
+      setPaginationOptions({
+        ...paginationOptions,
+        curentPage: curentPageParam,
+      });
+    }
+  }
 
   function handleChangeSearch(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -75,7 +98,15 @@ const useSchool = () => {
     getSchool();
   }, []);
 
-  return { schoolData, handleChangeSearch, handleSubmitSearch };
+  return {
+    metaData,
+    paginationOptions,
+    schoolData,
+    handleChangeCurentPage,
+    handleChangePageSize,
+    handleChangeSearch,
+    handleSubmitSearch,
+  };
 };
 
 export default useSchool;

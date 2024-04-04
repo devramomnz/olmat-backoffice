@@ -36,8 +36,8 @@ export default function Payment() {
 
       <div className="bg-white rounded-lg flex flex-col gap-3  p-4 drop-shadow">
         <div className="flex justify-between">
-          <label className="font-bold">Data Jenjang</label>
-          <Button onClick={handleAddPayment}>Tambahkan Jenjang</Button>
+          <label className="font-bold">Payment Method</label>
+          <Button onClick={handleAddPayment}>Add Payment Method</Button>
         </div>
         <div className="overflow-x-scroll no-scrollbar">
           <TablePayments

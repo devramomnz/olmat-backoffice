@@ -1,10 +1,13 @@
 import api from "@/config/axiosConfig";
+import { usePaginationProduct } from "@/hooks/pagination/usePagination";
 import useSecurePage from "@/hooks/useSecurePage";
 import { useLayout } from "@/hooks/zustand/layout";
 import { IParticipant } from "@/interfaces/IParticipant";
 import { useEffect, useState } from "react";
 
 export default function useParticipant() {
+  const { paginationOptions, metaData, setMetaData, setPaginationOptions } =
+    usePaginationProduct();
   /**
    * HOOKS
    */
@@ -35,21 +38,40 @@ export default function useParticipant() {
    */
 
   async function getParticipants() {
-    await api.get(`backoffice/participant?page=1&limit=10`).then((res) => {
-      const participantData = res.data.data.map((participant: any) => ({
-        id: participant.id,
-        status: participant.status,
-        school: participant.school.name,
-        degree: participant.school.degree.name,
-        name: participant.name,
-        gender: participant.gender,
-        phone: participant.phone,
-        email: participant.email,
-        birth: participant.birth,
-      }));
+    await api
+      .get(
+        `backoffice/participant?page=${paginationOptions.curentPage}&limit=${paginationOptions.pageSize}`
+      )
+      .then((res) => {
+        const participantData = res.data.data.map((participant: any) => ({
+          id: participant.id,
+          status: participant.status,
+          school: participant.school.name,
+          degree: participant.school.degree.name,
+          name: participant.name,
+          gender: participant.gender,
+          phone: participant.phone,
+          email: participant.email,
+          birth: participant.birth,
+        }));
+        setMetaData(res.data.metadata);
+        setParticipants(participantData);
+      });
+  }
 
-      setParticipants(participantData);
-    });
+  function handleChangePageSize(pageSizeParam: number) {
+    if (pageSizeParam != paginationOptions.pageSize) {
+      setPaginationOptions({ ...paginationOptions, pageSize: pageSizeParam });
+    }
+  }
+
+  function handleChangeCurentPage(curentPageParam: number) {
+    if (curentPageParam != paginationOptions.curentPage) {
+      setPaginationOptions({
+        ...paginationOptions,
+        curentPage: curentPageParam,
+      });
+    }
   }
 
   // function handleDelete(i: number) {
@@ -62,5 +84,14 @@ export default function useParticipant() {
     securePage();
     getParticipants();
   }, []);
-  return { permissions, participants, isModal, setIsModal };
+  return {
+    metaData,
+    paginationOptions,
+    permissions,
+    participants,
+    isModal,
+    handleChangeCurentPage,
+    handleChangePageSize,
+    setIsModal,
+  };
 }

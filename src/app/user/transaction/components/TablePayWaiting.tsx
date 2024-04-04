@@ -37,7 +37,7 @@ export default function TablePayWaiting(props: IProps) {
             isStriped
             isCompact
             removeWrapper
-            className=" text-nowrap w-full min-w-[700px] rounded-lg overflow-hidden"
+            className=" text-nowrap w-full min-w-[700px] rounded-lg "
           >
             <TableHeader className="bg-brand-dark h-10 text-white text-center">
               <TableColumn align="center" scope="col" className="w-[10px]">
