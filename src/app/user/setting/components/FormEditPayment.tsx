@@ -1,6 +1,5 @@
 import Button from "@/components/button/Button";
 import AntInput from "@/components/input/AntInput";
-import AntUpload from "@/components/input/AntUpload";
 import { Form } from "antd";
 import React, { ChangeEvent } from "react";
 
@@ -15,7 +14,7 @@ interface IProps {
 }
 
 export default function FormEditPayment(props: IProps) {
-  const { form, file, handleChange, handleChangeImg, onFinish } = props;
+  const { form, handleChange, onFinish } = props;
 
   return (
     <>
@@ -25,12 +24,12 @@ export default function FormEditPayment(props: IProps) {
         className="overflow-y-scroll no-scrollbar"
       >
         <AntInput onChange={handleChange} name="name" labelName="Nama" />
-        <AntUpload
+        {/* <AntUpload
           file={[file]}
           name="logo"
           labelName="Icon"
           onChange={(e: any) => handleChangeImg(e)}
-        />
+        /> */}
         <AntInput
           onChange={handleChange}
           name="provider"
