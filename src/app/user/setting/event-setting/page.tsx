@@ -53,6 +53,23 @@ export default function EventSetting() {
           </h2>
         </div>
         <div className="flex flex-col ">
+          <h2 className="font-bold">Nama Pendek Event</h2>
+          <h2 className="col-span-5">
+            {!isEdit ? (
+              eventData.shortname
+            ) : (
+              <Form.Item name="shortName">
+                <Input
+                  name="shortName"
+                  variant="borderless"
+                  onChange={handleChangeInput}
+                  className={` active:bg-gray-100 focus:bg-gray-100 hover:bg-gray-100 bg-gray-100 rounded-full `}
+                />
+              </Form.Item>
+            )}
+          </h2>
+        </div>
+        <div className="flex flex-col ">
           <h2 className="font-bold">Tagline</h2>
           <h2 className="col-span-5">
             {!isEdit ? (
@@ -63,6 +80,23 @@ export default function EventSetting() {
                   variant="borderless"
                   onChange={handleChangeInput}
                   name="tagline"
+                  className={` active:bg-gray-100 focus:bg-gray-100 hover:bg-gray-100 bg-gray-100 rounded-full `}
+                />
+              </Form.Item>
+            )}
+          </h2>
+        </div>
+        <div className="flex flex-col ">
+          <h2 className="font-bold">Copyright</h2>
+          <h2 className="col-span-5">
+            {!isEdit ? (
+              eventData.copyright
+            ) : (
+              <Form.Item name="copyright">
+                <Input
+                  name="copyright"
+                  variant="borderless"
+                  onChange={handleChangeInput}
                   className={` active:bg-gray-100 focus:bg-gray-100 hover:bg-gray-100 bg-gray-100 rounded-full `}
                 />
               </Form.Item>

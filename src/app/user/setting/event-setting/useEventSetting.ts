@@ -7,7 +7,9 @@ import { ChangeEvent, useEffect, useState } from "react";
 
 interface IEventSettings {
   name?: string;
+  shortname?: string;
   tagline?: string;
+  copyright?: string;
   start?: string;
   end?: string;
   amount?: number;
@@ -29,13 +31,17 @@ const useEventSetting = () => {
   const [payload, setPayload] = useState<IEventSettings>();
   const [eventData, setEventData] = useState<IEventSettings>({
     name: "",
+    shortname: "",
     tagline: "",
+    copyright: "",
     start: "",
     end: "",
     amount: 0,
     free: 0,
   });
 
+  console.log(eventData);
+  console.log(payload);
   /**
    * CRUD
    */
@@ -50,8 +56,11 @@ const useEventSetting = () => {
     if (!isEdit) {
       setIsEdit(true);
       await api.get("/backoffice/event-setting/findOne").then((res) => {
+        console.log(res.data.shortname);
         form.setFieldValue("name", res.data.name);
+        form.setFieldValue("shortName", res.data.shortname);
         form.setFieldValue("tagline", res.data.tagline);
+        form.setFieldValue("copyright", res.data.copyright);
         form.setFieldValue("start", dayjs(res.data.start));
         form.setFieldValue("end", dayjs(res.data.end));
         form.setFieldValue("amount", res.data.amount);
