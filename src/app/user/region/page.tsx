@@ -12,11 +12,11 @@ export default function Rayon() {
     securePage();
   }, []);
   return (
-    <div>
+    <>
       <div className="overflow-x-scroll no-scrollbar p-3 bg-white rounded-md drop-shadow-md">
         <label className="font-bold">Rayon</label>
         <TableRegion regionData={regionData} />
       </div>
-    </div>
+    </>
   );
 }

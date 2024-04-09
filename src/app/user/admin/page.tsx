@@ -89,7 +89,7 @@ export default function Admin() {
           </div>
         ) : null}
       </div>
-      <div className="flex flex-col w-full gap-2 p-4 mt-5 overflow-x-scroll bg-white rounded-md drop-shadow-md no-scrollbar">
+      <div className="flex flex-col w-full gap-2 p-4 mt-5 bg-white rounded-md drop-shadow-md">
         <label className="font-bold">Daftar Admin</label>
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-3">
@@ -105,6 +105,7 @@ export default function Admin() {
             <Button onClick={handleGetAll}>Lihat semua</Button>
           </div>
         </div>
+        <div className="rounded-lg overflow-x-scroll bg-white no-scrollbar"></div>
         <TableAdmin
           dataAdmin={dataAdmin || []}
           onEdit={editAdmin}

@@ -33,13 +33,15 @@ export default function Role() {
             payload={payload}
           />
         </div>
-        <div className="flex flex-col bg-white rounded-xl p-3 w-full overflow-x-scroll drop-shadow-md no-scrollbar duration-500">
+        <div className="flex flex-col bg-white rounded-xl p-3 w-full drop-shadow-md duration-500">
           <label className="font-bold">Role List</label>
-          <TableRole
-            handleDelete={handleDelete}
-            handleUpdateRole={handleUpdateRole}
-            role={role}
-          />
+          <div className="overflow-x-scroll no-scrollbar">
+            <TableRole
+              handleDelete={handleDelete}
+              handleUpdateRole={handleUpdateRole}
+              role={role}
+            />
+          </div>
         </div>
       </div>
     </div>

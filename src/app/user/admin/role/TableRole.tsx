@@ -26,7 +26,7 @@ export default function TableRole(props: IProps) {
         isStriped
         isCompact
         removeWrapper
-        className=" text-nowrap w-full min-w-[700px] rounded-lg overflow-hidden "
+        className=" text-nowrap w-full min-w-[700px]"
       >
         <TableHeader className="h-10 text-center text-white bg-brand-dark">
           <TableColumn align="center" scope="col" className="w-[80px]">
