@@ -56,8 +56,11 @@ export function useEditPeserta() {
    * CRUD
    */
 
+  console.log(payload);
+
   async function getParticipantById() {
     await api.get(`/backoffice/participant/${params}`).then((res) => {
+      console.log(res.data);
       const participantData = {
         id: res.data.id,
         name: res.data.name,
@@ -78,10 +81,7 @@ export function useEditPeserta() {
         ...fileAtc,
         url: `${process.env.NEXT_PUBLIC_IMG_CDN}attachments/${res.data.attachment}`,
       });
-      form.setFieldValue(
-        "birth",
-        dayjs(`${res.data.birth}`, "DD-MM-YYYY").locale("id")
-      );
+      form.setFieldValue("birth", dayjs(`${res.data.birth}`));
       form.setFieldValue("name", res.data.name);
       form.setFieldValue("gender", res.data.gender);
       form.setFieldValue("email", res.data.email);
@@ -139,9 +139,9 @@ export function useEditPeserta() {
   }
 
   function handleBirthday(e: any) {
-    const birthday = dayjs(e);
-    const formatted = birthday.format("YYYY-MM-DDTHH:mm:ss.SSS[Z]");
-    setPayload({ ...payload, birth: formatted });
+    const birthday = dayjs(e).toISOString();
+    // const formatted = birthday.format("YYYY-MM-DDTHH:mm:ss.SSS[Z]");
+    setPayload({ ...payload, birth: birthday });
   }
 
   function handlePicture(e: any) {

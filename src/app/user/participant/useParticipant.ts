@@ -5,6 +5,10 @@ import { useLayout } from "@/hooks/zustand/layout";
 import { IParticipant } from "@/interfaces/IParticipant";
 import { useEffect, useState } from "react";
 
+interface IOptions {
+  region: { label: string; value: string }[];
+}
+
 export default function useParticipant() {
   const { paginationOptions, metaData, setMetaData, setPaginationOptions } =
     usePaginationProduct();
@@ -33,9 +37,23 @@ export default function useParticipant() {
     },
   ]);
 
+  const [isOptions, setIsOptions] = useState<IOptions>({
+    region: [{ label: "", value: "" }],
+  });
+
   /**
    * CRUD
    */
+
+  async function getRegion() {
+    await api.get("/backoffice/region?page=1&limit=25").then((res) => {
+      const regions = res.data.data.map((prov: any) => ({
+        value: `${prov.id}`,
+        label: prov.name,
+      }));
+      setIsOptions({ ...isOptions, region: regions });
+    });
+  }
 
   async function getParticipants() {
     await api
@@ -82,6 +100,7 @@ export default function useParticipant() {
 
   useEffect(() => {
     securePage();
+    getRegion();
     getParticipants();
   }, []);
   return {
@@ -90,6 +109,7 @@ export default function useParticipant() {
     permissions,
     participants,
     isModal,
+    isOptions,
     handleChangeCurentPage,
     handleChangePageSize,
     setIsModal,
