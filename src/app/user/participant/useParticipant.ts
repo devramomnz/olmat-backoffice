@@ -61,6 +61,7 @@ export default function useParticipant() {
         `backoffice/participant?page=${paginationOptions.curentPage}&limit=${paginationOptions.pageSize}`
       )
       .then((res) => {
+        console.log(res.data.data);
         const participantData = res.data.data.map((participant: any) => ({
           id: participant.id,
           status: participant.status,
