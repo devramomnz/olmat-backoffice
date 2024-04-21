@@ -11,7 +11,6 @@ const useWaitingSchool = () => {
   const router = useRouter();
   const routerId = useParams();
   const id = routerId.id;
-  console.log(id);
   const { setIsSuccess, setError } = useLayout();
   const { setIsButtonLoading } = useButtonLoading();
   const [form] = Form.useForm();
@@ -78,10 +77,8 @@ const useWaitingSchool = () => {
       });
   }
 
-  console.log(schoolData);
   async function getSchoolById() {
     await api.get(`/backoffice/school/${id}`).then((res) => {
-      console.log(res.data);
       const dataSchool = {
         id: res.data.id,
         name: res.data.name,

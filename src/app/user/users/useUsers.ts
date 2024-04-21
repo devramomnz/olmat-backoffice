@@ -48,7 +48,7 @@ export function useUSers() {
 
   useEffect(() => {
     getUsers();
-  }, []);
+  }, [paginationOptions.curentPage, paginationOptions.pageSize]);
 
   return {
     metaData,

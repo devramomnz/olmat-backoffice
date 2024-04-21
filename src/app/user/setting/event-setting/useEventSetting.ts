@@ -40,8 +40,6 @@ const useEventSetting = () => {
     free: 0,
   });
 
-  console.log(eventData);
-  console.log(payload);
   /**
    * CRUD
    */
@@ -56,7 +54,6 @@ const useEventSetting = () => {
     if (!isEdit) {
       setIsEdit(true);
       await api.get("/backoffice/event-setting/findOne").then((res) => {
-        console.log(res.data.shortname);
         form.setFieldValue("name", res.data.name);
         form.setFieldValue("shortName", res.data.shortname);
         form.setFieldValue("tagline", res.data.tagline);
@@ -98,8 +95,6 @@ const useEventSetting = () => {
   ) {
     setPayload({ ...payload, [e.target.name]: e.target.value });
   }
-
-  console.log(payload?.start);
 
   function handleChangeDate(name: string, e: any) {
     const date = dayjs(e).toISOString();

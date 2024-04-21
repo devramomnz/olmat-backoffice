@@ -59,7 +59,7 @@ const useTransaction = () => {
   useEffect(() => {
     securePage();
     getPayments();
-  }, []);
+  }, [paginationOptions.curentPage, paginationOptions.pageSize]);
 
   return {
     metaData,

@@ -22,7 +22,7 @@ const PagintaionV1: FC<TProps> = ({
     <div className="relative flex flex-col-reverse md:flex-row items-center gap-5 justify-center w-full">
       {metaData?.total > 0 ? (
         <>
-          <p className="md:absolute text-xs -translate-y-1/2 left-2 top-1/2 text-slate-500">
+          <p className="md:absolute text-xs -translate-y-1/2 left-2 -z-10 top-1/2 text-slate-500">
             Showing {curentPage * 10 - 10 + 1} to{" "}
             {metaData.current_page === metaData.total_pages
               ? metaData?.total

@@ -102,7 +102,7 @@ export default function useParticipant() {
     securePage();
     getRegion();
     getParticipants();
-  }, []);
+  }, [paginationOptions.curentPage, paginationOptions.pageSize]);
   return {
     metaData,
     paginationOptions,

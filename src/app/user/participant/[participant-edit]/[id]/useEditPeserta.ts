@@ -56,11 +56,8 @@ export function useEditPeserta() {
    * CRUD
    */
 
-  console.log(payload);
-
   async function getParticipantById() {
     await api.get(`/backoffice/participant/${params}`).then((res) => {
-      console.log(res.data);
       const participantData = {
         id: res.data.id,
         name: res.data.name,

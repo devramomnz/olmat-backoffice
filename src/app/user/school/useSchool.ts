@@ -30,7 +30,6 @@ const useSchool = () => {
     },
   ]);
 
-  console.log(isSearch?.name);
   async function getSchool() {
     const name = isSearch?.name !== undefined ? `&name=${isSearch.name}` : null;
     await api
@@ -81,7 +80,6 @@ const useSchool = () => {
 
   function handleChangeSearch(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
-    console.log(value);
     setIsSearch({ ...isSearch, [name]: value });
   }
 
@@ -90,13 +88,12 @@ const useSchool = () => {
    */
 
   function handleSubmitSearch() {
-    console.log("first");
     getSchool();
   }
 
   useEffect(() => {
     getSchool();
-  }, []);
+  }, [paginationOptions.curentPage, paginationOptions.pageSize]);
 
   return {
     metaData,
