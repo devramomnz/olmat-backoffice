@@ -17,4 +17,5 @@ export const ROUTES = {
   EVENTSETTING: "/user/setting/event-setting",
   ADMIN: "/user/admin",
   ADMIN_ROLE: "/user/admin/role",
+  ADMIN_REGION: "/user/adminregion",
 };

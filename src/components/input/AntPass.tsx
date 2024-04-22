@@ -32,7 +32,7 @@ export default function AntPass(props: IAntInput) {
     {
       required: true,
       message: `${labelName} minimal 8 karakter`,
-      // min: 8,
+      min: 8,
     },
   ];
 
@@ -62,7 +62,6 @@ export default function AntPass(props: IAntInput) {
           name={name}
           variant="filled"
           value={value}
-          style={{ borderRadius: 100 }}
           iconRender={(visible) =>
             visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
           }

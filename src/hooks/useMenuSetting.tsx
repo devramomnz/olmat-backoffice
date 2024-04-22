@@ -60,6 +60,12 @@ export function useMenuSetting() {
       url: ROUTES.ADMIN,
       name: "Pengaturan Akun",
     },
+    {
+      show: permissions.includes(PERMISSIONS.ADMIN_REGION),
+      icon: <MdAccountCircle />,
+      url: ROUTES.ADMIN_REGION,
+      name: "Admin Rayon",
+    },
   ];
 
   return { PAGEMENU };
