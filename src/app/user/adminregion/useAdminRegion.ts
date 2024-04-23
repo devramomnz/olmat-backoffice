@@ -5,6 +5,7 @@ import { useButtonLoading } from "@/hooks/zustand/useButtonLoading";
 import { IAdminRegion } from "@/interfaces/IAdminRegion";
 import { useForm } from "antd/es/form/Form";
 import { ChangeEvent, useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 interface IOptions {
   region: { label: string; value: string }[];
@@ -105,6 +106,19 @@ const useAdminRegion = () => {
       });
   }
 
+  async function deleteAdmin(id: number) {
+    await api
+      .delete(`/backoffice/user/${id}`)
+      .then(() => {
+        getAdmins();
+        setIsSuccess(true, "Success Delete Admin");
+      })
+      .catch((error) => {
+        setError(true, `Failed Delete Admin`);
+        throw error;
+      });
+  }
+
   /**
    * HANDLE CHANGE
    */
@@ -152,6 +166,21 @@ const useAdminRegion = () => {
     createAdmins();
   }
 
+  function handleDeleteAdmins(id: number) {
+    console.log(id);
+    Swal.fire({
+      title: "Are you sure to delete ?",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteAdmin(id);
+      }
+    });
+  }
+
   function onCancel() {
     form.resetFields();
     formEdit.resetFields();
@@ -181,6 +210,7 @@ const useAdminRegion = () => {
     handleChangeInput,
     handleSelect,
     handleSubmit,
+    handleDeleteAdmins,
   };
 };
 export default useAdminRegion;

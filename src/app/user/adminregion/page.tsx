@@ -23,6 +23,7 @@ export default function AdminRegion() {
     hanldeEditBtn,
     handleChangeInput,
     handleSelect,
+    handleDeleteAdmins,
     handleSubmit,
     handleChangeCurentPage,
     handleChangePageSize,
@@ -70,7 +71,7 @@ export default function AdminRegion() {
           <div className="overflow-x-scroll no-scrollbar">
             <TableAdminRegion
               dataAdmin={adminRegions}
-              onDelete={() => console.log("first")}
+              onDelete={(e) => handleDeleteAdmins(e)}
               onEdit={(e) => hanldeEditBtn(e)}
             />
           </div>

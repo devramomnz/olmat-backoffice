@@ -32,7 +32,7 @@ export default function AntPass(props: IAntInput) {
     {
       required: true,
       message: `${labelName} minimal 8 karakter`,
-      min: 8,
+      min: 4,
     },
   ];
 

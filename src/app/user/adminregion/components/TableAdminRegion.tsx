@@ -7,7 +7,6 @@ import {
   TableRow,
 } from "@nextui-org/react";
 import React from "react";
-import { AiTwotoneEdit } from "react-icons/ai";
 import { MdOutlineDelete } from "react-icons/md";
 import { useLayout } from "@/hooks/zustand/layout";
 import { PERMISSIONS } from "@/enum/permission.enum";
@@ -21,7 +20,7 @@ interface IProps {
 
 export default function TableAdminRegion(props: IProps) {
   const { permissions } = useLayout();
-  const { onEdit, onDelete, dataAdmin } = props;
+  const { onDelete, dataAdmin } = props;
 
   return (
     <>
@@ -72,12 +71,12 @@ export default function TableAdminRegion(props: IProps) {
                     : "flex items-center justify-center gap-2 font-bold "
                 } `}
               >
-                <button
+                {/* <button
                   className="flex items-center gap-2 p-2 mb-2 mr-2 text-sm font-bold text-center duration-500 rounded-full border-1 w-fit hover:text-white hover:bg-brand focus:outline-none focus:ring-red-300 "
                   onClick={() => onEdit(data.id)}
                 >
                   <AiTwotoneEdit />
-                </button>
+                </button> */}
                 <button
                   onClick={() => onDelete(data.id)}
                   className="flex items-center gap-2 p-2 mb-2 mr-2 text-sm font-bold text-center text-red-600 duration-500 rounded-full border-1 hover:text-white hover:bg-red-600 focus:outline-none focus:ring-red-300"
