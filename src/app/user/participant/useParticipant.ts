@@ -2,11 +2,13 @@ import api from "@/config/axiosConfig";
 import { usePaginationProduct } from "@/hooks/pagination/usePagination";
 import useSecurePage from "@/hooks/useSecurePage";
 import { useLayout } from "@/hooks/zustand/layout";
+import { IFilterParticipantOptions } from "@/interfaces/IFilterParticipant";
 import { IParticipant } from "@/interfaces/IParticipant";
 import { useEffect, useState } from "react";
 
-interface IOptions {
-  region: { label: string; value: string }[];
+interface IFilter {
+  degree: string;
+  region: string;
 }
 
 export default function useParticipant() {
@@ -37,8 +39,14 @@ export default function useParticipant() {
     },
   ]);
 
-  const [isOptions, setIsOptions] = useState<IOptions>({
+  const [isFilter, setIsFilter] = useState<IFilter>({
+    degree: "",
+    region: "",
+  });
+
+  const [isOptions, setIsOptions] = useState<IFilterParticipantOptions>({
     region: [{ label: "", value: "" }],
+    degree: [{ label: "", value: "" }],
   });
 
   /**
@@ -51,14 +59,29 @@ export default function useParticipant() {
         value: `${prov.id}`,
         label: prov.name,
       }));
-      setIsOptions({ ...isOptions, region: regions });
+      setIsOptions((prevOptions) => ({
+        ...prevOptions,
+        region: regions,
+      }));
+    });
+    await api.get("/backoffice/degree").then((res) => {
+      const degrees = res.data.map((degree: any) => ({
+        value: `${degree.id}`,
+        label: degree.name,
+      }));
+      setIsOptions((prevOptions) => ({
+        ...prevOptions,
+        degree: degrees,
+      }));
     });
   }
 
   async function getParticipants() {
+    const region = isFilter.region !== "" ? `&region=${isFilter.region}` : null;
+    const degree = isFilter.degree !== "" ? `&degree=${isFilter.degree}` : null;
     await api
       .get(
-        `backoffice/participant?page=${paginationOptions.curentPage}&limit=${paginationOptions.pageSize}`
+        `backoffice/participant?page=${paginationOptions.curentPage}&limit=${paginationOptions.pageSize}${region}${degree}`
       )
       .then((res) => {
         console.log(res.data.data);
@@ -78,6 +101,20 @@ export default function useParticipant() {
       });
   }
 
+  /**
+   * HANDLE CHANGE
+   */
+
+  function handleSelect(name: string, e: any) {
+    console.log(name, e);
+    if (name === "degree") {
+      setIsFilter({ ...isFilter, degree: e });
+    }
+    if (name === "region") {
+      setIsFilter({ ...isFilter, region: e });
+    }
+  }
+
   function handleChangePageSize(pageSizeParam: number) {
     if (pageSizeParam != paginationOptions.pageSize) {
       setPaginationOptions({ ...paginationOptions, pageSize: pageSizeParam });
@@ -93,6 +130,15 @@ export default function useParticipant() {
     }
   }
 
+  /**
+   * HANDLE SUBMIT ETC
+   */
+
+  function handleSubmitSearch() {
+    getParticipants();
+    console.log("here");
+  }
+
   // function handleDelete(i: number) {
   //   handleSelect(i);
   //   setIsModalOpen(true);
@@ -103,7 +149,7 @@ export default function useParticipant() {
     securePage();
     getRegion();
     getParticipants();
-  }, [paginationOptions.curentPage, paginationOptions.pageSize]);
+  }, [paginationOptions.curentPage, paginationOptions.pageSize, isFilter]);
   return {
     metaData,
     paginationOptions,
@@ -111,6 +157,8 @@ export default function useParticipant() {
     participants,
     isModal,
     isOptions,
+    handleSubmitSearch,
+    handleSelect,
     handleChangeCurentPage,
     handleChangePageSize,
     setIsModal,
