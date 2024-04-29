@@ -105,12 +105,13 @@ export default function Admin() {
             <Button onClick={handleGetAll}>Lihat semua</Button>
           </div>
         </div>
-        <div className="rounded-lg overflow-x-scroll bg-white no-scrollbar"></div>
-        <TableAdmin
-          dataAdmin={dataAdmin || []}
-          onEdit={editAdmin}
-          onDelete={deleteAdmin}
-        />
+        <div className="rounded-lg overflow-x-scroll bg-white no-scrollbar">
+          <TableAdmin
+            dataAdmin={dataAdmin || []}
+            onEdit={editAdmin}
+            onDelete={deleteAdmin}
+          />
+        </div>
       </div>
     </>
   );

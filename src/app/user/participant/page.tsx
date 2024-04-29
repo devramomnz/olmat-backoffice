@@ -24,7 +24,7 @@ export default function Peserta() {
   return (
     <>
       <label className="font-bold">Data Peserta</label>
-      <div className="grid md:grid-cols-4 mt-5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 w-full mt-5 gap-y-4 md:gap-4">
         <FilterParticipant
           handleSubmitSearch={handleSubmitSearch}
           options={isOptions}
@@ -34,14 +34,14 @@ export default function Peserta() {
           <div className="flex justify-between gap-2 mb-3">
             <Button className="text-xs text-nowrap">Export Excel</Button>
           </div>
-          <div className="overflow-x-scroll no-scrollbar">
-            <TablePeserta
-              isModal={isModal}
-              setIsModal={setIsModal}
-              permissions={permissions}
-              participants={participants}
-            />
-          </div>
+          {/* <div className="overflow-x-scroll no-scrollbar"> */}
+          <TablePeserta
+            isModal={isModal}
+            setIsModal={setIsModal}
+            permissions={permissions}
+            participants={participants}
+          />
+          {/* </div> */}
           <PagintaionV1
             curentPage={paginationOptions.curentPage}
             metaData={metaData}

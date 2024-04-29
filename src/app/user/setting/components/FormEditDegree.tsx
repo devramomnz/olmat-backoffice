@@ -23,6 +23,7 @@ export default function FormEditDegree(props: IProps) {
           labelName="Id Jenjang"
         />
         <AntInput
+          disabled
           onChange={handleChange}
           name="name"
           labelName="Nama Jenjang"

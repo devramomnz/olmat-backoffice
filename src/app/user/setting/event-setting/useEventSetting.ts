@@ -55,7 +55,7 @@ const useEventSetting = () => {
       setIsEdit(true);
       await api.get("/backoffice/event-setting/findOne").then((res) => {
         form.setFieldValue("name", res.data.name);
-        form.setFieldValue("shortName", res.data.shortname);
+        form.setFieldValue("shortname", res.data.shortname);
         form.setFieldValue("tagline", res.data.tagline);
         form.setFieldValue("copyright", res.data.copyright);
         form.setFieldValue("start", dayjs(res.data.start));
@@ -68,6 +68,7 @@ const useEventSetting = () => {
     }
   }
 
+  console.log(payload);
   async function updateEventSetting() {
     setIsButtonLoading(true);
     await api

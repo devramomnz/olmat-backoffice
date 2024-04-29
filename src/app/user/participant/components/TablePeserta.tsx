@@ -46,7 +46,7 @@ export default function TablePeserta(props: IProps) {
   }
 
   return (
-    <>
+    <div className="overflow-x-scroll no-scrollbar">
       <Modal
         title="Konfirmasi"
         open={isModal}
@@ -75,7 +75,7 @@ export default function TablePeserta(props: IProps) {
         isStriped
         isCompact
         removeWrapper
-        className="text-nowrap w-full min-w-[700px] rounded-lg "
+        className="text-nowrap w-full min-w-[700px] rounded-lg"
       >
         <TableHeader className="h-10 text-center text-white bg-brand-dark">
           <TableColumn align="center" scope="col" className="w-[80px]">
@@ -174,11 +174,10 @@ export default function TablePeserta(props: IProps) {
           ))}
         </TableBody>
       </Table>
-      {participants.length < 1 && (
-        <h1 className="text-center text-sm text-gray-400 font-bold pb-5">
+      {/* {participants.length < 1 && ( <h1 className="text-center text-sm text-gray-400 font-bold pb-5">
           Tidak ada data
         </h1>
-      )}
-    </>
+      )} */}
+    </div>
   );
 }

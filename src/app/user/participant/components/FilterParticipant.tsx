@@ -15,7 +15,7 @@ export default function FilterParticipant(props: IProps) {
   console.log(options);
   return (
     <>
-      <div className="bg-white gap-3 flex flex-col w-full p-4 rounded-md drop-shadow-md">
+      <div className="bg-white md:gap-3 flex flex-col w-full p-4 rounded-md drop-shadow-md">
         <label className="font-bold">Filter Peserta</label>
         <Search
           placeholder="cari nama peserta"

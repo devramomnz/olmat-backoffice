@@ -11,7 +11,6 @@ import {
 import React from "react";
 import { convertRupiah } from "@/helper/common";
 import { AiTwotoneEdit } from "react-icons/ai";
-import { MdOutlineDelete } from "react-icons/md";
 import Button from "@/components/button/Button";
 import { useDegree } from "./useDegree";
 import { Modal } from "antd";
@@ -27,7 +26,6 @@ export default function DegreeSetting() {
     editForm,
     createDegree,
     updateDegree,
-    handleDeleteDegree,
     handleChange,
     setIsOpenAdd,
     handleCancel,
@@ -108,12 +106,12 @@ export default function DegreeSetting() {
                       >
                         <AiTwotoneEdit />
                       </button>
-                      <button
+                      {/* <button
                         onClick={() => handleDeleteDegree(data.id)}
                         className="flex items-center gap-2 p-2 mb-2 mr-2 text-sm font-bold text-center text-red-600 duration-500 rounded-full border-1 hover:text-white hover:bg-red-600 focus:outline-none focus:ring-red-300"
                       >
                         <MdOutlineDelete />
-                      </button>
+                      </button> */}
                     </div>
                   </TableCell>
                 </TableRow>
