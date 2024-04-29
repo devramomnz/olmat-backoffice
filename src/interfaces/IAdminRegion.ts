@@ -4,5 +4,5 @@ export interface IAdminRegion {
   email: string;
   region_id: string;
   password?: string;
-  phone: string;
+  phone: any;
 }

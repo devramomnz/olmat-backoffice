@@ -34,7 +34,7 @@ const useAdminRegion = () => {
     email: "",
     password: "",
     region_id: "",
-    phone: "0",
+    phone: null,
   };
   const [payload, setPayload] = useState<IAdminRegion>(initialValues);
   const [adminRegions, setAdminRegions] = useState<IAdminRegion[]>([
