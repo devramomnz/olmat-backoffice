@@ -16,6 +16,10 @@ const useWaitingSchool = () => {
   const [form] = Form.useForm();
 
   const [schoolData, setSchoolData] = useState<ISchool>();
+  const waNumber = schoolData?.whatsapp ?? "";
+  const schoolName = schoolData?.name ?? "";
+  const waLink = `https://api.whatsapp.com/send?phone=62${+waNumber}&text=Selamat%20%E2%9C%A8%0A*${schoolName}*%0APendaftaran%20Sekolah%20Kamu%0A*Telah%20Diterima*`;
+
   const [waitingData, setWaitingData] = useState<ISchool[]>([
     {
       id: 0,
@@ -42,6 +46,7 @@ const useWaitingSchool = () => {
         setIsSuccess(true, "Pendaftaran Sekolah Berhasil Diterima");
         setIsButtonLoading(false);
         router.push(`${ROUTES.SCHOOL_WAITING}`);
+        window.open(waLink, "_blank");
       })
       .catch((err: any) => {
         if (err?.response?.data?.errors?.code) {

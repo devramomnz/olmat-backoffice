@@ -77,14 +77,13 @@ export default function useParticipant() {
   }
 
   async function getParticipants() {
-    const region = isFilter.region !== "" ? `&region=${isFilter.region}` : null;
-    const degree = isFilter.degree !== "" ? `&degree=${isFilter.degree}` : null;
+    const region = isFilter.region !== "" ? `&region=${isFilter.region}` : "";
+    const degree = isFilter.degree !== "" ? `&degree=${isFilter.degree}` : "";
     await api
       .get(
         `backoffice/participant?page=${paginationOptions.curentPage}&limit=${paginationOptions.pageSize}${region}${degree}`
       )
       .then((res) => {
-        console.log(res.data.data);
         const participantData = res.data.data.map((participant: any) => ({
           id: participant.id,
           status: participant.status,
@@ -106,7 +105,6 @@ export default function useParticipant() {
    */
 
   function handleSelect(name: string, e: any) {
-    console.log(name, e);
     if (name === "degree") {
       setIsFilter({ ...isFilter, degree: e });
     }
@@ -136,7 +134,6 @@ export default function useParticipant() {
 
   function handleSubmitSearch() {
     getParticipants();
-    console.log("here");
   }
 
   // function handleDelete(i: number) {

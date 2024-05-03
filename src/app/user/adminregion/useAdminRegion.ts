@@ -79,9 +79,7 @@ const useAdminRegion = () => {
   }
 
   async function getAdminById(id: number) {
-    console.log(id);
     await api.get(`/backoffice/user/${id}`).then((res) => {
-      console.log(res.data);
       setPayload(res.data);
     });
   }
@@ -138,11 +136,9 @@ const useAdminRegion = () => {
     }
   }
 
-  console.log(payload);
   function handleChangeInput(
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) {
-    console.log(e.target.value);
     setPayload({ ...payload, [e.target.name]: e.target.value });
   }
 
@@ -167,7 +163,6 @@ const useAdminRegion = () => {
   }
 
   function handleDeleteAdmins(id: number) {
-    console.log(id);
     Swal.fire({
       title: "Are you sure to delete ?",
       showCancelButton: true,

@@ -40,6 +40,10 @@ export default function SchoolDetail() {
               <p className="text-xs">{schoolData?.phone}</p>
             </div>
             <div className="flex flex-col gap-1">
+              <h2 className="text-sm font-bold ">No Whatsapp</h2>
+              <p className="text-xs">{schoolData?.whatsapp}</p>
+            </div>
+            <div className="flex flex-col gap-1">
               <h2 className="text-sm font-bold ">Alamat Lengkap</h2>
               <p className="text-xs">{schoolData?.address}</p>
             </div>

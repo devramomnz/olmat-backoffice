@@ -68,7 +68,6 @@ const useEventSetting = () => {
     }
   }
 
-  console.log(payload);
   async function updateEventSetting() {
     setIsButtonLoading(true);
     await api

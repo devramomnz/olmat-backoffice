@@ -12,7 +12,6 @@ interface IProps {
 
 export default function FilterParticipant(props: IProps) {
   const { options, handleSelect, handleSubmitSearch } = props;
-  console.log(options);
   return (
     <>
       <div className="bg-white md:gap-3 flex flex-col w-full p-4 rounded-md drop-shadow-md">
