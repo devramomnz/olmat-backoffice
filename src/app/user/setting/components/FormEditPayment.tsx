@@ -36,7 +36,7 @@ export default function FormEditPayment(props: IProps) {
           labelName="Provider"
         />
         <AntInput onChange={handleChange} name="code" labelName="Code" />
-        <AntInput onChange={handleChange} name="fee" labelName="Fee" />
+        <AntInput onChange={handleChange} name="fee_flat" labelName="Fee" />
         <AntInput
           onChange={handleChange}
           name="fee_percentage"

@@ -4,9 +4,10 @@ import useSecurePage from "@/hooks/useSecurePage";
 import { useLayout } from "@/hooks/zustand/layout";
 import { IFilterParticipantOptions } from "@/interfaces/IFilterParticipant";
 import { IParticipant } from "@/interfaces/IParticipant";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 interface IFilter {
+  name: string;
   degree: string;
   region: string;
 }
@@ -40,6 +41,7 @@ export default function useParticipant() {
   ]);
 
   const [isFilter, setIsFilter] = useState<IFilter>({
+    name: "",
     degree: "",
     region: "",
   });
@@ -77,11 +79,12 @@ export default function useParticipant() {
   }
 
   async function getParticipants() {
+    const name = isFilter.name !== "" ? `&name=${isFilter.name}` : "";
     const region = isFilter.region !== "" ? `&region=${isFilter.region}` : "";
     const degree = isFilter.degree !== "" ? `&degree=${isFilter.degree}` : "";
     await api
       .get(
-        `backoffice/participant?page=${paginationOptions.curentPage}&limit=${paginationOptions.pageSize}${region}${degree}`
+        `backoffice/participant?page=${paginationOptions.curentPage}&limit=${paginationOptions.pageSize}${region}${degree}${name}`
       )
       .then((res) => {
         const participantData = res.data.data.map((participant: any) => ({
@@ -111,6 +114,10 @@ export default function useParticipant() {
     if (name === "region") {
       setIsFilter({ ...isFilter, region: e });
     }
+  }
+
+  function handleInput(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    setIsFilter({ ...isFilter, name: e.target.value });
   }
 
   function handleChangePageSize(pageSizeParam: number) {
@@ -146,7 +153,7 @@ export default function useParticipant() {
     securePage();
     getRegion();
     getParticipants();
-  }, [paginationOptions.curentPage, paginationOptions.pageSize, isFilter]);
+  }, [paginationOptions.curentPage, paginationOptions.pageSize]);
   return {
     metaData,
     paginationOptions,
@@ -155,6 +162,7 @@ export default function useParticipant() {
     isModal,
     isOptions,
     handleSubmitSearch,
+    handleInput,
     handleSelect,
     handleChangeCurentPage,
     handleChangePageSize,

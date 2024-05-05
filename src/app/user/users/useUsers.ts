@@ -19,7 +19,7 @@ export function useUSers() {
   async function getUsers() {
     await api
       .get(
-        `/backoffice/user?page=${paginationOptions.curentPage}&limit=${paginationOptions.pageSize}`
+        `/backoffice/user?page=${paginationOptions.curentPage}&limit=${paginationOptions.pageSize}&type=user`
       )
       .then((res) => {
         setUsersData(res.data.data);

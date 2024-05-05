@@ -19,6 +19,7 @@ export default function Payment() {
     handleChangeApi,
     handleSubmitApi,
     handleSubmitAddPayment,
+    handleSubmitUpdatePayment,
     handleChangePayment,
     handleChangeImgPayment,
     handleAddPayment,
@@ -49,7 +50,7 @@ export default function Payment() {
             handleChangeImg={handleChangeImgPayment}
             handleEdit={handleEditPayment}
             handleAddPayment={handleAddPayment}
-            // handleSubmitEdit={handleSubmitAddPayment}
+            handleSubmitEdit={handleSubmitUpdatePayment}
             handleSumbitAdd={handleSubmitAddPayment}
             isOpenAdd={isOpenAdd}
             isOpenEdit={isOpenEdit}

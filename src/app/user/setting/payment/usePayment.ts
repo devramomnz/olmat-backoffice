@@ -88,6 +88,22 @@ export function usePayment() {
   /**
    * CRUD
    */
+
+  console.log(apiPayload);
+  async function getApikey() {
+    await api.get("/backoffice/settings/xendit").then((res) => {
+      console.log(res.data.data);
+      setApiPayload({
+        apiKey: res.data.data.apiKey,
+        callbackToken: res.data.data.callbackToken,
+      });
+      form.setFieldsValue({
+        apiKey: res.data.data.apiKey,
+        callbackToken: res.data.data.callbackToken,
+      });
+    });
+  }
+
   async function postToken() {
     setIsButtonLoading(true);
     try {
@@ -122,6 +138,39 @@ export function usePayment() {
       paymentFormEdit.setFieldValue("min_amount", res.data.min_amount);
       paymentFormEdit.setFieldValue("max_amount", res.data.max_amount);
     });
+  }
+
+  console.log(payPayload);
+  async function updatePayment() {
+    setIsButtonLoading(true);
+    try {
+      const postPayload = new FormData();
+      postPayload.append("name", `${payPayload.name}`);
+      postPayload.append("provider", `${payPayload.provider}`);
+      postPayload.append("group", `${payPayload.group}`);
+      postPayload.append("code", `${payPayload.code}`);
+      postPayload.append("fee_flat", `${payPayload.fee_flat}`);
+      postPayload.append("fee_percentage", `${payPayload.fee_percentage}`);
+      postPayload.append("min_amount", `${payPayload.min_amount}`);
+      postPayload.append("max_amount", `${payPayload.max_amount}`);
+      postPayload.append("is_active", `${payPayload.is_active}`);
+
+      // payPayload.logo.forEach((file: any) => {
+      //   postPayload.append("img", file.originFileObj);
+      // });
+
+      await api
+        .patch(`/backoffice/payment-gateway/${payPayload.id}`, postPayload)
+        .then(() => {
+          setIsSuccess(true, "Berhasil Menambahkan Payment Gateway");
+          setIsButtonLoading(false);
+          handleCancel();
+          getPayments();
+        });
+    } catch (error) {
+      setIsButtonLoading(false);
+      setError(true, "Gagal Menambahkan Payment Gateway");
+    }
   }
 
   async function postPayment() {
@@ -200,6 +249,10 @@ export function usePayment() {
     postPayment();
   }
 
+  function handleSubmitUpdatePayment() {
+    updatePayment();
+  }
+
   function handleAddPayment() {
     setIsOpenAdd(true);
     setPayPayload(paymentDefaultValue);
@@ -232,6 +285,7 @@ export function usePayment() {
   }
 
   useEffect(() => {
+    getApikey();
     getPayments();
   }, []);
 
@@ -247,6 +301,7 @@ export function usePayment() {
     handleChangeApi,
     handleSubmitApi,
     handleSubmitAddPayment,
+    handleSubmitUpdatePayment,
     handleChangePayment,
     handleChangeImgPayment,
     handleAddPayment,

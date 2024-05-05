@@ -20,12 +20,14 @@ export default function Peserta() {
     handleSelect,
     setIsModal,
     handleSubmitSearch,
+    handleInput,
   } = useParticipant();
   return (
     <>
       <label className="font-bold">Data Peserta</label>
       <div className="grid grid-cols-1 md:grid-cols-4 w-full mt-5 gap-y-4 md:gap-4">
         <FilterParticipant
+          handleInput={handleInput}
           handleSubmitSearch={handleSubmitSearch}
           options={isOptions}
           handleSelect={handleSelect}

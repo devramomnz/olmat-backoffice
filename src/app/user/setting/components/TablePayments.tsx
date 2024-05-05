@@ -150,7 +150,9 @@ export default function TablePayments(props: IProps) {
               </TableCell>
               <TableCell data-label="min_amount">{data.min_amount}</TableCell>
               <TableCell data-label="max_amount">{data.max_amount}</TableCell>
-              <TableCell data-label="is_active">{`${data.is_active}`}</TableCell>
+              <TableCell data-label="is_active">
+                {data.is_active ? "Active" : "Nonactive"}
+              </TableCell>
               <TableCell data-label="Actions" className="">
                 <div className=" flex items-center h-full justify-center gap-2 font-bold">
                   <button
