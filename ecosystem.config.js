@@ -1,10 +1,10 @@
 module.exports = {
   apps: [
     {
-      name: "prod-olim-backoffice",
+      name: "prod-olmat-backoffice",
       script: "yarn",
       args: "start",
-      cwd: "/var/www/olim-backoffice",
+      cwd: "/var/www/olmat-backoffice",
       instances: 1,
       autorestart: true,
       watch: false,
