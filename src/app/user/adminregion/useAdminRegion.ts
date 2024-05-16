@@ -187,7 +187,7 @@ const useAdminRegion = () => {
   useEffect(() => {
     getRegion();
     getAdmins();
-  }, []);
+  }, [paginationOptions.curentPage, paginationOptions.pageSize]);
 
   return {
     metaData,

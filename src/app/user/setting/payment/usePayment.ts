@@ -89,10 +89,8 @@ export function usePayment() {
    * CRUD
    */
 
-  console.log(apiPayload);
   async function getApikey() {
     await api.get("/backoffice/settings/xendit").then((res) => {
-      console.log(res.data.data);
       setApiPayload({
         apiKey: res.data.data.apiKey,
         callbackToken: res.data.data.callbackToken,
@@ -140,7 +138,6 @@ export function usePayment() {
     });
   }
 
-  console.log(payPayload);
   async function updatePayment() {
     setIsButtonLoading(true);
     try {

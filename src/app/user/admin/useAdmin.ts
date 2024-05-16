@@ -1,4 +1,5 @@
 import api from "@/config/axiosConfig";
+import { usePaginationProduct } from "@/hooks/pagination/usePagination";
 import { useLayout } from "@/hooks/zustand/layout";
 import { useButtonLoading } from "@/hooks/zustand/useButtonLoading";
 import { useForm } from "antd/es/form/Form";
@@ -26,6 +27,8 @@ interface IPostAdmin {
 }
 
 export function useAdmin() {
+  const { paginationOptions, metaData, setMetaData, setPaginationOptions } =
+    usePaginationProduct();
   const [form] = useForm();
   const [formEdit] = useForm();
   const [open, setOpen] = useState(false);
@@ -58,6 +61,7 @@ export function useAdmin() {
     try {
       const res = await api.get("/backoffice/admin");
       setDataAdmin(res.data.data);
+      setMetaData(res.data.metadata);
     } catch (error) {}
   }
 
@@ -141,6 +145,21 @@ export function useAdmin() {
         setError(true, "Gagal hapus admin");
         setIsButtonLoading(false);
       });
+  }
+
+  function handleChangePageSize(pageSizeParam: number) {
+    if (pageSizeParam != paginationOptions.pageSize) {
+      setPaginationOptions({ ...paginationOptions, pageSize: pageSizeParam });
+    }
+  }
+
+  function handleChangeCurentPage(curentPageParam: number) {
+    if (curentPageParam != paginationOptions.curentPage) {
+      setPaginationOptions({
+        ...paginationOptions,
+        curentPage: curentPageParam,
+      });
+    }
   }
 
   function handleChange(
@@ -230,7 +249,7 @@ export function useAdmin() {
   useEffect(() => {
     getAdmin();
     getOption();
-  }, []);
+  }, [paginationOptions.curentPage, paginationOptions.pageSize]);
 
   return {
     form,
@@ -239,6 +258,10 @@ export function useAdmin() {
     openEdit,
     option,
     dataAdmin,
+    metaData,
+    paginationOptions,
+    handleChangeCurentPage,
+    handleChangePageSize,
     setOpen,
     handleGetAll,
     handleSubmitSearch,

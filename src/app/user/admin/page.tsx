@@ -13,6 +13,7 @@ import { ROUTES } from "@/prefix/route.constant";
 import Button from "@/components/button/Button";
 import Search from "antd/es/input/Search";
 import useSecurePage from "@/hooks/useSecurePage";
+import PagintaionV1 from "@/components/pagination/PaginationV1";
 
 export default function Admin() {
   const {
@@ -22,6 +23,10 @@ export default function Admin() {
     option,
     formEdit,
     dataAdmin,
+    paginationOptions,
+    metaData,
+    handleChangeCurentPage,
+    handleChangePageSize,
     handleGetAll,
     handleSubmitSearch,
     handleChangeSearch,
@@ -110,6 +115,12 @@ export default function Admin() {
             dataAdmin={dataAdmin || []}
             onEdit={editAdmin}
             onDelete={deleteAdmin}
+          />
+          <PagintaionV1
+            curentPage={paginationOptions.curentPage}
+            metaData={metaData}
+            handleCurentPage={handleChangeCurentPage}
+            handlePageSize={handleChangePageSize}
           />
         </div>
       </div>

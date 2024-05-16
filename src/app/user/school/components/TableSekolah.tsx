@@ -1,6 +1,5 @@
 "use client";
 
-import { ROUTES } from "@/prefix/route.constant";
 import {
   Chip,
   Table,
@@ -10,11 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
-import Link from "next/link";
 import React from "react";
-import { AiTwotoneEdit } from "react-icons/ai";
-import { useLayout } from "@/hooks/zustand/layout";
-import { PERMISSIONS } from "@/enum/permission.enum";
 import { ISchool } from "@/interfaces/ISchool";
 
 interface IProps {
@@ -23,7 +18,7 @@ interface IProps {
 
 export default function TableSekolah(props: IProps) {
   const { tableData } = props;
-  const { permissions } = useLayout();
+  // const { permissions } = useLayout();
 
   function statusColor(data: string) {
     if (data === "hitam") {
@@ -79,7 +74,7 @@ export default function TableSekolah(props: IProps) {
             <TableColumn align="center" scope="col">
               Kecamatan
             </TableColumn>
-            <TableColumn
+            {/* <TableColumn
               align="center"
               scope="col"
               className={`${
@@ -87,7 +82,7 @@ export default function TableSekolah(props: IProps) {
               } w-14`}
             >
               Action
-            </TableColumn>
+            </TableColumn> */}
           </TableHeader>
           <TableBody className="text-sm">
             {tableData?.map((data, i) => (
@@ -134,7 +129,7 @@ export default function TableSekolah(props: IProps) {
                 <TableCell className="text-xs" data-label="city">
                   {data.subdistrict}
                 </TableCell>
-                <TableCell
+                {/* <TableCell
                   data-label="Actions"
                   className={`${
                     !permissions.includes(PERMISSIONS.SCHOOL_EDIT) && "hidden"
@@ -147,7 +142,7 @@ export default function TableSekolah(props: IProps) {
                   >
                     <AiTwotoneEdit />
                   </Link>
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             ))}
           </TableBody>
