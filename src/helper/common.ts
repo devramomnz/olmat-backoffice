@@ -30,3 +30,18 @@ export function convertDate(value: any | undefined) {
 
   return `${day}, ${formattedDate} - Pukul ${time}`;
 }
+
+export function convertBirth(value: any | undefined) {
+  const date = new Date(value);
+  if (isNaN(date.getTime())) {
+    return "Invalid Date";
+  }
+
+  const formattedDate = date.toLocaleString("id-ID", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+
+  return `${formattedDate} `;
+}

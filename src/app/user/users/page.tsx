@@ -5,12 +5,15 @@ import TableUser from "./components/TableUser";
 import { useUSers } from "./useUsers";
 import useSecurePage from "@/hooks/useSecurePage";
 import PagintaionV1 from "@/components/pagination/PaginationV1";
+import Search from "antd/es/input/Search";
 
 export default function Users() {
   const {
     metaData,
     paginationOptions,
     usersData,
+    handleChangeSearch,
+    handleSubmitSearch,
     handleChangeCurentPage,
     handleChangePageSize,
   } = useUSers();
@@ -22,7 +25,15 @@ export default function Users() {
     <div className="flex flex-col gap-3">
       <label className="font-bold">Data User</label>
       <div className=" flex flex-col gap-4 drop-shadow p-3 rounded-lg bg-white">
-        <div className=" overflow-x-scroll no-scrollbar">
+        <div className=" overflow-x-scroll flex flex-col gap-2 no-scrollbar">
+          <Search
+            onChange={(e) => handleChangeSearch(e)}
+            placeholder="cari nama"
+            name="name"
+            style={{ width: 200 }}
+            className=""
+            onSearch={handleSubmitSearch}
+          />
           <TableUser userData={usersData} />
         </div>
         <PagintaionV1

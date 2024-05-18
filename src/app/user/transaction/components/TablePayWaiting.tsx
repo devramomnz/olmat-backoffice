@@ -11,6 +11,8 @@ import {
 import { IPayment } from "../useTransaction";
 import { convertRupiah } from "@/helper/common";
 import { PaymentStatus } from "@/enum/payment.enum";
+import Link from "next/link";
+import { ROUTES } from "@/prefix/route.constant";
 
 interface IProps {
   tableData: IPayment[];
@@ -30,7 +32,6 @@ export default function TablePayWaiting(props: IProps) {
   return (
     <>
       <div className="bg-white p-1 rounded-md">
-        <label>Menunggu Pembayaran</label>
         <div className="overflow-x-scroll no-scrollbar">
           <Table
             aria-label="Peserta Terdaftar"
@@ -42,6 +43,9 @@ export default function TablePayWaiting(props: IProps) {
             <TableHeader className="bg-brand-dark h-10 text-white text-center">
               <TableColumn align="center" scope="col" className="w-[10px]">
                 No.
+              </TableColumn>
+              <TableColumn align="center" scope="col">
+                Nama User
               </TableColumn>
               <TableColumn align="center" scope="col">
                 No. Invoice
@@ -61,11 +65,15 @@ export default function TablePayWaiting(props: IProps) {
               <TableColumn align="center" scope="col">
                 Status
               </TableColumn>
+              <TableColumn align="center" scope="col">
+                Action
+              </TableColumn>
             </TableHeader>
             <TableBody className="">
               {tableData?.map((data, i) => (
                 <TableRow key={i}>
                   <TableCell data-label="No">{i + 1}</TableCell>
+                  <TableCell data-label="invoice">{data.userName}</TableCell>
                   <TableCell data-label="invoice">{data.invoice}</TableCell>
                   <TableCell data-label="code">{data.code}</TableCell>
                   <TableCell
@@ -91,6 +99,14 @@ export default function TablePayWaiting(props: IProps) {
                     >
                       <p className="font-black text-xs">{data.status}</p>
                     </Chip>
+                  </TableCell>
+                  <TableCell data-label="participantAmount">
+                    <Link
+                      href={ROUTES.TRANSACTION + "/" + `${data.id}`}
+                      className="px-2 hover:bg-brand-semi duration-300 bg-brand-dark font-bold text-white rounded-lg py-1"
+                    >
+                      Detail
+                    </Link>
                   </TableCell>
                 </TableRow>
               ))}

@@ -31,7 +31,7 @@ const useSchool = () => {
   ]);
 
   async function getSchool() {
-    const name = isSearch?.name !== undefined ? `&name=${isSearch.name}` : null;
+    const name = isSearch?.name !== undefined ? `&name=${isSearch.name}` : "";
     await api
       .get(
         `/backoffice/school?page=${paginationOptions.curentPage}&limit=${paginationOptions.pageSize}&${name}`
