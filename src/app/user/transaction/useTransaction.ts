@@ -30,7 +30,7 @@ const useTransaction = () => {
       isSearch?.invoice !== undefined ? `&invoice=${isSearch.invoice}` : "";
     await api
       .get(
-        `backoffice/payment?page==${paginationOptions.curentPage}&limit=${paginationOptions.pageSize}${invoice}`
+        `backoffice/payment?page=${paginationOptions.curentPage}&limit=${paginationOptions.pageSize}${invoice}`
       )
       .then((res) => {
         const dataPayments = res.data.data.map((payments: any) => ({
