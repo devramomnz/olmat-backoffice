@@ -5,6 +5,7 @@ import { useLayout } from "@/hooks/zustand/layout";
 import { IFilterParticipantOptions } from "@/interfaces/IFilterParticipant";
 import { IParticipant } from "@/interfaces/IParticipant";
 import { ChangeEvent, useEffect, useState } from "react";
+import * as XLSX from "xlsx";
 
 interface IFilter {
   name: string;
@@ -52,6 +53,23 @@ export default function useParticipant() {
   });
 
   /**
+   * PROCESS
+   */
+
+  function exportExcel(data: any) {
+    if (data.length > 0) {
+      const worksheet = XLSX.utils.json_to_sheet(data);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+      const now = new Date();
+      XLSX.writeFile(
+        workbook,
+        `Peserta_${now.getFullYear()}-${now.getUTCMonth()}-${now.getDate()}_${now.getHours()}:${now.getMinutes()}.xlsx`
+      );
+    } else alert("No Data");
+  }
+
+  /**
    * CRUD
    */
 
@@ -75,6 +93,29 @@ export default function useParticipant() {
         ...prevOptions,
         degree: degrees,
       }));
+    });
+  }
+
+  async function getAllParticipants() {
+    await api.get(`backoffice/participant?page=1&limit=10000`).then((res) => {
+      const datas = res.data.data;
+      const excelData = datas.map((data: any) => {
+        const birthDate = new Date(data.birth);
+        const formattedBirthDate = `${birthDate.getDate()}-${
+          birthDate.getMonth() + 1
+        }-${birthDate.getFullYear()}`;
+
+        return {
+          id: data.id,
+          name: data.name,
+          school: data.school.name,
+          degree: data.school.degree.name,
+          birth: formattedBirthDate,
+          email: data.email,
+          phone: data.phone,
+        };
+      });
+      exportExcel(excelData);
     });
   }
 
@@ -143,6 +184,10 @@ export default function useParticipant() {
     getParticipants();
   }
 
+  function handleExportExcel() {
+    getAllParticipants();
+  }
+
   // function handleDelete(i: number) {
   //   handleSelect(i);
   //   setIsModalOpen(true);
@@ -161,6 +206,7 @@ export default function useParticipant() {
     participants,
     isModal,
     isOptions,
+    handleExportExcel,
     handleSubmitSearch,
     handleInput,
     handleSelect,
