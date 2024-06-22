@@ -15,6 +15,7 @@ export default function Peserta() {
     permissions,
     metaData,
     paginationOptions,
+    handleExportExcel,
     handleChangeCurentPage,
     handleChangePageSize,
     handleSelect,
@@ -34,7 +35,9 @@ export default function Peserta() {
         />
         <div className="w-full p-4 col-span-3 rounded-md bg-white drop-shadow-md">
           <div className="flex justify-between gap-2 mb-3">
-            <Button className="text-xs text-nowrap">Export Excel</Button>
+            <Button onClick={handleExportExcel} className="text-xs text-nowrap">
+              Export Excel
+            </Button>
           </div>
           {/* <div className="overflow-x-scroll no-scrollbar"> */}
           <TablePeserta

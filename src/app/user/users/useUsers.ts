@@ -30,7 +30,6 @@ export function useUSers() {
         `/backoffice/user?page=${paginationOptions.curentPage}&limit=${paginationOptions.pageSize}&type=user${name}`
       )
       .then((res) => {
-        console.log(res.data.data);
         const userData = res.data.data.map((user: any) => ({
           id: user.id,
           name: user.name,
