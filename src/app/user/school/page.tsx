@@ -50,7 +50,6 @@ export default function School() {
           onSearch={handleSubmitSearch}
         />
         <TableSekolah tableData={schoolData} />
-
         <PagintaionV1
           curentPage={paginationOptions.curentPage}
           metaData={metaData}
