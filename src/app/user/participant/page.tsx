@@ -33,7 +33,7 @@ export default function Peserta() {
           options={isOptions}
           handleSelect={handleSelect}
         />
-        <div className="w-full p-4 col-span-3 rounded-md bg-white drop-shadow-md">
+        <div className="w-full h-fit p-4 col-span-3 rounded-md bg-white drop-shadow-md">
           <div className="flex justify-between gap-2 mb-3">
             <Button onClick={handleExportExcel} className="text-xs text-nowrap">
               Export Excel

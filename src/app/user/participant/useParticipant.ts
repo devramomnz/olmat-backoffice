@@ -1,4 +1,5 @@
 import api from "@/config/axiosConfig";
+import { ParticipantStatus } from "@/enum/participants.enum";
 import { usePaginationProduct } from "@/hooks/pagination/usePagination";
 import useSecurePage from "@/hooks/useSecurePage";
 import { useLayout } from "@/hooks/zustand/layout";
@@ -11,6 +12,7 @@ interface IFilter {
   name: string;
   degree: string;
   region: string;
+  status: string;
 }
 
 export default function useParticipant() {
@@ -45,11 +47,17 @@ export default function useParticipant() {
     name: "",
     degree: "",
     region: "",
+    status: ParticipantStatus.ACTIVE,
   });
 
   const [isOptions, setIsOptions] = useState<IFilterParticipantOptions>({
     region: [{ label: "", value: "" }],
     degree: [{ label: "", value: "" }],
+    status: [
+      { label: "Active", value: ParticipantStatus.ACTIVE },
+      { label: "Pending", value: ParticipantStatus.PENDING },
+      { label: "Cancel", value: ParticipantStatus.CANCEL },
+    ],
   });
 
   /**
@@ -123,9 +131,10 @@ export default function useParticipant() {
     const name = isFilter.name !== "" ? `&name=${isFilter.name}` : "";
     const region = isFilter.region !== "" ? `&region=${isFilter.region}` : "";
     const degree = isFilter.degree !== "" ? `&degree=${isFilter.degree}` : "";
+    const status = isFilter.status !== "" ? `&status=${isFilter.status}` : "";
     await api
       .get(
-        `backoffice/participant?page=${paginationOptions.curentPage}&limit=${paginationOptions.pageSize}${region}${degree}${name}`
+        `backoffice/participant?page=${paginationOptions.curentPage}&limit=${paginationOptions.pageSize}${region}${degree}${name}${status}`
       )
       .then((res) => {
         const participantData = res.data.data.map((participant: any) => ({
@@ -154,6 +163,9 @@ export default function useParticipant() {
     }
     if (name === "region") {
       setIsFilter({ ...isFilter, region: e });
+    }
+    if (name === "status") {
+      setIsFilter({ ...isFilter, status: e });
     }
   }
 
