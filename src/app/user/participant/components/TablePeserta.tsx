@@ -112,7 +112,7 @@ export default function TablePeserta(props: IProps) {
             Action
           </TableColumn>
         </TableHeader>
-        <TableBody className="">
+        <TableBody className="h-full flex">
           {participants?.map((data, i) => (
             <TableRow key={i}>
               <TableCell className="text-xs" data-label="No">
@@ -153,7 +153,7 @@ export default function TablePeserta(props: IProps) {
                 className={`${
                   !permissions.includes(PERMISSIONS.PARTICIPANT_EDIT)
                     ? "hidden"
-                    : " text-center flex items-center justify-center gap-2 font-bold"
+                    : " text-center h-full gap-2 font-bold"
                 } `}
                 scope="col"
               >

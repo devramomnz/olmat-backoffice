@@ -24,7 +24,7 @@ const PagintaionV1: FC<TProps> = ({
       {metaData?.total > 0 ? (
         <div>
           <p className="md:absolute text-xs text-center -translate-y-1/2 left-2 -z-10 top-1/2 text-slate-500">
-            Showing {curentPage * 10 - 10} to{" "}
+            Showing {curentPage * 10 - 10 + 1} to{" "}
             {metaData.current_page === metaData.total_pages
               ? metaData?.total
               : metaData.per_page * metaData.current_page}{" "}

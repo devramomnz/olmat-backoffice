@@ -8,7 +8,6 @@ import {
   TableRow,
 } from "@nextui-org/react";
 import React from "react";
-import { PiStudent } from "react-icons/pi";
 
 interface IParticipant {
   name: string;
@@ -30,15 +29,6 @@ export default function TablePaymentParticipant(props: IProps) {
   }
   return (
     <>
-      <div className="flex pb-3 justify-center">
-        <label
-          className="flex gap-3 font-bold text-xl
-         items-center"
-        >
-          <PiStudent className="text-xl" />
-          Daftar Peserta
-        </label>
-      </div>
       <Table
         isCompact
         removeWrapper
