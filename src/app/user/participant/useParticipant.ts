@@ -56,7 +56,6 @@ export default function useParticipant() {
     status: [
       { label: "Active", value: ParticipantStatus.ACTIVE },
       { label: "Pending", value: ParticipantStatus.PENDING },
-      { label: "Cancel", value: ParticipantStatus.CANCEL },
     ],
   });
 
@@ -105,26 +104,28 @@ export default function useParticipant() {
   }
 
   async function getAllParticipants() {
-    await api.get(`backoffice/participant?page=1&limit=10000`).then((res) => {
-      const datas = res.data.data;
-      const excelData = datas.map((data: any) => {
-        const birthDate = new Date(data.birth);
-        const formattedBirthDate = `${birthDate.getDate()}-${
-          birthDate.getMonth() + 1
-        }-${birthDate.getFullYear()}`;
+    await api
+      .get(`backoffice/participant?page=1&limit=10000&status=active`)
+      .then((res) => {
+        const datas = res.data.data;
+        const excelData = datas.map((data: any) => {
+          const birthDate = new Date(data.birth);
+          const formattedBirthDate = `${birthDate.getDate()}-${
+            birthDate.getMonth() + 1
+          }-${birthDate.getFullYear()}`;
 
-        return {
-          id: data.id,
-          name: data.name,
-          school: data.school.name,
-          degree: data.school.degree.name,
-          birth: formattedBirthDate,
-          email: data.email,
-          phone: data.phone,
-        };
+          return {
+            id: data.id,
+            name: data.name,
+            school: data.school.name,
+            degree: data.school.degree.name,
+            birth: formattedBirthDate,
+            email: data.email,
+            phone: data.phone,
+          };
+        });
+        exportExcel(excelData);
       });
-      exportExcel(excelData);
-    });
   }
 
   async function getParticipants() {

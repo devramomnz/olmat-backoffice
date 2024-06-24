@@ -1,5 +1,5 @@
 export enum ParticipantStatus {
-  ACTIVE = 'active',
-  PENDING = 'pending',
-  CANCEL = 'cancel',
+  ACTIVE = "active",
+  PENDING = "pending",
+  // CANCEL = 'cancel',
 }
