@@ -1,7 +1,7 @@
 import React from "react";
 import { IPaymentData } from "../[slug]/usePayment";
 import { PiStudent } from "react-icons/pi";
-import { convertRupiah } from "@/helper/common";
+import { convertDate, convertRupiah } from "@/helper/common";
 import { LiaCashRegisterSolid } from "react-icons/lia";
 import { HiOutlineReceiptTax } from "react-icons/hi";
 import dayjs from "dayjs";
@@ -15,9 +15,7 @@ interface IProps {
 
 export default function PaymentDetail(props: IProps) {
   const { paymentData } = props;
-  const date = dayjs(paymentData.expiredDate)
-    .locale("id")
-    .format("dddd, D MMMM YYYY, [Pukul] HH.mm [WIB]");
+
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col border-b-3 bg-gray-100 p-2 rounded-lg">
@@ -35,10 +33,18 @@ export default function PaymentDetail(props: IProps) {
         </div>
       </div>
 
-      <div className="border-b-3 text-start bg-gray-100 p-2 rounded-lg">
+      <div className="border-b-3 text-start flex flex-col gap-3 bg-gray-100 p-2 rounded-lg">
         <div className="flex flex-col">
-          <h2 className="">Batas Pembayaran</h2>
-          <p className="text-sm font-bold">{`${date}`}</p>
+          <h2 className="">Tanggal dibuat :</h2>
+          <p className="text-sm font-bold">
+            {convertDate(paymentData.create_at)}
+          </p>
+        </div>
+        <div className="flex flex-col">
+          <h2 className="">Batas Pembayaran :</h2>
+          <p className="text-sm font-bold">
+            {convertDate(paymentData.expiredDate)}
+          </p>
         </div>
       </div>
 

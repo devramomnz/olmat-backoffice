@@ -20,6 +20,7 @@ export interface IPaymentData {
   expiredDate: string;
   status: string;
   participants: IParticipant[];
+  create_at: string;
 }
 
 const usePayment = () => {
@@ -38,11 +39,14 @@ const usePayment = () => {
     expiredDate: "",
     status: "",
     participants: [],
+    create_at: "",
   });
+
+  console.log(paymentData);
 
   async function getPaymentById() {
     await api.get(`/backoffice/payment/${params}`).then((res) => {
-      const resData = {
+      const resData: IPaymentData = {
         name: res.data.user.name,
         invoice: res.data.invoice,
         code: res.data.code,
@@ -55,6 +59,7 @@ const usePayment = () => {
         expiredDate: res.data.expired_at,
         status: res.data.status,
         participants: res.data.participants,
+        create_at: res.data.audit_trail.created_at,
       };
       setPaymentData(resData);
     });
