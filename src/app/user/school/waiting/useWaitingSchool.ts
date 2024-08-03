@@ -14,11 +14,14 @@ const useWaitingSchool = () => {
   const { setIsSuccess, setError } = useLayout();
   const { setIsButtonLoading } = useButtonLoading();
   const [form] = Form.useForm();
+  const [isAcceptModal, setIsAcceptModal] = useState(false);
+  const [isRejectModal, setIsRejectModal] = useState(false);
 
   const [schoolData, setSchoolData] = useState<ISchool>();
   const waNumber = schoolData?.whatsapp ?? "";
   const schoolName = schoolData?.name ?? "";
   const waLink = `https://api.whatsapp.com/send?phone=62${+waNumber}&text=Selamat%20%E2%9C%A8%0A*${schoolName}*%0APendaftaran%20Sekolah%20Kamu%0A*Telah%20Diterima*`;
+  const waLinkReject = `https://api.whatsapp.com/send?phone=62${+waNumber}&text=Maaf%20%E2%9C%A8%0A*${schoolName}*%0APendaftaran%20Sekolah%20Kamu%0ADitolak`;
 
   const [waitingData, setWaitingData] = useState<ISchool[]>([
     {
@@ -53,6 +56,25 @@ const useWaitingSchool = () => {
           return Promise.reject(new Error("Code already exist"));
         }
         setError(true, "Pendaftaran Sekolah Gagal Diterima");
+        setIsButtonLoading(false);
+      });
+  }
+
+  async function rejectSchool() {
+    setIsButtonLoading(true);
+    await api
+      .delete(`/backoffice/school/${id}`)
+      .then(() => {
+        setIsRejectModal(false);
+        setIsSuccess(true, "Sekolah Berhasil Ditolak");
+        setIsButtonLoading(false);
+        router.push(`${ROUTES.SCHOOL_WAITING}`);
+        window.open(waLinkReject, "_blank");
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsRejectModal(false);
+        setError(true, "Gagal Menolak Sekolah");
         setIsButtonLoading(false);
       });
   }
@@ -103,6 +125,10 @@ const useWaitingSchool = () => {
     });
   }
 
+  async function handleRejectSchool() {
+    rejectSchool();
+  }
+
   function handleAcceptSchool() {
     acceptSchool();
   }
@@ -114,7 +140,17 @@ const useWaitingSchool = () => {
     }
   }, []);
 
-  return { waitingData, schoolData, form, handleAcceptSchool };
+  return {
+    waitingData,
+    schoolData,
+    form,
+    isAcceptModal,
+    isRejectModal,
+    handleRejectSchool,
+    setIsAcceptModal,
+    setIsRejectModal,
+    handleAcceptSchool,
+  };
 };
 
 export default useWaitingSchool;

@@ -42,8 +42,6 @@ const usePayment = () => {
     create_at: "",
   });
 
-  console.log(paymentData);
-
   async function getPaymentById() {
     await api.get(`/backoffice/payment/${params}`).then((res) => {
       const resData: IPaymentData = {

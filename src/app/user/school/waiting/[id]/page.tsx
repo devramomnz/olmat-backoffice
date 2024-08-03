@@ -1,15 +1,68 @@
 "use client";
 
 import Button from "@/components/button/Button";
-import { Form } from "antd";
+import { Form, Modal } from "antd";
 import React from "react";
 import { IoSchool } from "react-icons/io5";
 import useWaitingSchool from "../useWaitingSchool";
 
 export default function SchoolDetail() {
-  const { form, handleAcceptSchool, schoolData } = useWaitingSchool();
+  const {
+    form,
+    schoolData,
+    isAcceptModal,
+    isRejectModal,
+    setIsAcceptModal,
+    setIsRejectModal,
+    handleRejectSchool,
+    handleAcceptSchool,
+  } = useWaitingSchool();
   return (
     <>
+      <Modal
+        title={`${
+          (isAcceptModal && "Terima Sekolah") ||
+          (isRejectModal && "Tolak Sekolah")
+        }`}
+        open={isAcceptModal || isRejectModal}
+        onCancel={() => {
+          setIsAcceptModal(false);
+          setIsRejectModal(false);
+        }}
+        className="text-black"
+        footer=""
+      >
+        <div>
+          <h2>{`Apakah anda yakin ${
+            isAcceptModal ? "menerima" : "menolak"
+          } sekolah ini?`}</h2>
+          <p className="font-bold">{schoolData?.name}</p>
+          <div className="w-full flex justify-center gap-10 mt-5">
+            <Button
+              className="bg-red-700"
+              onClick={() => {
+                setIsAcceptModal(false);
+                setIsRejectModal(false);
+              }}
+            >
+              Tidak
+            </Button>
+            <Button
+              onClick={() => {
+                if (isAcceptModal) {
+                  handleAcceptSchool();
+                }
+                if (isRejectModal) {
+                  handleRejectSchool();
+                }
+              }}
+              className="px-20"
+            >
+              Ya
+            </Button>
+          </div>
+        </div>
+      </Modal>
       <div className="w-full bg-white text-sm p-3 p- mt-5  rounded-lg drop-shadow-md">
         <label className="font-bold flex items-center gap-2 text-xl">
           <IoSchool />
@@ -60,10 +113,18 @@ export default function SchoolDetail() {
               <p className="text-xs">{schoolData?.province}</p>
             </div>
           </div>
-          <div className="w-full flex justify-center">
-            <Button onClick={handleAcceptSchool}>Terima</Button>
-          </div>
         </Form>
+        <div className="w-full flex justify-center gap-10 mt-6 border-t pt-3">
+          <Button
+            onClick={() => setIsRejectModal(true)}
+            className="bg-red-700 px-4"
+          >
+            Tolak
+          </Button>
+          <Button onClick={() => setIsAcceptModal(true)} className="px-3">
+            Terima
+          </Button>
+        </div>
       </div>
     </>
   );

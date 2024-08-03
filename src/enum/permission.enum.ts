@@ -1,6 +1,6 @@
 export enum PERMISSIONS {
   SCHOOL = "school",
-  SCHOOL_EDIT = "school-edit",
+  // SCHOOL_EDIT = "school-edit",
   SCHOOL_ACCEPT = "school-accept",
   PARTICIPANT = "participant",
   PARTICIPANT_EDIT = "participant-edit",
