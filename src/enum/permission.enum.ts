@@ -4,6 +4,7 @@ export enum PERMISSIONS {
   SCHOOL_ACCEPT = "school-accept",
   PARTICIPANT = "participant",
   PARTICIPANT_EDIT = "participant-edit",
+  PARTICIPANT_TRANSFER = "participant-transfer",
   TRANSACTION = "transaction",
   TRANSACTION_EDIT = "transaction-edit",
   REGION = "region",
